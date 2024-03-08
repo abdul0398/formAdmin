@@ -19,8 +19,8 @@ router.get("/clients", verify, async (req, res, next)=>{
         if(rows.length > 0){
             return res.status(401).json({message:"Client with this name and website already exists"});
         }
-        await __pool.query(`INSERT INTO clients (name, website) VALUES(?, ?)`, [name, website]);
-        res.status(200).json("Client Created Successfully with name "+ name);
+        const [row] = await __pool.query(`INSERT INTO clients (name, website) VALUES(?, ?)`, [name, website]);
+        res.status(200).json({id:row.insertId});
     } catch (error) {
         console.log(error.message);
         res.status(500).json({message:error.message});
