@@ -22,9 +22,16 @@ async function setupDb() {
 
 
 async function createTables() {
+    
     await __pool.query(User);
-    await __pool.query(Form);
     await __pool.query(Client);
+    await __pool.query(Form);
+
+    // const salt = crypto.randomBytes(16)
+    // const hashedPassword = crypto.pbkdf2Sync("123456", salt, 310000, 32, 'sha256');
+    // const [rows] = await __pool.query(`INSERT INTO users (email, hashed_password, salt) VALUES (?, ?, ?)`, ["admin@gmail.com", hashedPassword, salt]);
+    
+    console.log("#####  Tables Created Successfully #####")
 }
 
 
