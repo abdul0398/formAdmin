@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="/assets/img/apple-icon.png"
+    />
+    <link rel="stylesheet" href="/css/loading.css" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <title>Jome Journey</title>
+    <!--     Fonts and icons     -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700"
+    />
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script
+      src="https://kit.fontawesome.com/658a2960da.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <!-- CSS Files -->
+    <link
+      id="pagestyle"
+      href="/assets/css/material-dashboard.css?v=3.1.0"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      data-site="YOUR_DOMAIN_HERE"
+      src="https://api.nepcha.com/js/nepcha-analytics.js"
+    ></script>
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        let f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-K3SG3FFJ");
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <style>
+    /* checkbox Style  */
+    .container_checkbox {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      font-size: 14px;
+    }
+    .container_checkbox input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkmark_discord {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 25px;
+      width: 25px;
+      background-color: #eee;
+      border-radius: 10px;
+    }
+    .container_checkbox:hover input ~ .checkmark_discord {
+      background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container_checkbox input:checked ~ .checkmark_discord {
+      background-color: #2196f3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark_discord:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    .container_checkbox input:checked ~ .checkmark_discord:after {
+      display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container_checkbox .checkmark_discord:after {
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    .small_icon {
+      display: none;
+    }
+    @media (max-width: 927px) {
+      .main_container {
+        flex-wrap: wrap;
+      }
+      .clients_div {
+        width: 100% !important;
+      }
+      #show_profiles_div {
+        width: 100% !important;
+        margin-top: 15px;
+      }
+      #thankyoupagepopup {
+        width: 90% !important;
+        margin: auto;
+        height: fit-content !important;
+        padding: 0px !important;
+      }
+      #meta_form_popup_inner {
+        width: 90% !important;
+        margin: auto;
+      }
+      .form-container {
+        width: 90% !important;
+        margin: auto;
+      }
+      #Insurance_form {
+        width: 90% !important;
+        margin: auto;
+      }
+      #Add_hbd_popup {
+        width: 90% !important;
+        margin: auto;
+      }
+      .clientedit-popup,
+      .clientadd-popup,
+      .formAddPopup {
+        width: 90% !important;
+        margin: auto;
+      }
+      .big_icon {
+        display: none;
+      }
+      .small_icon {
+        display: inline;
+        margin: 6px !important;
+      }
+      .options_div {
+        min-width: 120px !important;
+        padding-top: 10px;
+      }
+    }
+
+    #inputField {
+      display: none;
+    }
+    #close_popup_btn {
+      position: absolute;
+      right: 8px;
+      top: 13px;
+      border-radius: 58%;
+      padding: 2px 7px;
+      width: 26px;
+      /* border: 1px solid; */
+      height: 25px;
+    }
+    #close_popup_btn:hover {
+      cursor: pointer;
+    }
+
+    .question-group {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #fbfbfb;
+      border-radius: 5px;
+      width: fit-content;
+      margin-top: 5px;
+      border: 1px solid #c6c6c6;
+    }
+    .question-group button {
+      margin-top: 5px;
+    }
+
+    .options-container {
+      margin-top: 10px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .option input {
+      margin-right: 10px;
+    }
+
+    .add-option-button,
+    .delete-question-button,
+    .delete-option-button {
+      background-color: #002655;
+      background-color: #e64c71;
+      border: none;
+      color: #fff;
+      padding: 7px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      font-size: 12px;
+    }
+
+    .add-option-button:hover,
+    .delete-question-button:hover,
+    .delete-option-button:hover {
+      background-color: #e64c71;
+    }
+    .submit-button {
+      background-color: #2ecc71;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-bottom: 10px;
+    }
+    textarea {
+      padding: 5px;
+    }
+    .submit-button:hover {
+      background-color: #27ae60;
+    }
+    #discord_edit_client,
+    .clientedit-popup,
+    .clientadd-popup,
+    .formAddPopup,
+    .form_edit_popup {
+      background-color: white;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.45);
+      width: 400px;
+      border-radius: 5px;
+      padding: 20px;
+    }
+    .clientadd-popup input {
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+    .close_popup {
+      display: none;
+    }
+    .open_popup {
+      display: block;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      opacity: 0.4;
+      background-color: rgb(0, 0, 0);
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+    }
+    button {
+      border: none;
+      background-color: #002655 !important;
+      color: white !important;
+    }
+    .overlay_loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+      display: none; /* Initially hidden */
+      z-index: 99999; /* Ensures it's on top of other content */
+    }
+    .loader {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid #3498db;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10000; /* Ensure the loader is above the overlay */
+    }
+    @keyframes spin {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+    .menu_icon_div {
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      border-radius: 50%;
+    }
+    .menu_icon_div:hover {
+      cursor: pointer;
+    }
+    .menu_popup li {
+      padding: 5px 18px;
+      list-style: none;
+      font-size: 16px;
+      border-radius: 3px;
+    }
+    .menu_popup li:hover {
+      cursor: pointer;
+      background-image: linear-gradient(195deg, #028090 0%, #00bfb2 100%);
+      color: white;
+    }
+    li:hover > a {
+      color: white;
+    }
+    li a {
+      text-decoration: none;
+      color: black;
+    }
+    .menu_popup {
+      background-color: white;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.45);
+      width: 300px;
+      border-radius: 5px;
+      padding: 10px;
+      /* text-align: center; */
+    }
+    .clients_div {
+      border-radius: 10px;
+      background: #f1f2f5;
+      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    .selected_client {
+      background-color: #56575b;
+      color: white;
+    }
+    .unselected_client {
+      background-color: white;
+      color: black;
+    }
+    #search_client:focus {
+      outline: none;
+    }
+
+    .clients_div li {
+      min-width: 100%;
+      width: max-content;
+      list-style: none;
+      height: 50px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: start;
+      padding-left: 10px;
+      align-items: center;
+      margin-top: 15px;
+      font-weight: 400;
+      box-shadow: 0px 4px 11px -7px rgba(0, 0, 0, 0.37);
+    }
+    .center_span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    li:hover {
+      cursor: pointer;
+    }
+    .forms_div {
+      border-radius: 6px;
+      height: 60px;
+      background-color: #f1f2f5;
+    }
+    #meta_form_popup > div ::-webkit-scrollbar {
+      display: none;
+    }
+    #meta_form_popup ::-webkit-scrollbar {
+      display: none;
+    }
+    #thankyoupagepopup ::-webkit-scrollbar {
+      display: none;
+    }
+
+    #client_edit:hover {
+      cursor: pointer;
+      background-color: #bdbdbd;
+    }
+    #client_del:hover {
+      cursor: pointer;
+    }
+    @media screen and (max-width: 900px) {
+      #client_container {
+        position: relative !important;
+        top: 0px !important;
+      }
+      #dynamic-form {
+        width: 100% !important;
+      }
+    }
+    .cross-hover {
+      cursor: pointer;
+    }
+  </style>
+  <div class="overlay" id="overlay"></div>
+  <div class="overlay_loading">
+    <div class="loader"></div>
+  </div>
+
+  <body style="height: 100vh" class="g-sidenav-show bg-gray-200">
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-K3SG3FFJ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+
+    <!--################ Client Add Popup ######## -->
+    <div class="clientadd-popup close_popup">
+      <span onclick="closeAllPopups()" id="close_popup_btn"
+        ><i class="fa-solid fa-x"></i
+      ></span>
+      <h5 class="text-center">Add Client</h5>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control border p-1 mt-1 border-1"
+          id="nameInput"
+          placeholder="Enter Client Name"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control border p-1 mt-1 border-1"
+          id="websiteInput"
+          placeholder="Enter Website URL"
+        />
+      </div>
+      <div class="d-flex mt-3">
+        <button class="btn mx-auto" onclick="addclientHandler()">Add</button>
+      </div>
+    </div>
+
+    <!--############### Project Add Popup ######### -->
+    <div class="formAddPopup close_popup" style="text-align: center">
+      <span onclick="closeAllPopups()" id="close_popup_btn"
+        ><i class="fa-solid fa-x"></i
+      ></span>
+      <h3 class="text-center">Add Form</h3>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control border p-1 mt-1 border-1"
+          id="formName"
+          placeholder="Enter Form Name"
+        />
+      </div>
+      <div class="mt-5">
+        <button
+          onclick="createForm()"
+          style="background-color: #002655; color: white"
+          class="btn btn-xl w-25"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+
+    <!--########## Client Edit Popup ############### -->
+    <div class="clientedit-popup close_popup">
+      <span onclick="closeAllPopups()" id="close_popup_btn"
+        ><i class="fa-solid fa-x"></i
+      ></span>
+      <h5 class="text-center">Edit Client</h5>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control border p-1 mt-1 border-1"
+          id="client_name_edit"
+          placeholder="Enter Name"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="email"
+          class="form-control border p-1 mt-1 border-1"
+          id="client_website_edit"
+          placeholder="Enter Website URL"
+        />
+      </div>
+      <div class="d-flex mt-3">
+        <button
+          id="client_edit_post_btn"
+          class="btn mx-auto"
+          onclick="editClientPost()"
+        >
+          Save
+        </button>
+        <a
+          id="client_del"
+          clientid=""
+          onclick="deleteClient(this)"
+          class="btn btn-danger me-auto"
+        >
+          Delete
+        </a>
+      </div>
+    </div>
+
+    <!--########## Add Form Popup ############### -->
+    <aside
+      style="background-color: #0e4884 !important; z-index: 10"
+      class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3"
+      id="sidenav-main"
+    >
+      <div class="sidenav-header">
+        <i
+          class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+          aria-hidden="true"
+          id="iconSidenav"
+        ></i>
+        <a class="navbar-brand m-0" href="/">
+          <img src="/logo.png" class="navbar-brand-img h-100" alt="main_logo" />
+          <span class="ms-1 font-weight-bold text-white">Jome Journey</span>
+        </a>
+      </div>
+      <hr class="horizontal light mt-0 mb-2" />
+      <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              class="nav-link text-white active"
+              style="background-color: #002655"
+              href="/clients"
+            >
+              <div
+                class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+              >
+                <i class="fa-solid fa-users" style="color: #ffffff"></i>
+              </div>
+              <span class="nav-link-text ms-1">Clients</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/logout">
+              <div
+                class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+              >
+                <i class="material-icons opacity-10">logout</i>
+              </div>
+              <span class="nav-link-text ms-1">Log Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <main class="main-content position-relative border-radius-lg">
+      <nav
+        class="ms-auto navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
+        id="navbarBlur"
+        data-scroll="true"
+      >
+        <div class="container-fluid py-1 px-3">
+          <li class="ms-auto nav-item d-xl-none ps-3 d-flex align-items-center">
+            <a
+              href="javascript:;"
+              class="nav-link text-body p-0"
+              id="iconNavbarSidenav"
+            >
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </a>
+          </li>
+        </div>
+      </nav>
+      <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-12">
+            <div class="card my-4">
+              <div
+                class="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
+              >
+                <div
+                  style="background-color: #002655"
+                  class="d-flex shadow-primary border-radius-lg pt-4 pb-3"
+                >
+                  <h6 class="text-white text-capitalize ps-3">Clients</h6>
+                  <button
+                    style="background-color: #3e3e45 !important; height: 44px"
+                    id="btn_addclient_popup"
+                    class="d-flex btn ms-auto me-3"
+                  >
+                    <h6 class="text-white text-capitalize">Add Client</h6>
+                  </button>
+                </div>
+              </div>
+
+              <div class="main_container p-3 d-flex w-100 h-100 mt-3">
+                <div
+                  id="client_container"
+                  style="position: sticky; top: 30px"
+                  class="p-3 text-center clients_div w-25 height-500 border border-2 overflow-auto"
+                >
+                  <div>
+                    <div
+                      class="d-flex w-100 border border-0 rounded-2 p-2"
+                      style="
+                        background-color: white;
+                        box-shadow: 0px 4px 11px -7px rgba(0, 0, 0, 0.37);
+                      "
+                    >
+                      <input
+                        id="search_client"
+                        style="width: 100%; border: none"
+                        placeholder="Search Client"
+                        type="text"
+                      />
+                      <span class="center_span"
+                        ><i class="fa-solid fa-magnifying-glass fa-xl"></i
+                      ></span>
+                    </div>
+                  </div>
+
+                  <div class="clientsname_div">
+                    <%for(let i = 0; i < clients.length; i++){%>
+                    <li
+                      style="width: 150px"
+                      class="nav-link-text unselected_client border-0"
+                      mid="<%=clients[i].id%>"
+                      value="<%=clients[i].name%>"
+                      onclick="clientListener(this)"
+                    >
+                      <span
+                        style="
+                          display: flex;
+                          margin-right: 15px;
+                          border-radius: 50%;
+                          padding: 3px;
+                          background-color: #56575b;
+                        "
+                        ><i class="fa-solid fa-list" style="color: #ffffff"></i
+                      ></span>
+                      <%if(clients[i].name.length > 18){%>
+                      <%=clients[i].name.substring(0, 14) + '...' %> <%}else{%>
+                      <%=clients[i].name%> <%}%>
+
+                      <span
+                        clientid="<%=clients[i].id%>"
+                        id="client_edit"
+                        onclick="client_edit_popup(this)"
+                        class="ms-auto me-2 rounded-circle d-flex p-1"
+                        ><i class="fa fa-gear"></i
+                      ></span>
+                    </li>
+                    <%}%>
+                  </div>
+                </div>
+                <div
+                  id="show_profiles_div"
+                  style="color: black"
+                  class="d-none w-75 h-500"
+                >
+                  <div id="show_profiles" class="ms-3"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <dialog class="w-100 h-100 p-5 border border-2 position-relative rounded-5 rounded">
+        <div class="d-flex flex-column-reverse h-100 w-100 flex-lg-row">
+          <div class="overflow-auto edit-container border border-1 p-5 w-100 w-lg-50 h-100">
+
+            
+              <input type="text" class="border border-3 p-2 form-control mb-1 " placeholder="Bot Name" id="botName">
+              <input type="text" class="border border-3 p-2 form-control mb-1 " placeholder="Project Name" id="projectName">
+              <input type="text" class="border border-3 p-2 form-control mb-1 " placeholder="Client Name" id="clientName">
+
+              <hr style="border-top: 2px solid black !important" />
+
+
+            <div id="discord-container" style="text-align: start">
+              <div id="discord-dynamic-container">
+              </div>
+              <button
+                type="button"
+                class="my-1 rounded-3 px-2 py-1"
+                onclick="addDiscord()"
+              >
+                Add Discord Link
+              </button>
+            </div>
+
+            <hr style="border-top: 2px solid black !important" />
+            <div id="hook-container" style="text-align: start">
+              <div id="hook-dynamic-container">
+              </div>
+              <button
+                type="button"
+                class="my-1 rounded-3 px-2 py-1"
+                onclick="addHook()"
+              >
+                Add Hook Link
+              </button>
+            </div>
+
+            <hr style="border-top: 2px solid black !important" />
+            <div class="bedroom-edit">
+              <p class="mt-4" style="font-weight: 600">
+                Edit Options For Bedroom
+              </p>
+              <div id="dynamic-bedroom-container">
+
+              </div>
+              <button
+                str="bedroom"
+                onclick="addMoreOption(this)"
+                class="px-2 py-1 rounded-3 mt-1"
+              >
+                Add More Options
+              </button>
+            </div>
+
+            <hr style="border-top: 2px solid black !important" />
+            <div class="condo-edit">
+              <p class="mt-4" style="font-weight: 600">
+                Edit Options For Condo
+              </p>
+              <div id="dynamic-condo-container">
+
+              </div>
+              <button
+                str="condo"
+                onclick="addMoreOption(this)"
+                class="px-2 py-1 rounded-3 mt-1"
+              >
+                Add More Options
+              </button>
+            </div>
+
+            <hr style="border-top: 2px solid black !important" />
+            <div class="request-edit">
+              <p class="mt-4" style="font-weight: 600">
+                Edit Options For Request
+              </p>
+              <div id="dynamic-request-container">
+
+              </div>
+              <button
+                str="request"
+                onclick="addMoreOption(this)"
+                class="px-2 py-1 rounded-3 mt-1"
+              >
+                Add More Options
+              </button>
+            </div>
+
+            <hr style="border-top: 2px solid black !important" />
+            <p class="mt-4" style="font-weight: 600">Edit Colors</p>
+            <div class="color-picker d-flex justify-content-around">
+              <div class="d-flex flex-column text-center align-items-center">
+                <span>Form Color</span>
+                <input type="color" id="form-color" />
+              </div>
+              <div class="d-flex flex-column align-items-center">
+                <span>Text Color</span>
+                <input type="color" id="text-color" value="#e5e5e5" />
+              </div>
+              <div class="d-flex flex-column align-items-center">
+                <span>Button Color</span>
+                <input type="color" id="btn-color" />
+              </div>
+            </div>
+
+            <div class="text-center mt-4">
+              <button onclick="saveData()" class="px-4 py-1 rounded-3">Save</button>
+            </div>
+          </div>
+          <div class="w-100 w-lg-50 overflow-auto border border-1 h-100vh">
+            <style>
+              .width-res {
+                width: 60%;
+              }
+              @media (max-width: 750px) {
+                .width-res {
+                  width: 90% !important;
+                }
+              }
+              input {
+                font-family: "Montserrat", sans-serif;
+              }
+              input:focus {
+                outline: none !important;
+              }
+
+              .w40 {
+                width: 48%;
+              }
+              @media screen and (max-width: 768px) {
+                .w40 {
+                  width: 100%;
+                }
+              }
+            </style>
+            <div class="width-res mx-auto d-flex align-items-center mt-5">
+              <form
+                aria-disabled="true"
+                id="headform1"
+                class="align-middle mx-auto border px-3 pt-5 w-100 shadow-md"
+                method="post"
+              >
+                <div class="d-lg-flex d-md-flex justify-content-between">
+                  <div class="mb-3 w40">
+                    <input
+                      style="height: 45px"
+                      type="text"
+                      class="form-control border-0 border-bottom border-3 rounded-0"
+                      id="form-field-dname1"
+                      placeholder="Full Name"
+                    />
+                  </div>
+                  <div class="mb-3 w40">
+                    <input
+                      style="height: 45px"
+                      type="email"
+                      class="form-control rounded-0 border-0 border-bottom border-3"
+                      id="form-field-demail1"
+                      placeholder="Email"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="tel"
+                    style="height: 45px"
+                    class="form-control rounded-0 border-0 border-bottom border-3"
+                    id="form-field-dphone1"
+                    placeholder="+6583974987"
+                  />
+                </div>
+                <select
+                  id="form-bedroom-select"
+                  style="height: 45px"
+                  class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
+                  aria-label="Default select example"
+                ></select>
+
+                <select
+                  id="form-condo-select"
+                  style="height: 45px"
+                  class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
+                  aria-label="Default select example"
+                ></select>
+
+                <select
+                  id="form-request-select"
+                  style="height: 45px"
+                  class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
+                  aria-label="Default select example"
+                ></select>
+
+                <div class="text-center">
+                  <button
+                    style="height: 45px"
+                    type="submit"
+                    id="submitBtn1"
+                    class="w-100 rounded-0 border-0 hover-overlay btn"
+                  >
+                    Send
+                  </button>
+                </div>
+                <p id="error_msg1" class="text-danger text-center"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+        <span
+          class="cross-hover position-absolute end-0 top-0 icon-link-hover text-4xl d-flex justify-content-center align-content-center"
+          onclick="closeDialog()"
+          style="height: 50px; width: 50px"
+          >&times;</span
+        >
+      </dialog>
+    </main>
+    <!--   Core JS Files   -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+      let win = navigator.platform.indexOf("Win") > -1;
+      if (win && document.querySelector("#sidenav-scrollbar")) {
+        let options = {
+          damping: "0.5",
+        };
+        Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
+      }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="/assets/js/material-dashboard.min.js?v=3.1.0"></script>
+    <script>
+      onStart();
+      //######## Saving client selected state in local storage ##########
+      function onStart(params) {
+        if (localStorage.getItem("selected_client")) {
+          const selected_client = localStorage.getItem("selected_client");
+          const client = document.querySelector(`[mid="${selected_client}"]`);
+          if (client) {
+            client.classList.add("selected_client");
+            client.classList.remove("unselected_client");
+            populateFormsBasedonCLient(client);
+          }
+        } else {
+          const client = document.querySelector(".clientsname_div li");
+          if (client) {
+            client.classList.add("selected_client");
+            client.classList.remove("unselected_client");
+            populateFormsBasedonCLient(client);
+          }
+        }
+        // openLastCreatedProfile();
+      }
+
+      const overlay = document.getElementById("overlay");
+
+      overlay.addEventListener("click", () => {
+        closeAllPopups();
+        overlay.style.display = "none";
+      });
+
+      function closeAllPopups() {
+        document.getElementsByClassName("questionContainer").innerHTML = "";
+        let openPopups = document.querySelectorAll(".open_popup");
+        openPopups.forEach(function (element) {
+          element.classList.remove("open_popup");
+          element.classList.add("close_popup");
+        });
+        overlay.style.display = "none";
+        document.getElementsByTagName("body")[0].style.overflow = "auto";
+      }
+
+      function openpopup(event) {
+        closeAllPopups();
+        const menuDiv = document.getElementsByClassName("clientadd-popup");
+        menuDiv[0].classList.add("open_popup");
+        overlay.style.display = "block";
+      }
+
+      function openpopupaddproject(event) {
+        // closeAllPopups();
+        const menuDiv = document.getElementsByClassName("formAddPopup");
+        menuDiv[0].classList.add("open_popup");
+        overlay.style.display = "block";
+        clearForm();
+        const clientid = document
+          .querySelector(".selected_client")
+          .getAttribute("mid");
+      }
+
+      function clearForm() {
+        const formElements = document.querySelectorAll("input, textarea");
+
+        formElements.forEach((element) => {
+          element.value = "";
+        });
+      }
+
+      document
+        .getElementById("btn_addclient_popup")
+        .addEventListener("click", () => {
+          openpopup();
+        });
+
+      async function addclientHandler() {
+        const name = document.getElementById("nameInput").value;
+        const website = document.getElementById("websiteInput").value;
+
+        if (!name || name.length < 3 || website.length < 3) {
+          swal.fire({
+            title: "Invalid Name(Atleast 3 Letters)",
+            text: "",
+            icon: "question",
+            confirmButtonText: "Ok",
+            confirmButtonColor: "#002655",
+          });
+          return;
+        }
+
+        showLoadingOverlay();
+        try {
+          const res = await fetch("/api/client/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: name,
+              website: website,
+            }),
+          });
+          const resData = await res.json();
+          hideLoadingOverlay();
+          if (res.status == 200) {
+            localStorage.setItem("selected_client", resData.id);
+            closeAllPopups();
+            swal
+              .fire({
+                title: "Success",
+                text: resData.message,
+                icon: "success",
+                confirmButtonText: "Ok",
+                confirmButtonColor: "#002655",
+              })
+              .then(() => {
+                window.location.reload();
+              });
+          } else {
+            swal.fire({
+              title: "Error",
+              text: resData.message,
+              icon: "error",
+              confirmButtonText: "Ok",
+              confirmButtonColor: "#002655",
+            });
+            return;
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+
+      function open_popup_option(event) {
+        closeAllPopups();
+        const menuIconDiv = event.target.closest(".menu_icon_div");
+        if (!menuIconDiv) return;
+        const menu_popup = menuIconDiv.nextElementSibling;
+        if (menu_popup && menu_popup.classList.contains("close_popup")) {
+          menu_popup.classList.remove("close_popup");
+          menu_popup.classList.add("open_popup");
+        }
+        overlay.style.display = "block";
+      }
+
+      async function createForm() {
+        overlay.style.display = "block";
+        const name = document.getElementById("formName").value;
+
+        if (name.length < 3) {
+          swal.fire({
+            title: "Error",
+            text: "Please Enter Atleast 3 Letters",
+            icon: "question",
+            confirmButtonText: "Ok",
+            confirmButtonColor: "#002655",
+          });
+          return;
+        }
+
+        const clientID = document
+          .getElementsByClassName("selected_client")[0]
+          .getAttribute("mid");
+        showLoadingOverlay();
+        try {
+          const res = await fetch("/api/form/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: name,
+              clientID: clientID,
+            }),
+          });
+          const resData = await res.json();
+          if (res.status == 200) {
+            window.location.reload();
+          } else {
+            hideLoadingOverlay();
+            swal.fire({
+              title: "Error",
+              text: resData.message,
+              icon: "error",
+              confirmButtonText: "Ok",
+              confirmButtonColor: "#002655",
+            });
+            return;
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+
+      function clearclientSelected(curr_elem) {
+        document.querySelectorAll(".clientsname_div li").forEach((element) => {
+          element.classList.remove("selected_client");
+          element.classList.add("unselected_client");
+        });
+        curr_elem.classList.remove("unselected_client");
+        curr_elem.classList.add("selected_client");
+      }
+
+      async function populateFormsBasedonCLient(curr_elem) {
+        document.getElementById("show_profiles_div").classList.remove("d-none");
+        const clientid = curr_elem.getAttribute("mid");
+        const { client, forms } = await fetchClientDetails(clientid);
+        const showformdiv = document.getElementById("show_profiles");
+        showformdiv.innerHTML = "";
+        showformdiv.innerHTML = `
+                <div>
+                    <button style="border-radius: 30px; background-color: #002655; color: white;" onclick="openpopupaddproject()" class="btn btn-lg">Add New Forms</button>
+                </div>`;
+
+        if (!forms || forms.length == 0) {
+          showformdiv.innerHTML = `
+                <div>
+                    <button style="border-radius: 30px; background-color: #002655; color: white;" onclick="openpopupaddproject()" class="btn btn-lg">Add New Forms</button>
+                </div>
+                <h4 class="text-center" > No Forms </h4>
+                `;
+        } else {
+          forms.forEach((form) => {
+            showformdiv.innerHTML += `            
+                    <div class="d-flex mt-3 forms_div">
+                        <div topic="project" style="outline: 0px solid transparent; align-items: center; width: 300px; height: 100%;" class="d-flex ps-4">${form.name}</div> 
+                        
+                        <div class="options_div ms-auto" > 
+                            
+    
+                            <a target="_blank" href="/form/${form.id}/${form.name}" class="${form.id} big_icon btn btn-sm btn-facebook mt-3 me-2" >
+                                View
+                            </a>
+    
+                            <a target="_blank"  href="/form/${form.id}/${form.name}" class="${form.id} small_icon mt-3 ms-4">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                            
+                            
+                            
+                            <a href="/api/form/delete/${form.id}" class="big_icon mt-3 btn-sm btn btn-danger me-2" >
+                            Delete
+                            </a>
+    
+                            <a href="/api/form/delete/${form.id}" class="small_icon mt-3 ms-4">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+    
+                            <button style="background-color:#002655" onclick="editForm(this)" FormId="${form.id}"  class="big_icon btn btn-sm btn-facebook mt-3 me-2">
+                                Edit
+                            </button>
+    
+                            <button style="background-color:transparent !important" onclick="editForm(this)" FormId="${form.id}"  class="small_icon mt-3 ms-4 me-3">
+                                <i class="fa-solid fa-pen-to-square" style="color: #213454;"></i> 
+                            </button>
+                        </div>
+                    </div> `;
+          });
+        }
+        // editableDivHandler();
+      }
+
+      function clientListener(curr_elem) {
+        localStorage.setItem("selected_client", curr_elem.getAttribute("mid"));
+        document.querySelector(".overlay_loading").style.display = "block";
+        clearclientSelected(curr_elem);
+        populateFormsBasedonCLient(curr_elem);
+        document.querySelector(".overlay_loading").style.display = "none";
+      }
+
+      async function fetchClientDetails(clientid) {
+        const res = await fetch(`/api/client/fetch/${clientid}`, {
+          method: "GET",
+        });
+        const data = await res.json();
+        return data;
+      }
+
+      const searchInput = document.getElementById("search_client");
+
+      searchInput.addEventListener("input", function () {
+        const searchValue = searchInput.value.toLowerCase();
+
+        // Get the list of client names in the <li> elements
+        const clientItems = document.querySelectorAll(".clientsname_div li");
+
+        // Loop through the list items and hide those that don't match the search query
+        clientItems.forEach(function (item) {
+          // If the client name includes the search value, show the item; otherwise, hide it
+          if (item.textContent.toLowerCase().includes(searchValue)) {
+            item.style.display = ""; // or 'block' or 'flex' depending on your layout
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+
+      async function client_edit_popup(elem) {
+        const clientID = elem.getAttribute("clientid");
+        document.querySelector(".overlay_loading").style.display = "block";
+        const { client } = await fetchClientDetails(clientID);
+        document.querySelector(".overlay_loading").style.display = "none";
+
+        document.getElementById("client_name_edit").value = client.name;
+        document.getElementById("client_website_edit").value = client.website;
+        document
+          .getElementById("client_del")
+          .setAttribute("clientid", client.id);
+        const clientedit_popup = document.querySelector(".clientedit-popup");
+        document
+          .getElementById("client_edit_post_btn")
+          .setAttribute("clientId", client.id);
+        clientedit_popup.classList.add("open_popup");
+        clientedit_popup.classList.remove("close_popup");
+
+        overlay.style.display = "block";
+      }
+
+      async function editClientPost() {
+        const name = document.getElementById("client_name_edit").value;
+        const website = document.getElementById("client_website_edit").value;
+        const clientId = document
+          .getElementById("client_edit_post_btn")
+          .getAttribute("clientId");
+        document.querySelector(".overlay_loading").style.display = "block";
+
+        if (!name || name.length < 3) {
+          swal.fire({
+            title: "Enter Valid Name (More than 3 Letters)",
+            text: "",
+            icon: "question",
+            confirmButtonText: "Ok",
+            confirmButtonColor: "#002655",
+          });
+          return;
+        }
+
+        if (!website || website.length < 3) {
+          swal.fire({
+            title: "Enter Valid Website (More than 3 Letters)",
+            text: "",
+            icon: "question",
+            confirmButtonText: "Ok",
+            confirmButtonColor: "#002655",
+          });
+          return;
+        }
+
+        const res = await fetch(`api/client/update/${clientId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            website: website,
+          }),
+        });
+        const resData = await res.json();
+        if (res.status != 200) {
+          hideLoadingOverlay();
+          Swal.fire({
+            title: "Error",
+            text: resData.message,
+            icon: "error",
+            confirmButtonText: "Ok",
+            confirmButtonColor: "#002655",
+          });
+        } else if (res.status == 200) {
+          window.location.reload();
+        }
+      }
+
+      async function deleteClient(elem) {
+        Swal.fire({
+          title: "Do you want to Delete the Client?",
+          showCancelButton: true,
+          confirmButtonText: "Delete",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            showLoadingOverlay();
+            const id = elem.getAttribute("clientid");
+            const res = await fetch(`/api/client/delete/${id}`, {
+              method: "GET",
+            });
+            if (res.status == 200) {
+              window.location.reload();
+            } else {
+              swal.fire({
+                title: "Error",
+                text: resData.message,
+                icon: "error",
+                confirmButtonText: "Ok",
+                confirmButtonColor: "#002655",
+              });
+              hideLoadingOverlay();
+            }
+          } else if (result.isDenied) {
+            hideLoadingOverlay();
+            Swal.fire("Changes are not saved", "", "info");
+          }
+        });
+      }
+
+      async function editForm(btn) {
+        const formId = btn.getAttribute("formId");
+        const { form } = await fetchFormById(formId);
+        populateEditDialog(form);
+      }
+
+      async function fetchFormById(id) {
+        const res = await fetch(`/api/form/fetch/${id}`, {
+          method: "GET",
+        });
+        const data = await res.json();
+        return data;
+      }
+
+      async function populateEditDialog(formDetails) {
+        populatetheSettings(formDetails);
+        populateoForm(formDetails);
+        addEventListenerCustom()
+
+        const dialog = document.querySelector("dialog");
+        dialog.setAttribute("formId", formDetails.id);
+        dialog.showModal();
+      }
+
+      async function closeEditDiv() {
+        document.querySelector(".profile_edit_container").style.display =
+          "none";
+        const elem = document.getElementsByClassName("selected_client")[0];
+        document.getElementById("step1").style.display = "block";
+        document.getElementById("step2").style.display = "none";
+        populateFormsBasedonCLient(elem);
+      }
+
+      function showLoadingOverlay() {
+        const overlay = document.querySelector(".overlay_loading");
+        overlay.style.display = "block";
+      }
+
+      function hideLoadingOverlay() {
+        const overlay = document.querySelector(".overlay_loading");
+        overlay.style.display = "none";
+      }
+
+      function closeDialog(params) {
+        document.querySelector("dialog").close();
+      }
+    </script>
+
+    <script>
+      function addDiscord() {
+        let inputContainer = document.getElementById("discord-dynamic-container");
+        let newInput = document.createElement("div");
+        newInput.innerHTML =
+          '<div class="discord-inner-container d-flex mb-1">' +
+          '    <input type="text" class="discord-input border border-3 p-2 form-control" placeholder="Discord Link" name="dslink[]">' +
+          '    <button title="Remove Discord" class="my-1 bg-transparent ms-2 remove-discord-input" onclick="removeDiscord(this)"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
+          "</div>";
+        inputContainer.appendChild(newInput);
+      }
+
+      function removeDiscord(element) {
+        let containerToRemove = element.parentNode;
+        containerToRemove.parentNode.removeChild(containerToRemove);
+      }
+
+      function addHook() {
+        let inputContainer = document.getElementById("hook-dynamic-container");
+        let newInput = document.createElement("div");
+        newInput.innerHTML =
+          '<div class="hook-inner-container d-flex mb-1">' +
+          '    <input type="text" class="hook-input border border-3 p-2 form-control" placeholder="Web hook Link" name="hook[]">' +
+          '    <button title="Remove Web hook" class="bg-transparent ms-2 remove-hook-input" onclick="removeHook(this)"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
+          "</div>";
+        inputContainer.appendChild(newInput);
+      }
+
+      function removeHook(element) {
+        let containerToRemove = element.parentNode;
+        containerToRemove.parentNode.removeChild(containerToRemove);
+      }
+
+      function addMoreOption(elem) {
+        const type = elem.getAttribute("str");
+        const container = document.querySelector(`#dynamic-${type}-container`);
+        const div = document.createElement("div"); // Create a new div element
+        div.innerHTML = `
+              <div class="d-flex mb-1">
+                  <input type="text" class="border border-3 p-2 form-control"  placeholder="Enter Option For ${type}">
+                  <button title="Delete Option" onclick="removeSelect(this)" class="bg-transparent ms-2"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>
+              </div>
+        `;
+
+        const input = div.querySelector("input");
+        input.addEventListener("input", function () {
+          populateSelectOnForm();
+        });
+        container.appendChild(div.firstElementChild); // Insert the first child of the created div
+      }
+
+      function removeSelect(btn) {
+        const container = btn.parentNode; // Traverse to the grandparent node
+        container.parentNode.removeChild(container);
+        populateSelectOnForm();
+      }
+
+
+      const formColorPicker = document.getElementById("form-color");
+      const textColorPicker = document.getElementById("text-color");
+      const btnColorPicker = document.getElementById("btn-color");
+      formColorPicker.addEventListener("input", function () {
+        const color = formColorPicker.value;
+        const form = document.getElementById("headform1");
+        form.style.setProperty("background-color", color, "important");
+      });
+      textColorPicker.addEventListener("input", function () {
+        const color = textColorPicker.value;
+        const form = document.getElementById("headform1");
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach((input) => {
+          input.style.setProperty("color", color, "important");
+          input.style.setProperty("caret-color", color, "important");
+          let style = document.createElement("style");
+          style.innerHTML = `
+                input#${input.id}::placeholder {
+                    color: ${color} !important;
+                    opacity: 1; /* For full opacity in browsers like Firefox */
+                }
+            `;
+          document.head.appendChild(style);
+        });
+        const btn = form.querySelector("button");
+        btn.style.setProperty("color", color, "important");
+
+        const selects = form.querySelectorAll("select");
+        selects.forEach((select) => {
+          select.style.setProperty("color", color, "important");
+        });
+      });
+      btnColorPicker.addEventListener("input", function () {
+        const color = btnColorPicker.value;
+        const form = document.getElementById("headform1");
+        const btn = form.querySelector("button");
+        btn.style.setProperty("background-color", color, "important");
+      });
+
+
+      function populatetheSettings(formDetails) {
+        // Setting up the colors
+        const formColorPicker = document.getElementById("form-color");
+        const textColorPicker = document.getElementById("text-color");
+        const btnColorPicker = document.getElementById("btn-color");
+        const botName = document.getElementById("botName");
+        const projectName = document.getElementById("projectName");
+        const clientName = document.getElementById("clientName");
+
+
+        formColorPicker.value = formDetails.form_color;
+        textColorPicker.value = formDetails.text_color;
+        btnColorPicker.value = formDetails.btn_color;
+        botName.value = formDetails.bot_name;
+        projectName.value = formDetails.project_name;
+        clientName.value = formDetails.client_name;        
+
+        // setting up the discord links
+        const discordContainer = document.getElementById("discord-dynamic-container");
+        discordContainer.innerHTML = "";
+        formDetails.discord.forEach((link) => {
+          let newInput = document.createElement("div");
+          newInput.innerHTML =
+            '<div class="discord-inner-container d-flex mb-1">' +
+            '    <input type="text" class="discord-input border border-3 p-2 form-control" placeholder="Discord Link" name="dslink[]" value="' +
+            link +
+            '">' +
+            '    <button title="Remove Discord" class="my-1 bg-transparent ms-2 remove-discord-input" onclick="removeDiscord(this)"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
+            "</div>";
+          discordContainer.appendChild(newInput);
+        });
+      
+        // setting up the hook links
+        const hookContainer = document.getElementById("hook-dynamic-container");
+        hookContainer.innerHTML = "";
+        formDetails.zappier.forEach((link) => {
+          let newInput = document.createElement("div");
+          newInput.innerHTML =
+            '<div class="hook-inner-container d-flex mb-1">' +
+            '    <input type="text" class="hook-input border border-3 p-2 form-control" placeholder="Web hook Link" name="hook[]" value="' +
+            link +
+            '">' +
+            '    <button title="Remove Web hook" class="bg-transparent ms-2 remove-hook-input" onclick="removeHook(this)"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
+            "</div>";
+          hookContainer.appendChild(newInput);
+        });
+
+
+        // setting up the options
+        const bedroomContainer = document.querySelector("#dynamic-bedroom-container");
+        bedroomContainer.innerHTML = "";
+        const bedroomOptions = formDetails?.form_fields?.find(
+          (field) => field.name == "bedroom"
+        )?.options;
+        bedroomOptions?.forEach((option) => {
+          let newInput = document.createElement("div");
+          newInput.innerHTML =
+            '<div class="d-flex mb-1">' +
+            '    <input type="text" class="border border-3 p-2 form-control"  placeholder="Enter Option For Bedroom" value="' +
+            option +
+            '">' +
+            '    <button title="Delete Option" onclick="removeSelect(this)" class="bg-transparent ms-2"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
+            "</div>";
+          bedroomContainer.appendChild(newInput);
+        });
+
+        const condoContainer = document.querySelector("#dynamic-condo-container");
+        condoContainer.innerHTML = "";
+        const condoOptions = formDetails?.form_fields?.find(
+          (field) => field.name == "condo"
+        )?.options;
+        condoOptions?.forEach((option) => {
+          let newInput = document.createElement("div");
+          newInput.innerHTML =
+            '<div class="d-flex mb-1">' +
+            '    <input type="text" class="border border-3 p-2 form-control"  placeholder="Enter Option For Condo" value="' +
+            option +
+            '">' +
+            '    <button title="Delete Option" onclick="removeSelect(this)" class="bg-transparent ms-2"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
+            "</div>";
+          condoContainer.appendChild(newInput);
+        });
+
+        const requestContainer = document.querySelector("#dynamic-request-container");
+        requestContainer.innerHTML = "";
+        const requestOptions = formDetails?.form_fields?.find(
+          (field) => field.name == "request"
+        )?.options;
+        requestOptions?.forEach((option) => {
+          let newInput = document.createElement("div");
+          newInput.innerHTML =
+            '<div class="d-flex mb-1">' +
+            '    <input type="text" class="border border-3 p-2 form-control"  placeholder="Enter Option For Request" value="' +
+            option +
+            '">' +
+            '    <button title="Delete Option" onclick="removeSelect(this)" class="bg-transparent ms-2"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
+            "</div>";
+          requestContainer.appendChild(newInput)
+        });
+
+      }
+    
+      function addEventListenerCustom(){
+        const bedroomOptionsContainer = document.querySelector("#dynamic-bedroom-container");
+        const bedroomOptions = bedroomOptionsContainer.querySelectorAll("input");
+        const condoOptions = document.querySelectorAll("#dynamic-condo-container input");
+        const requestOptions = document.querySelectorAll("#dynamic-request-container input");
+        bedroomOptions.forEach((option) => {
+          option.addEventListener("input", ()=>{
+            populateSelectOnForm();
+          });
+        });
+        condoOptions.forEach((option) => {
+          option.addEventListener("input", populateSelectOnForm);
+        });
+        requestOptions.forEach((option) => {
+          option.addEventListener("input", populateSelectOnForm);
+        });
+      }
+
+      function populateoForm(formDetails){
+        // Setting the form to the color
+        const form = document.getElementById("headform1");
+        form.style.setProperty(
+          "background-color",
+          formDetails.form_color,
+          "important"
+        );
+
+        const btn = form.querySelector("button");
+        btn.style.setProperty(
+          "background-color",
+          formDetails.btn_color,
+          "important"
+        );
+        btn.style.setProperty("color", formDetails.text_color, "important");
+
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach((input) => {
+          input.style.setProperty("color", formDetails.text_color, "important");
+          input.style.setProperty("caret-color", formDetails.text_color, "important");
+          let style = document.createElement("style");
+          style.innerHTML = `
+                input#${input.id}::placeholder {
+                    color: ${formDetails.text_color} !important;
+                    opacity: 1; /* For full opacity in browsers like Firefox */
+                }
+            `;
+          document.head.appendChild(style);
+        });
+
+        const selects = form.querySelectorAll("select");
+        selects.forEach((select) => {
+          select.style.setProperty(
+            "color",
+            formDetails.text_color,
+            "important"
+          );
+        });
+
+        // Setting the select options
+        const bedroomSelect = document.getElementById("form-bedroom-select");
+        bedroomSelect.innerHTML = "";
+
+        const condoSelect = document.getElementById("form-condo-select");
+        condoSelect.innerHTML = "";
+
+        const requestSelect = document.getElementById("form-request-select");
+        requestSelect.innerHTML = "";
+
+        const bedroomOptions = formDetails?.form_fields?.find(
+          (field) => field.name == "bedroom"
+        )?.options;
+        const condoOptions = formDetails?.form_fields?.find(
+          (field) => field.name == "condo"
+        )?.options;
+        const requestOptions = formDetails?.form_fields?.find(
+          (field) => field.name == "request"
+        )?.options;
+        bedroomOptions?.forEach((option) => {
+          let newOption = document.createElement("option");
+          newOption.value = option;
+          newOption.text = option;
+          bedroomSelect.add(newOption);
+        });
+        condoOptions?.forEach((option) => {
+          let newOption = document.createElement("option");
+          newOption.value = option;
+          newOption.text = option;
+          condoSelect.add(newOption);
+        });
+        requestOptions?.forEach((option) => {
+          let newOption = document.createElement("option");
+          newOption.value = option;
+          newOption.text = option;
+          requestSelect.add(newOption);
+        });
+      }
+    
+      function populateSelectOnForm(){
+        const bedroomSelect = document.getElementById("form-bedroom-select");
+        bedroomSelect.innerHTML = "";
+
+        const condoSelect = document.getElementById("form-condo-select");
+        condoSelect.innerHTML = "";
+
+        const requestSelect = document.getElementById("form-request-select");
+        requestSelect.innerHTML = "";
+
+        const bedroomOptions = document.querySelectorAll("#dynamic-bedroom-container input");
+        const condoOptions = document.querySelectorAll("#dynamic-condo-container input");
+        const requestOptions = document.querySelectorAll("#dynamic-request-container input");
+
+        bedroomOptions.forEach((option) => {
+          let newOption = document.createElement("option");
+          newOption.value = option.value;
+          newOption.text = option.value;
+          bedroomSelect.add(newOption);
+        });
+        condoOptions.forEach((option) => {
+          let newOption = document.createElement("option");
+          newOption.value = option.value;
+          newOption.text = option.value;
+          condoSelect.add(newOption);
+        });
+
+        requestOptions.forEach((option) => {
+          let newOption = document.createElement("option");
+          newOption.value = option.value;
+          newOption.text = option.value;
+          requestSelect.add(newOption);
+        });
+      }
+    
+      function extractData(){
+
+          const botName = document.getElementById("botName").value;
+          const projectName = document.getElementById("projectName").value;
+          const clientName = document.getElementById("clientName").value;
+
+          const formColorPicker = document.getElementById("form-color");
+          const textColorPicker = document.getElementById("text-color");
+          const btnColorPicker = document.getElementById("btn-color");
+          const discordContainer = document.getElementById("discord-dynamic-container");
+          const hookContainer = document.getElementById("hook-dynamic-container");
+          const bedroomOptions = document.querySelectorAll("#dynamic-bedroom-container input");
+          const condoOptions = document.querySelectorAll("#dynamic-condo-container input");
+          const requestOptions = document.querySelectorAll("#dynamic-request-container input");
+
+          const discordLinks = [];
+          const hookLinks = [];
+          const bedroomOptionsArr = [];
+          const condoOptionsArr = [];
+          const requestOptionsArr = [];
+
+          discordContainer.querySelectorAll("input").forEach((input) => {
+            discordLinks.push(input.value);
+          });
+
+          hookContainer.querySelectorAll("input").forEach((input) => {
+            hookLinks.push(input.value);
+          });
+
+          bedroomOptions.forEach((option) => {
+            bedroomOptionsArr.push(option.value);
+          });
+
+          condoOptions.forEach((option) => {
+            condoOptionsArr.push(option.value);
+          });
+
+          requestOptions.forEach((option) => {
+            requestOptionsArr.push(option.value);
+          });
+
+
+          const form_fields = [
+            {
+              name: "bedroom",
+              options: bedroomOptionsArr,
+            },
+            {
+              name: "condo",
+              options: condoOptionsArr,
+            },
+            {
+              name: "request",
+              options: requestOptionsArr,
+            },
+          ];
+
+          const data = {
+            form_color: formColorPicker.value,
+            text_color: textColorPicker.value,
+            btn_color: btnColorPicker.value,
+            discord: discordLinks,
+            zappier: hookLinks,
+            form_fields: form_fields,
+            botName: botName,
+            projectName: projectName,
+            clientName: clientName,
+          };
+          return data;
+      }
+
+      async function saveData(){
+        const dialog = document.querySelector("dialog");
+        const formId = dialog.getAttribute("formId");
+        const data = extractData();
+
+
+        const res = await fetch(`/api/form/update/${formId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const response = await res.json();
+        if (res.status == 200) {
+          dialog.close();
+          swal.fire({
+            title: "Success",
+            text: response.message,
+            icon: "success",
+            confirmButtonText: "Ok",
+            confirmButtonColor: "#002655",
+          })
+        } else {
+          swal.fire({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            confirmButtonText: "Ok",
+            confirmButtonColor: "#002655",
+          });
+        }
+      }
+
+    </script>
+  </body>
+</html>
