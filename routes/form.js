@@ -7,7 +7,7 @@ const { bulkDiscordSender } = require("../utils/discord");
 const { bulkHookSender } = require("../utils/zappier");
 
 router
-.get("/form/:id/:name", verify, async (req, res, next) => {
+.get("/form/:id/:name", async (req, res, next) => {
     const { name, id } = req.params;
     try {
       const [rows] = await __pool.query(`SELECT * FROM forms WHERE id = ?`, [

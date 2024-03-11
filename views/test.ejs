@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button onclick="option1()">Click me! option 1
+    </button>
+
+    <button onclick="option2()">
+        Click me Option2
+    </button>
+
+
+
+</body>
+
+
+<script>
+    function option1() {
+        window.parent.location = document.referrer;
+    }
+
+    function option2(params) {
+        window.parent.location.reload();
+    }
+
+
+
+</script>
+</html>
