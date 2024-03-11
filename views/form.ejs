@@ -407,9 +407,7 @@
       });
 
       $('#' + FormID).submit(function() {
-          var redirectUrl = 'https://' + window.location.hostname + '/thank-you/';
-          var newTab = window.open('', '_blank');
-          newTab.location.href = redirectUrl;
+        window.parent.location = document.referrer + "thank-you"
           return false;
       });
   });

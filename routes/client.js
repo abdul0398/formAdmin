@@ -72,8 +72,5 @@ router.get("/clients", verify, async (req, res, next)=>{
         res.status(500).json({message:error.message});
     }
 
-}).get("/test", (req, res)=>{
-    res.render("test.ejs");
 })
-
 module.exports = router;
