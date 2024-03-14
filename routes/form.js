@@ -1,10 +1,8 @@
 const express = require("express");
 const { verify } = require("../middlewares/verify");
+const producer = require("../queue/producer");
+const startWorker = require("../queue/workers");
 const router = express.Router();
-
-const {changeleadtoString} = require("../utils/tools");
-const { bulkDiscordSender } = require("../utils/discord");
-const { bulkHookSender } = require("../utils/zappier");
 
 router
 .get("/form/:id/:name", async (req, res, next) => {
@@ -160,24 +158,11 @@ router
     }
 })
 .post("/api/form/submit/:formID", async (req, res) => {
-    const { data } = req.body;
+    const { data, selects } = req.body;
     const { formID } = req.params;
-    console.log(data);
     try {
-      const [rows] = await __pool.query(`SELECT * FROM forms WHERE id = ?`, [
-        formID,
-      ]);
-      if (rows.length === 0) {
-        return res.status(404).json({ message: "Form not found" });
-      }
-      const form = rows[0];
-      const lead = {
-        ...data,
-      };
-      const str = changeleadtoString(lead, form.client_name, form.project_name);
-      await bulkDiscordSender(form.discord, str, form.bot_name);
-      await bulkHookSender(lead, form.zappier, form.project_name, form.client_name);
-
+      await producer(data, selects, formID);
+      await startWorker();
       res.status(200).json("Form Submitted Successfully");
     } catch (error) {
       console.log(error.message);
