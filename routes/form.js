@@ -7,6 +7,10 @@ const router = express.Router();
 router
 .get("/form/:id/:name", async (req, res, next) => {
     const { name, id } = req.params;
+    const {formtype} = req.query;
+    if(!['chatbot','registration','header','footer'].includes(formtype)){
+      return next();
+    }
     try {
       const [rows] = await __pool.query(`SELECT * FROM forms WHERE id = ?`, [
         id,
@@ -32,6 +36,7 @@ router
         bedroomOptions: bedroomOptions.options? bedroomOptions.options : [],
         condoOptions: condoOptions.options? condoOptions.options : [],
         requestOptions: requestOptions.options? requestOptions.options : [],
+        formType: formtype
       });
     } catch (error) {
       console.log(error.message);
@@ -106,8 +111,24 @@ router
 
       await __pool.query(
         `
-            INSERT INTO forms (name, client_id, discord, zappier, text_color, form_color, btn_color, form_fields) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO forms (
+              name,
+              client_id,
+              discord,
+              zappier,
+              text_color,
+              form_color,
+              btn_color,
+              form_fields,
+              name_id,
+              email_id,
+              phone_id,
+              select1_id,
+              select2_id,
+              select3_id,
+              css
+            ) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `,
         [
           name,
@@ -118,6 +139,13 @@ router
           "#FFFFFF",
           "#FFFFFF",
           JSON.stringify(form_fields),
+          "name",
+          "email",
+          "phone",
+          "bedroom",
+          "condo",
+          "request",
+          ""
         ]
       );
 
@@ -129,28 +157,69 @@ router
 })
 .post("/api/form/update/:formID", verify, async (req, res) => {
     const { formID } = req.params;
-    const {discord, zappier, text_color, form_color, btn_color, form_fields, botName, projectName, clientName } = req.body;
+    const {
+      discord,
+      zappier,
+      text_color,
+      form_color,
+      btn_color,
+      form_fields,
+      botName,
+      projectName,
+      clientName,
+      name_id,
+      email_id,
+      phone_id,
+      select1_id,
+      select2_id,
+      select3_id,
+      css
+    } = req.body;
 
+    console.log(typeof css);
     try {
       await __pool.query(
         `
-            UPDATE forms 
-            SET discord = ?, zappier = ?, text_color = ?, form_color = ?, btn_color = ?, client_name = ?, project_name = ?, bot_name = ?, form_fields = ?
-            WHERE id = ?
+           UPDATE forms 
+           SET 
+           discord = ?,
+           zappier = ?,
+           text_color = ?,
+           form_color = ?,
+           btn_color = ?,
+           client_name = ?,
+           project_name = ?,
+           bot_name = ?,
+           form_fields = ?,
+           name_id = ?,
+           email_id = ?,
+           phone_id = ?,
+           select1_id = ?,
+           select2_id = ?,
+           select3_id = ?,
+           css = ?
+           WHERE id = ?
         `,
         [
-          JSON.stringify(discord),
-          JSON.stringify(zappier),
-          text_color,
-          form_color,
-          btn_color,
-          clientName,
-          projectName,
-          botName,
-          JSON.stringify(form_fields),
-          formID,
+           JSON.stringify(discord),
+           JSON.stringify(zappier),
+           text_color,
+           form_color,
+           btn_color,
+           clientName,
+           projectName,
+           botName,
+           JSON.stringify(form_fields),
+           name_id,
+           email_id,
+           phone_id,
+           select1_id,
+           select2_id,
+           select3_id,
+           css,
+           formID
         ]
-      );
+       );
       res.status(200).json("Form Updated Successfully");
     } catch (error) {
       console.log(error.message);

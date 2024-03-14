@@ -5,12 +5,9 @@ const httpsAgent = new https.Agent({
 
 function changeleadtoString(lead, selects, client_name, project_name) {
   let resultStrings = [];
-
-
-    resultStrings.push(`●  Bedrooms: ${selects[0]}`)
-    resultStrings.push(`●  Condo: ${selects[1]}`);
-    resultStrings.push(`●  Request: ${selects[2]}`);
-
+  selects.forEach((select) => {
+    resultStrings.push(`●  ${select.name}: ${select.value}`);
+  })
     const resultStr = resultStrings.join('\n');  
 
   const result = resultStrings.join('\n');
@@ -49,6 +46,7 @@ async function contentModeratorationAPI(props) {
     const response = await fetch(url, {
       method: 'POST',
       mode: 'cors',
+      agent:httpsAgent,
       headers: {
         'Content-Type': 'text/plain',
         'Ocp-Apim-Subscription-Key': subscriptionKey,
@@ -83,6 +81,7 @@ async function validateEmailFromDB(email, ph_number, ip, source_url) {
     const response = await fetch(validateUrl, {
       method: 'POST',
       // mode: 'cors',
+      agent:httpsAgent,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -117,6 +116,7 @@ async function saveDataToMasterDb(data) {
       method: "Post",
       body: JSON.stringify(data),
       mode: 'cors',
+      agent:httpsAgent,
       headers: headers
     };
     const response = await fetch('http://janicez87.sg-host.com/savedata.php', options);

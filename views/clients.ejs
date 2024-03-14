@@ -728,9 +728,23 @@
           <div class="overflow-auto edit-container border border-1 p-5 w-100 w-lg-50 h-100">
 
             
-              <input type="text" class="border border-3 p-2 form-control mb-1 " placeholder="Bot Name" id="botName">
-              <input type="text" class="border border-3 p-2 form-control mb-1 " placeholder="Project Name" id="projectName">
-              <input type="text" class="border border-3 p-2 form-control mb-1 " placeholder="Client Name" id="clientName">
+              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Bot Name" id="botName">
+              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Project Name" id="projectName">
+              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Client Name" id="clientName">
+
+              <hr style="border-top: 2px solid black !important" />
+
+              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Name Element Id" id="nameId">
+              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Email Element Id" id="emailId">
+              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Phone Element Id" id="phoneId">
+              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Select1 Element Id" id="select1Id">
+              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Select2 Element Id" id="select2Id">
+              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Select3 Element Id" id="select3Id">
+
+              <hr style="border-top: 2px solid black !important" />
+              <textarea name="css" class="border border-3 p-1 form-control mb-1" placeholder="Enter Css" id="css" cols="30" rows="10">
+              </textarea>
+
 
               <hr style="border-top: 2px solid black !important" />
 
@@ -870,6 +884,7 @@
                     <input
                       style="height: 45px"
                       type="text"
+                      name="name"
                       class="form-control border-0 border-bottom border-3 rounded-0"
                       id="form-field-dname1"
                       placeholder="Full Name"
@@ -879,6 +894,7 @@
                     <input
                       style="height: 45px"
                       type="email"
+                      name="email"
                       class="form-control rounded-0 border-0 border-bottom border-3"
                       id="form-field-demail1"
                       placeholder="Email"
@@ -889,6 +905,7 @@
                   <input
                     type="tel"
                     style="height: 45px"
+                    name="phone"
                     class="form-control rounded-0 border-0 border-bottom border-3"
                     id="form-field-dphone1"
                     placeholder="+6583974987"
@@ -1511,6 +1528,13 @@
         const botName = document.getElementById("botName");
         const projectName = document.getElementById("projectName");
         const clientName = document.getElementById("clientName");
+        const nameId = document.getElementById("nameId");
+        const emailId = document.getElementById("emailId");
+        const phoneId = document.getElementById("phoneId");
+        const select1Id = document.getElementById("select1Id");
+        const select2Id = document.getElementById("select2Id");
+        const select3Id = document.getElementById("select3Id");
+        const css = document.getElementById("css");
 
 
         formColorPicker.value = formDetails.form_color;
@@ -1519,6 +1543,15 @@
         botName.value = formDetails.bot_name;
         projectName.value = formDetails.project_name;
         clientName.value = formDetails.client_name;        
+        nameId.value = formDetails.name_id;
+        emailId.value = formDetails.email_id;
+        phoneId.value = formDetails.phone_id;
+        select1Id.value = formDetails.select1_id;
+        select2Id.value = formDetails.select2_id;
+        select3Id.value = formDetails.select3_id;
+        css.value = formDetails.css;
+
+
 
         // setting up the discord links
         const discordContainer = document.getElementById("discord-dynamic-container");
@@ -1644,6 +1677,7 @@
         inputs.forEach((input) => {
           input.style.setProperty("color", formDetails.text_color, "important");
           input.style.setProperty("caret-color", formDetails.text_color, "important");
+          
           let style = document.createElement("style");
           style.innerHTML = `
                 input#${input.id}::placeholder {
@@ -1742,6 +1776,16 @@
           const botName = document.getElementById("botName").value;
           const projectName = document.getElementById("projectName").value;
           const clientName = document.getElementById("clientName").value;
+      
+          // Ids of the form fields 
+          const nameId = document.getElementById("nameId").value;
+          const emailId = document.getElementById("emailId").value;
+          const phoneId = document.getElementById("phoneId").value;
+          const select1Id = document.getElementById("select1Id").value;
+          const select2Id = document.getElementById("select2Id").value;
+          const select3Id = document.getElementById("select3Id").value;
+          const css = document.getElementById("css").value;
+
 
           const formColorPicker = document.getElementById("form-color");
           const textColorPicker = document.getElementById("text-color");
@@ -1798,6 +1842,13 @@
             form_color: formColorPicker.value,
             text_color: textColorPicker.value,
             btn_color: btnColorPicker.value,
+            name_id: nameId,
+            email_id: emailId,
+            phone_id: phoneId,
+            select1_id: select1Id,
+            select2_id: select2Id,
+            select3_id: select3Id,
+            css: css,
             discord: discordLinks,
             zappier: hookLinks,
             form_fields: form_fields,
