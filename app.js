@@ -4,6 +4,7 @@ const {userRouter, formRouter, clientRouter} = require("./routes");
 const crypto = require("crypto");
 const setupDb = require("./services/dbHandler.js");
 async function start() {
+    const port = process.env.PORT || 4000;
     const {app, express} = await setMiddleWares();
     await setupDb();
     app.use("/uploads", express.static("uploads"));
@@ -11,8 +12,8 @@ async function start() {
     app.use((req,res)=>{
         res.render("error.ejs");
     })
-    app.listen(3000, async ()=>{
-        console.log("##### Express Server Started at port 3000 #####");
+    app.listen(port, async ()=>{
+        console.log(`##### Express Server Started at port ${port} #####`);
     })
 }
 start();
