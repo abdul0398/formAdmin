@@ -7,7 +7,7 @@ const router = express.Router();
 router
 .get("/form/:id/:name", async (req, res, next) => {
     const { name, id } = req.params;
-    const {formtype} = req.query;
+    const {formtype, reqtype, devtext} = req.query;
     if(!['chatbot','registration','header','footer'].includes(formtype)){
       return next();
     }
@@ -29,14 +29,15 @@ router
         return elem.name === "request";
       }
       )
-
       return res.render("form.ejs", {
         title: name,
         form: rows[0],
         bedroomOptions: bedroomOptions.options? bedroomOptions.options : [],
         condoOptions: condoOptions.options? condoOptions.options : [],
         requestOptions: requestOptions.options? requestOptions.options : [],
-        formType: formtype
+        formType: formtype,
+        reqtype:reqtype,
+        devtext:devtext
       });
     } catch (error) {
       console.log(error.message);
@@ -116,9 +117,6 @@ router
               client_id,
               discord,
               zappier,
-              text_color,
-              form_color,
-              btn_color,
               form_fields,
               name_id,
               email_id,
@@ -128,16 +126,13 @@ router
               select3_id,
               css
             ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `,
         [
           name,
           clientID,
           JSON.stringify([]),
           JSON.stringify([]),
-          "#000000",
-          "#FFFFFF",
-          "#FFFFFF",
           JSON.stringify(form_fields),
           "name",
           "email",
@@ -160,9 +155,6 @@ router
     const {
       discord,
       zappier,
-      text_color,
-      form_color,
-      btn_color,
       form_fields,
       botName,
       projectName,
@@ -173,6 +165,7 @@ router
       select1_id,
       select2_id,
       select3_id,
+      dev_info,
       css
     } = req.body;
 
@@ -184,9 +177,6 @@ router
            SET 
            discord = ?,
            zappier = ?,
-           text_color = ?,
-           form_color = ?,
-           btn_color = ?,
            client_name = ?,
            project_name = ?,
            bot_name = ?,
@@ -197,15 +187,13 @@ router
            select1_id = ?,
            select2_id = ?,
            select3_id = ?,
-           css = ?
+           css = ?,
+           dev_info = ?
            WHERE id = ?
         `,
         [
            JSON.stringify(discord),
            JSON.stringify(zappier),
-           text_color,
-           form_color,
-           btn_color,
            clientName,
            projectName,
            botName,
@@ -217,6 +205,7 @@ router
            select2_id,
            select3_id,
            css,
+           dev_info,
            formID
         ]
        );

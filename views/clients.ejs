@@ -732,6 +732,8 @@
               <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Project Name" id="projectName">
               <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Client Name" id="clientName">
 
+              <textarea name="developerinfo" id="developerinfo" class="border border-3 p-2 form-control mb-1" placeholder="Enter Developer Info"></textarea>
+
               <hr style="border-top: 2px solid black !important" />
 
               <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Name Element Id" id="nameId">
@@ -826,8 +828,8 @@
             </div>
 
             <hr style="border-top: 2px solid black !important" />
-            <p class="mt-4" style="font-weight: 600">Edit Colors</p>
-            <div class="color-picker d-flex justify-content-around">
+            <!-- <p class="mt-4" style="font-weight: 600">Edit Colors</p> -->
+            <!-- <div class="color-picker d-flex justify-content-around">
               <div class="d-flex flex-column text-center align-items-center">
                 <span>Form Color</span>
                 <input type="color" id="form-color" />
@@ -840,7 +842,7 @@
                 <span>Button Color</span>
                 <input type="color" id="btn-color" />
               </div>
-            </div>
+            </div> -->
 
             <div class="text-center mt-4">
               <button onclick="saveData()" class="px-4 py-1 rounded-3">Save</button>
@@ -934,7 +936,7 @@
 
                 <div class="text-center">
                   <button
-                    style="height: 45px"
+                    style="height: 45px; background-color: transparent !important; color :black !important"
                     type="submit"
                     id="submitBtn1"
                     class="w-100 rounded-0 border-0 hover-overlay btn"
@@ -1480,51 +1482,8 @@
       }
 
 
-      const formColorPicker = document.getElementById("form-color");
-      const textColorPicker = document.getElementById("text-color");
-      const btnColorPicker = document.getElementById("btn-color");
-      formColorPicker.addEventListener("input", function () {
-        const color = formColorPicker.value;
-        const form = document.getElementById("headform1");
-        form.style.setProperty("background-color", color, "important");
-      });
-      textColorPicker.addEventListener("input", function () {
-        const color = textColorPicker.value;
-        const form = document.getElementById("headform1");
-        const inputs = form.querySelectorAll("input");
-        inputs.forEach((input) => {
-          input.style.setProperty("color", color, "important");
-          input.style.setProperty("caret-color", color, "important");
-          let style = document.createElement("style");
-          style.innerHTML = `
-                input#${input.id}::placeholder {
-                    color: ${color} !important;
-                    opacity: 1; /* For full opacity in browsers like Firefox */
-                }
-            `;
-          document.head.appendChild(style);
-        });
-        const btn = form.querySelector("button");
-        btn.style.setProperty("color", color, "important");
-
-        const selects = form.querySelectorAll("select");
-        selects.forEach((select) => {
-          select.style.setProperty("color", color, "important");
-        });
-      });
-      btnColorPicker.addEventListener("input", function () {
-        const color = btnColorPicker.value;
-        const form = document.getElementById("headform1");
-        const btn = form.querySelector("button");
-        btn.style.setProperty("background-color", color, "important");
-      });
-
-
       function populatetheSettings(formDetails) {
         // Setting up the colors
-        const formColorPicker = document.getElementById("form-color");
-        const textColorPicker = document.getElementById("text-color");
-        const btnColorPicker = document.getElementById("btn-color");
         const botName = document.getElementById("botName");
         const projectName = document.getElementById("projectName");
         const clientName = document.getElementById("clientName");
@@ -1535,11 +1494,9 @@
         const select2Id = document.getElementById("select2Id");
         const select3Id = document.getElementById("select3Id");
         const css = document.getElementById("css");
+        const developerinfo = document.getElementById("developerinfo");
 
 
-        formColorPicker.value = formDetails.form_color;
-        textColorPicker.value = formDetails.text_color;
-        btnColorPicker.value = formDetails.btn_color;
         botName.value = formDetails.bot_name;
         projectName.value = formDetails.project_name;
         clientName.value = formDetails.client_name;        
@@ -1550,6 +1507,7 @@
         select2Id.value = formDetails.select2_id;
         select3Id.value = formDetails.select3_id;
         css.value = formDetails.css;
+        developerinfo.value = formDetails.dev_info;
 
 
 
@@ -1657,45 +1615,7 @@
       }
 
       function populateoForm(formDetails){
-        // Setting the form to the color
         const form = document.getElementById("headform1");
-        form.style.setProperty(
-          "background-color",
-          formDetails.form_color,
-          "important"
-        );
-
-        const btn = form.querySelector("button");
-        btn.style.setProperty(
-          "background-color",
-          formDetails.btn_color,
-          "important"
-        );
-        btn.style.setProperty("color", formDetails.text_color, "important");
-
-        const inputs = form.querySelectorAll("input");
-        inputs.forEach((input) => {
-          input.style.setProperty("color", formDetails.text_color, "important");
-          input.style.setProperty("caret-color", formDetails.text_color, "important");
-          
-          let style = document.createElement("style");
-          style.innerHTML = `
-                input#${input.id}::placeholder {
-                    color: ${formDetails.text_color} !important;
-                    opacity: 1; /* For full opacity in browsers like Firefox */
-                }
-            `;
-          document.head.appendChild(style);
-        });
-
-        const selects = form.querySelectorAll("select");
-        selects.forEach((select) => {
-          select.style.setProperty(
-            "color",
-            formDetails.text_color,
-            "important"
-          );
-        });
 
         // Setting the select options
         const bedroomSelect = document.getElementById("form-bedroom-select");
@@ -1776,6 +1696,7 @@
           const botName = document.getElementById("botName").value;
           const projectName = document.getElementById("projectName").value;
           const clientName = document.getElementById("clientName").value;
+          const developerinfo = document.getElementById("developerinfo").value;
       
           // Ids of the form fields 
           const nameId = document.getElementById("nameId").value;
@@ -1787,14 +1708,14 @@
           const css = document.getElementById("css").value;
 
 
-          const formColorPicker = document.getElementById("form-color");
-          const textColorPicker = document.getElementById("text-color");
-          const btnColorPicker = document.getElementById("btn-color");
           const discordContainer = document.getElementById("discord-dynamic-container");
           const hookContainer = document.getElementById("hook-dynamic-container");
           const bedroomOptions = document.querySelectorAll("#dynamic-bedroom-container input");
           const condoOptions = document.querySelectorAll("#dynamic-condo-container input");
           const requestOptions = document.querySelectorAll("#dynamic-request-container input");
+
+
+
 
           const discordLinks = [];
           const hookLinks = [];
@@ -1839,9 +1760,6 @@
           ];
 
           const data = {
-            form_color: formColorPicker.value,
-            text_color: textColorPicker.value,
-            btn_color: btnColorPicker.value,
             name_id: nameId,
             email_id: emailId,
             phone_id: phoneId,
@@ -1854,6 +1772,7 @@
             form_fields: form_fields,
             botName: botName,
             projectName: projectName,
+            dev_info:developerinfo,
             clientName: clientName,
           };
           return data;

@@ -25,12 +25,8 @@
           .custom-input-bg{
             background-color: transparent !important
           }
-          input::placeholder{
-            color:<%=form.text_color%> !important
-          }
           input{
             font-family: "Montserrat", sans-serif;
-            color: <%=form.text_color%> !important;
           }
           input:focus{
             outline: none !important;
@@ -40,22 +36,16 @@
             outline: none !important;
             box-shadow: none !important;
           }
-          select,  button{
-            color: <%=form.text_color%> !important;
+          .w40 {
+            width: <%- formType == 'registration' ? '100%' : '48%' %>;
           }
-          option{
-            background-color: <%=form.form_color%> !important;
+          .flag-icon{
+            width: 20px;
+            height: 20px;
           }
-          .w40{
-            width: 48%;
+          form{
+            background-color: transparent !important;
           }
-          @media screen and (max-width:768px) {
-            .w40{
-              width: 100%;
-            }
-          }
-
-
         </style>
         <style>
 
@@ -64,26 +54,26 @@
         </style>
     </head>
     <p id="formId" hidden><%=form.id%></p>
-    <body class="min-vw-100 min-vh-100 bg-light">
-        <div class="w-100 min-vh-100 d-flex justify-center align-middle">
-            <div class="width-res mx-auto d-flex align-items-center">
+    <body>
+        <div class="w-100">
+            <div class="w-100">
                 <form id="headform1"
-                  style="background-color: <%=form.form_color%> !important;"
-                    class="align-middle text-white mx-auto border px-3 py-5 w-100 bg-white shadow-md"
+                    class="text-white w-100"
                     method="post">
-                    <div class="d-lg-flex d-md-flex  justify-content-between">   
-                      <div class="mb-3 w40">
+                    <div class="<%-formType == 'registration'?"": "d-flex"%> justify-content-between">   
+                      <div class="w40">
                           <input  style="height: 45px;" type="text" class="form-control border-0 border-bottom border-3 rounded-0 custom-input-bg"
                               id="<%=form.name_id%>" placeholder="Full Name">
                       </div>
-                      <div class="mb-3 w40">
+                      <div class="w40">
                           <input  style="height: 45px;" type="email" class="form-control rounded-0 custom-input-bg border-0 border-bottom border-3"
                               id="<%=form.email_id%>" placeholder="Email">
                       </div>
                     </div>
-                    <div class="mb-3">
-                        <input type="tel"  style="height: 45px;" class="form-control rounded-0 custom-input-bg border-0 border-bottom border-3"
-                            id="<%=form.phone_id%>" placeholder="+6583974987" >
+                    <div class="mb-3 d-flex flex-row align-items-center border-0 border-bottom border-3">
+                      <img src="/flag.svg" alt="Singapore Flag" class="flag-icon">
+                      <input type="tel" style="height: 45px;" class="form-control rounded-0 custom-input-bg border border-0  "
+                          id="<%=form.phone_id%>" placeholder="83974987">
                     </div>
 
                     <%if(formType == "registration"){%>
@@ -93,14 +83,41 @@
                               <option value="<%=condoOptions[i]%>"><%=condoOptions[i]%></option>
                               <%}%>
                         </select> -->
-                      
-                        <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
+                        <%if(reqtype == "checkbox"){%>
+                          <div>
+                            <%for(let i = 0; i < requestOptions.length; i++){%>
+                              <div>
+                                <input checked name="<%=requestOptions[i]%>" id="<%=requestOptions[i]%>" value="<%=requestOptions[i]%>" type="checkbox" class=" mt-2">
+                                <label class="text-black  " for="<%=requestOptions[i]%>"><%=requestOptions[i]%></label>
+                              </div>
+                            <%}%>                                           
+                            </div>
+                          <%}else{%>
+                          <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
                             aria-label="Default select example">
                             <%for(let i = 0; i < requestOptions.length; i++){%>
                               <option value="<%=requestOptions[i]%>"><%=requestOptions[i]%></option>
                               <%}%>                   
-                        </select>
+                            </select>
+                        <%}%>
                     <%}else if(formType == "header" || formType == "footer"){%>
+                      <%if(reqtype == "checkbox"){%>
+                        <div>
+                          <%for(let i = 0; i < requestOptions.length; i++){%>
+                            <div>
+                              <input checked name="<%=requestOptions[i]%>" id="<%=requestOptions[i]%>" value="<%=requestOptions[i]%>" type="checkbox" class=" mt-2">
+                              <label class="text-black  " for="<%=requestOptions[i]%>"><%=requestOptions[i]%></label>
+                            </div>
+                          <%}%>                                           
+                          </div>
+                        <%}else{%>
+                        <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
+                          aria-label="Default select example">
+                          <%for(let i = 0; i < requestOptions.length; i++){%>
+                            <option value="<%=requestOptions[i]%>"><%=requestOptions[i]%></option>
+                            <%}%>                   
+                          </select>
+                      <%}%>
                       <select name="Bedroom" id="<%=form.select1Id%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
                         aria-label="Default select example">
 
@@ -108,16 +125,15 @@
                           <option value="<%=bedroomOptions[i]%>"><%=bedroomOptions[i]%></option>
                           <%}%>
                       </select>
-                      <select name="Request" id="<%=form.select3Id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
-                        aria-label="Default select example">
-                        <%for(let i = 0; i < requestOptions.length; i++){%>
-                          <option value="<%=requestOptions[i]%>"><%=requestOptions[i]%></option>
-                          <%}%>                   
-                      </select>
                     <%}%>
-
+                    <%=devtext%>
+                    <%if(devtext == "true"){%>  
+                      <p class="text-black ">
+                        <%=form.dev_info%>
+                      </p>
+                      <%}%>
                     <div class="text-center">
-                        <button style="height: 45px; background-color: <%=form.btn_color%> !important;" type="submit" id="submitBtn1"
+                        <button style="height: 45px; background-color:  transparent;" type="submit" id="submitBtn1"
                             class="w-100 rounded-0 border-0 hover-overlay btn custom-input-bg ">Send</button>
                     </div>
                     <p id="error_msg1" class="text-danger text-center"></p>
@@ -195,20 +211,13 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
         const phoneNumberInput = document.getElementById(PhoneID);
 
-        phoneNumberInput.addEventListener("focus", function() {
-            if (!this.value.startsWith('+65')) {
-                this.value = '+65' + this.value.replace(/\D/g, '');
-            }
-        });
+    
 
         phoneNumberInput.addEventListener("input", function() {
             let phoneNumber = this.value.replace(/\D/g, '');
-            phoneNumber = phoneNumber.slice(0, 10);
-            if (!phoneNumber.startsWith('+65')) {
-                phoneNumber = '+65' + phoneNumber.slice(2);
-            }
+            phoneNumber = phoneNumber.slice(0, 8);
             this.value = phoneNumber;
-            if (phoneNumber.length === 10) {
+            if (phoneNumber.length === 8) {
                 this.setCustomValidity('');
             } else {
                 this.setCustomValidity('Please enter a valid 11-digit Singaporean phone number.');
@@ -234,18 +243,18 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         }
         
         function validatePhone(phoneNumber) {
-        if (!phoneNumber) {
-          errors.push("Phone number cannot be empty.")
-          return false;
-        } else {
-          const phoneRegex = /\+65(8|9)\d{7}/;
-          if (!phoneRegex.test(phoneNumber)) {
-            errors.push("Invalid phone number format.");
+          if (!phoneNumber) {
+            errors.push("Phone number cannot be empty.")
             return false;
+          } else {
+            const phoneRegex = /^(8|9)\d{7}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+              errors.push("Invalid phone number format.");
+              return false;
+            }
+            return true;
           }
-          return true;
         }
-      }
 }
 
 async function sendToServer(data) {
@@ -255,6 +264,19 @@ async function sendToServer(data) {
     selects.forEach(select => {
         selectValues.push({name:select.name, value:select.value});
     });
+
+    const reqtype = `<%-reqtype%>`
+
+    if(reqtype == "checkbox"){
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      let selectedReq = ""
+      checkboxes.forEach(checkbox=>{
+        if(checkbox.checked){
+          selectedReq += checkbox.value + ", ";
+        }
+      })
+      selectValues.push({name:"Request", value:selectedReq});
+    }
 
     const res = await fetch(`/api/form/submit/${id}`, {
         method: 'POST',
