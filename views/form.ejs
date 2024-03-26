@@ -65,14 +65,23 @@
                     method="post">
                     <div class="<%-formType == 'registration'?"": "d-flex"%> justify-content-between">   
                       <div class="w40">
+                        <%if(label == "true"){%>
+                          <label style="color:black" for="<%=form.name_id%>"><%=inputLabel%></label>  
+                        <%}%>
                           <input  style="height: 45px;" type="text" class="form-control border-0 border-bottom border-3 rounded-0 custom-input-bg"
                               id="<%=form.name_id%>" placeholder="Full Name">
                       </div>
                       <div class="w40">
+                        <%if(label == "true"){%>
+                          <label style="color:black" for="<%=form.email_id%>"><%=emailLabel%></label>  
+                        <%}%>
                           <input  style="height: 45px;" type="email" class="form-control rounded-0 custom-input-bg border-0 border-bottom border-3"
                               id="<%=form.email_id%>" placeholder="Email">
                       </div>
                     </div>
+                    <%if(label == "true"){%>
+                      <label style="color:black" for="<%=form.phone_id%>"><%=phoneLabel%></label>  
+                    <%}%>
                     <div class="mb-3 d-flex flex-row align-items-center border-0 border-bottom border-3">
                       <img src="/flag.svg" alt="Singapore Flag" class="flag-icon">
                       <input type="tel" style="height: 45px;" class="form-control rounded-0 custom-input-bg border border-0  "
@@ -80,12 +89,9 @@
                     </div>
 
                     <%if(formType == "registration"){%>
-                        <!-- <select id="<%=form.select2_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
-                            aria-label="Default select example">
-                            <%for(let i = 0; i < condoOptions.length; i++){%>
-                              <option value="<%=condoOptions[i]%>"><%=condoOptions[i]%></option>
-                              <%}%>
-                        </select> -->
+                      <%if(label == "true"){%>
+                        <label style="color:black"><%=requestLabel%></label>  
+                      <%}%>
                         <%if(reqtype == "checkbox"){%>
                           <div>
                             <%for(let i = 0; i < requestOptions.length; i++){%>
@@ -98,12 +104,16 @@
                           <%}else{%>
                           <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
                             aria-label="Default select example">
+                            <option selected disabled>Please Select</option>
                             <%for(let i = 0; i < requestOptions.length; i++){%>
                               <option value="<%=requestOptions[i]%>"><%=requestOptions[i]%></option>
                               <%}%>                   
                             </select>
                         <%}%>
                     <%}else if(formType == "header" || formType == "footer"){%>
+                      <%if(label == "true"){%>
+                        <label style="color:black"><%=requestLabel%></label>  
+                      <%}%>
                       <%if(reqtype == "checkbox"){%>
                         <div>
                           <%for(let i = 0; i < requestOptions.length; i++){%>
@@ -116,14 +126,18 @@
                         <%}else{%>
                         <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
                           aria-label="Default select example">
+                          <option selected disabled>Please Select</option>
                           <%for(let i = 0; i < requestOptions.length; i++){%>
                             <option value="<%=requestOptions[i]%>"><%=requestOptions[i]%></option>
                             <%}%>                   
                           </select>
                       <%}%>
+                      <%if(label == "true"){%>
+                        <label style="color:black"><%=bedroomLabel%></label>  
+                      <%}%>
                       <select name="Bedroom" id="<%=form.select1Id%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
                         aria-label="Default select example">
-
+                        <option selected disabled>Please Select</option>
                         <%for(let i = 0; i < bedroomOptions.length; i++){%>
                           <option value="<%=bedroomOptions[i]%>"><%=bedroomOptions[i]%></option>
                           <%}%>
@@ -131,7 +145,7 @@
                     <%}%>
                     <%=devtext%>
                     <%if(devtext == "true"){%>  
-                      <p class="text-black ">
+                      <p class="text-black" style="white-space: pre-line;">
                         <%=form.dev_info%>
                       </p>
                       <%}%>
@@ -168,7 +182,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
                 errors.length = 0;
 
-                if (!validateEmail(email) || !validatePhone(phone)) {
+                if (!validateEmail(email) || !validatePhone(phone) || !validateSelect()) {
                     errorElement.innerText = errors.join('\n');
                     return false;
                 } else {
@@ -243,9 +257,9 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
             }
             return true;
           }
-        }
+      }
         
-        function validatePhone(phoneNumber) {
+      function validatePhone(phoneNumber) {
           if (!phoneNumber) {
             errors.push("Phone number cannot be empty.")
             return false;
@@ -257,8 +271,22 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
             }
             return true;
           }
-        }
-}
+      }
+
+      function validateSelect() {
+          const selects = document.querySelectorAll('select');
+          let isValid = true;
+          for (const select of selects) {
+              if (select.value === "" || select.options[select.selectedIndex].disabled) {
+                  errors.push(`Please Fill All Fields.`);
+                  isValid = false;
+                  break;
+              }
+          }
+          return isValid;
+      }
+
+      }
 
 async function sendToServer(data) {
     const id = document.getElementById('formId').innerText;

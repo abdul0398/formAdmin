@@ -481,14 +481,6 @@
           placeholder="Enter Client Name"
         />
       </div>
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control border p-1 mt-1 border-1"
-          id="websiteInput"
-          placeholder="Enter Website URL"
-        />
-      </div>
       <div class="d-flex mt-3">
         <button class="btn mx-auto" onclick="addclientHandler()">Add</button>
       </div>
@@ -531,14 +523,6 @@
           class="form-control border p-1 mt-1 border-1"
           id="client_name_edit"
           placeholder="Enter Name"
-        />
-      </div>
-      <div class="form-group">
-        <input
-          type="email"
-          class="form-control border p-1 mt-1 border-1"
-          id="client_website_edit"
-          placeholder="Enter Website URL"
         />
       </div>
       <div class="d-flex mt-3">
@@ -723,67 +707,132 @@
           </div>
         </div>
       </div>
-      <dialog class="w-100 h-100 p-5 border border-2 position-relative rounded-5 rounded">
+      <dialog
+        class="w-100 h-100 p-5 border border-2 position-relative rounded-5 rounded"
+      >
         <div class="d-flex flex-column-reverse h-100 w-100 flex-lg-row">
-          <div class="overflow-auto edit-container border border-1 p-5 w-100 w-lg-50 h-100">
+          <div
+            class="overflow-auto edit-container border border-1 p-5 w-100 w-lg-50 h-100"
+          >
+            <p class="mt-4" style="font-weight: 600">Element Ids</p>
+            <input
+              type="text"
+              class="border border-3 p-2 form-control mb-1"
+              placeholder="Name Element Id"
+              id="nameId"
+            />
+            <input
+              type="text"
+              class="border border-3 p-2 form-control mb-1"
+              placeholder="Email Element Id"
+              id="emailId"
+            />
+            <input
+              type="text"
+              class="border border-3 p-2 form-control mb-1"
+              placeholder="Phone Element Id"
+              id="phoneId"
+            />
+            <input
+              type="text"
+              class="border border-3 p-2 form-control mb-1"
+              placeholder="Bedroom Select Id"
+              id="bedroom_select_id"
+            />
 
-            
-              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Bot Name" id="botName">
-              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Project Name" id="projectName">
-              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Client Name" id="clientName">
-
-              <textarea name="developerinfo" id="developerinfo" class="border border-3 p-2 form-control mb-1" placeholder="Enter Developer Info"></textarea>
-
-              <hr style="border-top: 2px solid black !important" />
-
-              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Name Element Id" id="nameId">
-              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Email Element Id" id="emailId">
-              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Phone Element Id" id="phoneId">
-              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Select1 Element Id" id="select1Id">
-              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Select2 Element Id" id="select2Id">
-              <input type="text" class="border border-3 p-2 form-control mb-1" placeholder="Select3 Element Id" id="select3Id">
-
-              <hr style="border-top: 2px solid black !important" />
-              <textarea name="css" class="border border-3 p-1 form-control mb-1" placeholder="Enter Css" id="css" cols="30" rows="10">
-              </textarea>
-
-
-              <hr style="border-top: 2px solid black !important" />
-
-
-            <div id="discord-container" style="text-align: start">
-              <div id="discord-dynamic-container">
-              </div>
-              <button
-                type="button"
-                class="my-1 rounded-3 px-2 py-1"
-                onclick="addDiscord()"
-              >
-                Add Discord Link
-              </button>
-            </div>
+            <input
+              type="text"
+              class="border border-3 p-2 form-control mb-1"
+              placeholder="Request Select Id"
+              id="request_select_id"
+            />
 
             <hr style="border-top: 2px solid black !important" />
-            <div id="hook-container" style="text-align: start">
-              <div id="hook-dynamic-container">
+
+            <p class="mt-4" style="font-weight: 600">Custom Css</p>
+            <textarea
+              name="css"
+              class="border border-3 p-1 form-control mb-1"
+              placeholder="Enter Css"
+              id="css"
+              cols="30"
+              rows="10"
+            >
+            </textarea>
+
+            <hr style="border-top: 2px solid black !important" />
+            <p class="mt-4" style="font-weight: 600">Developer Info</p>
+            
+            <textarea
+              name="developerinfo"
+              id="developerinfo"
+              class="border border-3 p-2 form-control mb-1"
+              rows="7"
+              placeholder="Enter Developer Info"
+            ></textarea>
+
+            <hr style="border-top: 2px solid black !important" />
+
+
+            <div class="labels_div">
+              <p class="mt-4" style="font-weight: 600">Labels</p>
+              
+              <div class="d-flex">
+                <input
+                type="text"
+                class="border border-3 p-2 form-control mb-1"
+                placeholder="Name Label"
+                id="nameLabel"
+                />
               </div>
-              <button
-                type="button"
-                class="my-1 rounded-3 px-2 py-1"
-                onclick="addHook()"
-              >
-                Add Hook Link
-              </button>
+  
+              <div class="d-flex">
+                <input
+                type="text"
+                class="border border-3 p-2 form-control mb-1"
+                placeholder="Email Label"
+                id="emailLabel"
+                />
+                
+              </div>
+              
+              <div class="d-flex">
+                <input
+                type="text"
+                class="border border-3 p-2 form-control mb-1"
+                placeholder="Phone Label"
+                id="phoneLabel"
+                />
+                
+              </div>
+              
+              <div class="d-flex">
+                <input
+                type="text"
+                class="border border-3 p-2 form-control mb-1"
+                placeholder="Bedroom Label"
+                id="bedroomLabel"
+                />
+                
+              </div>
+              
+              <div class="d-flex">
+                <input
+                type="text"
+                class="border border-3 p-2 form-control mb-1"
+                placeholder="Request Label"
+                id="requestLabel"
+                />
+              </div>
             </div>
+
+
+
 
             <hr style="border-top: 2px solid black !important" />
             <div class="bedroom-edit">
-              <p class="mt-4" style="font-weight: 600">
-                Edit Options For Bedroom
-              </p>
-              <div id="dynamic-bedroom-container">
-
-              </div>
+              <p class="mt-4" style="font-weight: 600">Bedroom</p>
+              <div id="dynamic-bedroom-container"></div>
               <button
                 str="bedroom"
                 onclick="addMoreOption(this)"
@@ -794,30 +843,9 @@
             </div>
 
             <hr style="border-top: 2px solid black !important" />
-            <div class="condo-edit">
-              <p class="mt-4" style="font-weight: 600">
-                Edit Options For Condo
-              </p>
-              <div id="dynamic-condo-container">
-
-              </div>
-              <button
-                str="condo"
-                onclick="addMoreOption(this)"
-                class="px-2 py-1 rounded-3 mt-1"
-              >
-                Add More Options
-              </button>
-            </div>
-
-            <hr style="border-top: 2px solid black !important" />
             <div class="request-edit">
-              <p class="mt-4" style="font-weight: 600">
-                Edit Options For Request
-              </p>
-              <div id="dynamic-request-container">
-
-              </div>
+              <p class="mt-4" style="font-weight: 600">Request</p>
+              <div id="dynamic-request-container"></div>
               <button
                 str="request"
                 onclick="addMoreOption(this)"
@@ -828,24 +856,57 @@
             </div>
 
             <hr style="border-top: 2px solid black !important" />
-            <!-- <p class="mt-4" style="font-weight: 600">Edit Colors</p> -->
-            <!-- <div class="color-picker d-flex justify-content-around">
-              <div class="d-flex flex-column text-center align-items-center">
-                <span>Form Color</span>
-                <input type="color" id="form-color" />
+            <div class="<%- admin == true ? '' : 'd-none' %>">
+              <p class="mt-4" style="font-weight: 600">Automation</p>
+              <input
+                type="text"
+                class="border border-3 p-2 form-control mb-1"
+                placeholder="Bot Name"
+                id="botName"
+              />
+              <input
+                type="text"
+                class="border border-3 p-2 form-control mb-1"
+                placeholder="Project Name"
+                id="projectName"
+              />
+              <input
+                type="text"
+                class="border border-3 p-2 form-control mb-1"
+                placeholder="Client Name"
+                id="clientName"
+              />
+  
+              <hr style="border-top: 2px solid black !important" />
+  
+              <div id="discord-container" style="text-align: start">
+                <div id="discord-dynamic-container"></div>
+                <button
+                  type="button"
+                  class="my-1 rounded-3 px-2 py-1"
+                  onclick="addDiscord()"
+                >
+                  Add Discord Link
+                </button>
               </div>
-              <div class="d-flex flex-column align-items-center">
-                <span>Text Color</span>
-                <input type="color" id="text-color" value="#e5e5e5" />
+  
+              <hr style="border-top: 2px solid black !important" />
+              <div id="hook-container" style="text-align: start">
+                <div id="hook-dynamic-container"></div>
+                <button
+                  type="button"
+                  class="my-1 rounded-3 px-2 py-1"
+                  onclick="addHook()"
+                >
+                  Add Zappier Link
+                </button>
               </div>
-              <div class="d-flex flex-column align-items-center">
-                <span>Button Color</span>
-                <input type="color" id="btn-color" />
-              </div>
-            </div> -->
+            </div>
 
             <div class="text-center mt-4">
-              <button onclick="saveData()" class="px-4 py-1 rounded-3">Save</button>
+              <button onclick="saveData()" class="px-4 py-1 rounded-3">
+                Save
+              </button>
             </div>
           </div>
           <div class="w-100 w-lg-50 overflow-auto border border-1 h-100vh">
@@ -883,8 +944,9 @@
               >
                 <div class="d-lg-flex d-md-flex justify-content-between">
                   <div class="mb-3 w40">
+                    <label style="color:black !important" for="form-field-dname1">Name</label>
                     <input
-                      style="height: 45px"
+                      style="height: 45px;  pointer-events: none;"
                       type="text"
                       name="name"
                       class="form-control border-0 border-bottom border-3 rounded-0"
@@ -893,8 +955,9 @@
                     />
                   </div>
                   <div class="mb-3 w40">
+                    <label style="color:black !important" for="form-field-demail1">Email</label>
                     <input
-                      style="height: 45px"
+                      style="height: 45px;pointer-events: none;"
                       type="email"
                       name="email"
                       class="form-control rounded-0 border-0 border-bottom border-3"
@@ -904,39 +967,46 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <input
-                    type="tel"
-                    style="height: 45px"
-                    name="phone"
-                    class="form-control rounded-0 border-0 border-bottom border-3"
-                    id="form-field-dphone1"
-                    placeholder="+6583974987"
-                  />
+                  <label style="color:black !important" for="form-field-dphone1">Phone</label>
+                  <div class="mb-3 d-flex flex-row align-items-center border-0 border-bottom border-3">
+                    <img src="/flag.svg" alt="Singapore Flag" class="flag-icon" style="width: 20px;">
+                    <input
+                      type="tel"
+                      style="height: 45px; pointer-events: none;"
+                      name="phone"
+                      class="form-control rounded-0 border-0 ms-1"
+                      id="form-field-dphone1"
+                      placeholder="83974987"
+                    />
+                  </div>
                 </div>
-                <select
-                  id="form-bedroom-select"
-                  style="height: 45px"
-                  class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
-                  aria-label="Default select example"
-                ></select>
-
-                <select
-                  id="form-condo-select"
-                  style="height: 45px"
-                  class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
-                  aria-label="Default select example"
-                ></select>
-
-                <select
-                  id="form-request-select"
-                  style="height: 45px"
-                  class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
-                  aria-label="Default select example"
-                ></select>
-
+                <div class="mb-3">
+                  <label style="color:black !important" for="form-bedroom-select">Bedrooms</label>
+                  <select
+                    id="form-bedroom-select"
+                    style="height: 45px"
+                    class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
+                    aria-label="Default select example"
+                  ></select>
+                </div>
+                <div class="mb-3">
+                  <label style="color:black !important" for="form-request-select">Request</label>
+                  <select
+                    id="form-request-select"
+                    style="height: 45px"
+                    class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
+                    aria-label="Default select example"
+                  ></select>
+                </div>
+                <p class="devtext-preview" style="white-space: pre-line"></p>
                 <div class="text-center">
                   <button
-                    style="height: 45px; background-color: transparent !important; color :black !important"
+                    style="
+                      height: 45px;
+                      background-color: transparent !important;
+                      color: black !important;
+                      pointer-events: none;
+                    "
                     type="submit"
                     id="submitBtn1"
                     class="w-100 rounded-0 border-0 hover-overlay btn"
@@ -1049,9 +1119,8 @@
 
       async function addclientHandler() {
         const name = document.getElementById("nameInput").value;
-        const website = document.getElementById("websiteInput").value;
 
-        if (!name || name.length < 3 || website.length < 3) {
+        if (!name || name.length < 3) {
           swal.fire({
             title: "Invalid Name(Atleast 3 Letters)",
             text: "",
@@ -1071,7 +1140,6 @@
             },
             body: JSON.stringify({
               name: name,
-              website: website,
             }),
           });
           const resData = await res.json();
@@ -1183,13 +1251,13 @@
         showformdiv.innerHTML = "";
         showformdiv.innerHTML = `
                 <div>
-                    <button style="border-radius: 30px; background-color: #002655; color: white;" onclick="openpopupaddproject()" class="btn btn-lg">Add New Forms</button>
+                    <button style="border-radius: 30px; background-color: #002655; color: white;" onclick="openpopupaddproject()" class="btn btn-lg">Add New Form</button>
                 </div>`;
 
         if (!forms || forms.length == 0) {
           showformdiv.innerHTML = `
                 <div>
-                    <button style="border-radius: 30px; background-color: #002655; color: white;" onclick="openpopupaddproject()" class="btn btn-lg">Add New Forms</button>
+                    <button style="border-radius: 30px; background-color: #002655; color: white;" onclick="openpopupaddproject()" class="btn btn-lg">Add New Form</button>
                 </div>
                 <h4 class="text-center" > No Forms </h4>
                 `;
@@ -1202,11 +1270,11 @@
                         <div class="options_div ms-auto" > 
                             
     
-                            <a target="_blank" href="/form/${form.id}/${form.name}?formtype=chatbot" class="${form.id} big_icon btn btn-sm btn-facebook mt-3 me-2" >
+                            <a target="_blank" href="/form/${form.id}?formtype=chatbot" class="${form.id} big_icon btn btn-sm btn-facebook mt-3 me-2" >
                                 View
                             </a>
     
-                            <a target="_blank"  href="/form/${form.id}/${form.name}?formtype=chatbot" class="${form.id} small_icon mt-3 ms-4">
+                            <a target="_blank"  href="/form/${form.id}?formtype=chatbot" class="${form.id} small_icon mt-3 ms-4">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                             
@@ -1276,7 +1344,6 @@
         document.querySelector(".overlay_loading").style.display = "none";
 
         document.getElementById("client_name_edit").value = client.name;
-        document.getElementById("client_website_edit").value = client.website;
         document
           .getElementById("client_del")
           .setAttribute("clientid", client.id);
@@ -1292,7 +1359,6 @@
 
       async function editClientPost() {
         const name = document.getElementById("client_name_edit").value;
-        const website = document.getElementById("client_website_edit").value;
         const clientId = document
           .getElementById("client_edit_post_btn")
           .getAttribute("clientId");
@@ -1308,18 +1374,6 @@
           });
           return;
         }
-
-        if (!website || website.length < 3) {
-          swal.fire({
-            title: "Enter Valid Website (More than 3 Letters)",
-            text: "",
-            icon: "question",
-            confirmButtonText: "Ok",
-            confirmButtonColor: "#002655",
-          });
-          return;
-        }
-
         const res = await fetch(`api/client/update/${clientId}`, {
           method: "POST",
           headers: {
@@ -1327,7 +1381,6 @@
           },
           body: JSON.stringify({
             name: name,
-            website: website,
           }),
         });
         const resData = await res.json();
@@ -1392,8 +1445,8 @@
 
       async function populateEditDialog(formDetails) {
         populatetheSettings(formDetails);
-        populateoForm(formDetails);
-        addEventListenerCustom()
+        populatePreviewForm(formDetails);
+        addEventListenerCustom();
 
         const dialog = document.querySelector("dialog");
         dialog.setAttribute("formId", formDetails.id);
@@ -1426,7 +1479,9 @@
 
     <script>
       function addDiscord() {
-        let inputContainer = document.getElementById("discord-dynamic-container");
+        let inputContainer = document.getElementById(
+          "discord-dynamic-container"
+        );
         let newInput = document.createElement("div");
         newInput.innerHTML =
           '<div class="discord-inner-container d-flex mb-1">' +
@@ -1481,7 +1536,6 @@
         populateSelectOnForm();
       }
 
-
       function populatetheSettings(formDetails) {
         // Setting up the colors
         const botName = document.getElementById("botName");
@@ -1490,29 +1544,51 @@
         const nameId = document.getElementById("nameId");
         const emailId = document.getElementById("emailId");
         const phoneId = document.getElementById("phoneId");
-        const select1Id = document.getElementById("select1Id");
-        const select2Id = document.getElementById("select2Id");
-        const select3Id = document.getElementById("select3Id");
+        const bedroom_select_id = document.getElementById("bedroom_select_id");
+        const request_select_id = document.getElementById("request_select_id");
         const css = document.getElementById("css");
         const developerinfo = document.getElementById("developerinfo");
+        const phoneLabel = document.getElementById("phoneLabel");
+        const nameLabel = document.getElementById("nameLabel");
+        const emailLabel = document.getElementById("emailLabel");
+        const bedroomLabel = document.getElementById("bedroomLabel");
+        const requestLabel = document.getElementById("requestLabel");
+
+
+
+        phoneLabel.value = formDetails.form_fields.find(
+          (field) => field.name == "phone"
+        )?.label;
+        nameLabel.value = formDetails.form_fields.find(
+          (field) => field.name == "name"
+        )?.label;
+        emailLabel.value = formDetails.form_fields.find(
+          (field) => field.name == "email"
+        )?.label;
+        bedroomLabel.value = formDetails.form_fields.find(
+          (field) => field.name == "bedroom"
+        )?.label;
+        requestLabel.value = formDetails.form_fields.find(
+          (field) => field.name == "request"
+        )?.label;
+
 
 
         botName.value = formDetails.bot_name;
         projectName.value = formDetails.project_name;
-        clientName.value = formDetails.client_name;        
+        clientName.value = formDetails.client_name;
         nameId.value = formDetails.name_id;
         emailId.value = formDetails.email_id;
         phoneId.value = formDetails.phone_id;
-        select1Id.value = formDetails.select1_id;
-        select2Id.value = formDetails.select2_id;
-        select3Id.value = formDetails.select3_id;
+        bedroom_select_id.value = formDetails.bedroom_select_id;
+        request_select_id.value = formDetails.request_select_id;
         css.value = formDetails.css;
         developerinfo.value = formDetails.dev_info;
 
-
-
         // setting up the discord links
-        const discordContainer = document.getElementById("discord-dynamic-container");
+        const discordContainer = document.getElementById(
+          "discord-dynamic-container"
+        );
         discordContainer.innerHTML = "";
         formDetails.discord.forEach((link) => {
           let newInput = document.createElement("div");
@@ -1525,7 +1601,7 @@
             "</div>";
           discordContainer.appendChild(newInput);
         });
-      
+
         // setting up the hook links
         const hookContainer = document.getElementById("hook-dynamic-container");
         hookContainer.innerHTML = "";
@@ -1541,9 +1617,10 @@
           hookContainer.appendChild(newInput);
         });
 
-
         // setting up the options
-        const bedroomContainer = document.querySelector("#dynamic-bedroom-container");
+        const bedroomContainer = document.querySelector(
+          "#dynamic-bedroom-container"
+        );
         bedroomContainer.innerHTML = "";
         const bedroomOptions = formDetails?.form_fields?.find(
           (field) => field.name == "bedroom"
@@ -1560,24 +1637,9 @@
           bedroomContainer.appendChild(newInput);
         });
 
-        const condoContainer = document.querySelector("#dynamic-condo-container");
-        condoContainer.innerHTML = "";
-        const condoOptions = formDetails?.form_fields?.find(
-          (field) => field.name == "condo"
-        )?.options;
-        condoOptions?.forEach((option) => {
-          let newInput = document.createElement("div");
-          newInput.innerHTML =
-            '<div class="d-flex mb-1">' +
-            '    <input type="text" class="border border-3 p-2 form-control"  placeholder="Enter Option For Condo" value="' +
-            option +
-            '">' +
-            '    <button title="Delete Option" onclick="removeSelect(this)" class="bg-transparent ms-2"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
-            "</div>";
-          condoContainer.appendChild(newInput);
-        });
-
-        const requestContainer = document.querySelector("#dynamic-request-container");
+        const requestContainer = document.querySelector(
+          "#dynamic-request-container"
+        );
         requestContainer.innerHTML = "";
         const requestOptions = formDetails?.form_fields?.find(
           (field) => field.name == "request"
@@ -1591,62 +1653,107 @@
             '">' +
             '    <button title="Delete Option" onclick="removeSelect(this)" class="bg-transparent ms-2"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
             "</div>";
-          requestContainer.appendChild(newInput)
+          requestContainer.appendChild(newInput);
         });
-
       }
-    
-      function addEventListenerCustom(){
-        const bedroomOptionsContainer = document.querySelector("#dynamic-bedroom-container");
-        const bedroomOptions = bedroomOptionsContainer.querySelectorAll("input");
-        const condoOptions = document.querySelectorAll("#dynamic-condo-container input");
-        const requestOptions = document.querySelectorAll("#dynamic-request-container input");
+
+      function addEventListenerCustom() {
+        const bedroomOptionsContainer = document.querySelector(
+          "#dynamic-bedroom-container"
+        );
+        const bedroomOptions =
+          bedroomOptionsContainer.querySelectorAll("input");
+        const requestOptions = document.querySelectorAll(
+          "#dynamic-request-container input"
+        );
         bedroomOptions.forEach((option) => {
-          option.addEventListener("input", ()=>{
+          option.addEventListener("input", () => {
             populateSelectOnForm();
           });
         });
-        condoOptions.forEach((option) => {
-          option.addEventListener("input", populateSelectOnForm);
-        });
+
         requestOptions.forEach((option) => {
           option.addEventListener("input", populateSelectOnForm);
         });
+
+        const developerinfo = document.getElementById("developerinfo");
+        developerinfo.addEventListener("input", () => {
+          document.querySelector(".devtext-preview").innerText =
+            developerinfo.value;
+        });
+
+        const labels_div = document.querySelectorAll(".labels_div input");
+        const form_labels = document.querySelectorAll("form label");
+        
+        
+        labels_div.forEach((label, index) => {
+          label.addEventListener("input", () => {
+            form_labels[index].innerText = label.value;
+          });
+        });
+
+
+
       }
 
-      function populateoForm(formDetails){
+      function populatePreviewForm(formDetails) {
         const form = document.getElementById("headform1");
+
+        const devText = document.querySelector(".devtext-preview");
+        devText.innerText = formDetails.dev_info;
+
+        //populate the form labels
+        const nameField = formDetails.form_fields.find(
+          (field) => field.name == "name"
+        );
+        const emailField = formDetails.form_fields.find(
+          (field) => field.name == "email"
+        );
+        const phoneField = formDetails.form_fields.find(
+          (field) => field.name == "phone"
+        );
+        const bedroomField = formDetails.form_fields.find(
+          (field) => field.name == "bedroom"
+        );
+        const requestField = formDetails.form_fields.find(
+          (field) => field.name == "request"
+        );
+
+        const labels = form.querySelectorAll('label');
+        labels[0].innerText = nameField.label;
+        labels[1].innerText = emailField.label;
+        labels[2].innerText = phoneField.label;
+        labels[3].innerText = bedroomField.label;
+        labels[4].innerText = requestField.label;
+
+
 
         // Setting the select options
         const bedroomSelect = document.getElementById("form-bedroom-select");
         bedroomSelect.innerHTML = "";
 
-        const condoSelect = document.getElementById("form-condo-select");
-        condoSelect.innerHTML = "";
+        bedroomSelect.innerHTML = `
+        <option selected disabled>Select Bedroom</option>
+        `;
 
         const requestSelect = document.getElementById("form-request-select");
         requestSelect.innerHTML = "";
 
+        requestSelect.innerHTML = `<option selected disabled>Please Select</option>`;
+
         const bedroomOptions = formDetails?.form_fields?.find(
           (field) => field.name == "bedroom"
         )?.options;
-        const condoOptions = formDetails?.form_fields?.find(
-          (field) => field.name == "condo"
-        )?.options;
+
         const requestOptions = formDetails?.form_fields?.find(
           (field) => field.name == "request"
         )?.options;
+
         bedroomOptions?.forEach((option) => {
           let newOption = document.createElement("option");
           newOption.value = option;
           newOption.text = option;
           bedroomSelect.add(newOption);
-        });
-        condoOptions?.forEach((option) => {
-          let newOption = document.createElement("option");
-          newOption.value = option;
-          newOption.text = option;
-          condoSelect.add(newOption);
         });
         requestOptions?.forEach((option) => {
           let newOption = document.createElement("option");
@@ -1655,32 +1762,32 @@
           requestSelect.add(newOption);
         });
       }
-    
-      function populateSelectOnForm(){
+
+      function populateSelectOnForm() {
         const bedroomSelect = document.getElementById("form-bedroom-select");
         bedroomSelect.innerHTML = "";
 
-        const condoSelect = document.getElementById("form-condo-select");
-        condoSelect.innerHTML = "";
+        bedroomSelect.innerHTML = `
+        <option selected disabled>Select Bedroom</option>
+        `;
 
         const requestSelect = document.getElementById("form-request-select");
         requestSelect.innerHTML = "";
 
-        const bedroomOptions = document.querySelectorAll("#dynamic-bedroom-container input");
-        const condoOptions = document.querySelectorAll("#dynamic-condo-container input");
-        const requestOptions = document.querySelectorAll("#dynamic-request-container input");
+        requestSelect.innerHTML = `<option selected disabled>Please Select</option>`;
+
+        const bedroomOptions = document.querySelectorAll(
+          "#dynamic-bedroom-container input"
+        );
+        const requestOptions = document.querySelectorAll(
+          "#dynamic-request-container input"
+        );
 
         bedroomOptions.forEach((option) => {
           let newOption = document.createElement("option");
           newOption.value = option.value;
           newOption.text = option.value;
           bedroomSelect.add(newOption);
-        });
-        condoOptions.forEach((option) => {
-          let newOption = document.createElement("option");
-          newOption.value = option.value;
-          newOption.text = option.value;
-          condoSelect.add(newOption);
         });
 
         requestOptions.forEach((option) => {
@@ -1690,99 +1797,112 @@
           requestSelect.add(newOption);
         });
       }
-    
-      function extractData(){
 
-          const botName = document.getElementById("botName").value;
-          const projectName = document.getElementById("projectName").value;
-          const clientName = document.getElementById("clientName").value;
-          const developerinfo = document.getElementById("developerinfo").value;
-      
-          // Ids of the form fields 
-          const nameId = document.getElementById("nameId").value;
-          const emailId = document.getElementById("emailId").value;
-          const phoneId = document.getElementById("phoneId").value;
-          const select1Id = document.getElementById("select1Id").value;
-          const select2Id = document.getElementById("select2Id").value;
-          const select3Id = document.getElementById("select3Id").value;
-          const css = document.getElementById("css").value;
+      function extractData() {
+        const botName = document.getElementById("botName").value;
+        const projectName = document.getElementById("projectName").value;
+        const clientName = document.getElementById("clientName").value;
+        const developerinfo = document.getElementById("developerinfo").value;
+
+        // Ids of the form fields
+        const nameId = document.getElementById("nameId").value;
+        const emailId = document.getElementById("emailId").value;
+        const phoneId = document.getElementById("phoneId").value;
+        const bedroom_select_id = document.getElementById("bedroom_select_id").value;
+        const request_select_id = document.getElementById("request_select_id").value;
+        const css = document.getElementById("css").value;
 
 
-          const discordContainer = document.getElementById("discord-dynamic-container");
-          const hookContainer = document.getElementById("hook-dynamic-container");
-          const bedroomOptions = document.querySelectorAll("#dynamic-bedroom-container input");
-          const condoOptions = document.querySelectorAll("#dynamic-condo-container input");
-          const requestOptions = document.querySelectorAll("#dynamic-request-container input");
+        const phoneLabel = document.getElementById("phoneLabel").value;
+        const nameLabel = document.getElementById("nameLabel").value;
+        const emailLabel = document.getElementById("emailLabel").value;
+        const bedroomLabel = document.getElementById("bedroomLabel").value;
+        const requestLabel = document.getElementById("requestLabel").value;
 
 
 
 
-          const discordLinks = [];
-          const hookLinks = [];
-          const bedroomOptionsArr = [];
-          const condoOptionsArr = [];
-          const requestOptionsArr = [];
-
-          discordContainer.querySelectorAll("input").forEach((input) => {
-            discordLinks.push(input.value);
-          });
-
-          hookContainer.querySelectorAll("input").forEach((input) => {
-            hookLinks.push(input.value);
-          });
-
-          bedroomOptions.forEach((option) => {
-            bedroomOptionsArr.push(option.value);
-          });
-
-          condoOptions.forEach((option) => {
-            condoOptionsArr.push(option.value);
-          });
-
-          requestOptions.forEach((option) => {
-            requestOptionsArr.push(option.value);
-          });
 
 
-          const form_fields = [
-            {
-              name: "bedroom",
-              options: bedroomOptionsArr,
-            },
-            {
-              name: "condo",
-              options: condoOptionsArr,
-            },
-            {
-              name: "request",
-              options: requestOptionsArr,
-            },
-          ];
+        const discordContainer = document.getElementById(
+          "discord-dynamic-container"
+        );
+        const hookContainer = document.getElementById("hook-dynamic-container");
+        const bedroomOptions = document.querySelectorAll(
+          "#dynamic-bedroom-container input"
+        );
+        const requestOptions = document.querySelectorAll(
+          "#dynamic-request-container input"
+        );
 
-          const data = {
-            name_id: nameId,
-            email_id: emailId,
-            phone_id: phoneId,
-            select1_id: select1Id,
-            select2_id: select2Id,
-            select3_id: select3Id,
-            css: css,
-            discord: discordLinks,
-            zappier: hookLinks,
-            form_fields: form_fields,
-            botName: botName,
-            projectName: projectName,
-            dev_info:developerinfo,
-            clientName: clientName,
-          };
-          return data;
+        const discordLinks = [];
+        const hookLinks = [];
+        const bedroomOptionsArr = [];
+        const requestOptionsArr = [];
+
+        discordContainer.querySelectorAll("input").forEach((input) => {
+          discordLinks.push(input.value);
+        });
+
+        hookContainer.querySelectorAll("input").forEach((input) => {
+          hookLinks.push(input.value);
+        });
+
+        bedroomOptions.forEach((option) => {
+          bedroomOptionsArr.push(option.value);
+        });
+
+        requestOptions.forEach((option) => {
+          requestOptionsArr.push(option.value);
+        });
+
+        const form_fields = [
+          {
+            name: "bedroom",
+            options: bedroomOptionsArr,
+            label: bedroomLabel,
+          },
+          {
+            name: "request",
+            options: requestOptionsArr,
+            label: requestLabel,
+          },
+          {
+            name: "name",
+            label: nameLabel,
+          },
+          {
+            name: "email",
+            label: emailLabel,
+          },
+          {
+            name: "phone",
+            label: phoneLabel,
+          },
+        ];
+
+        const data = {
+          name_id: nameId,
+          email_id: emailId,
+          phone_id: phoneId,
+          bedroom_select_id: bedroom_select_id,
+          request_select_id: request_select_id,
+          css: css,
+          discord: discordLinks,
+          zappier: hookLinks,
+          form_fields: form_fields,
+          botName: botName,
+          projectName: projectName,
+          dev_info: developerinfo,
+          clientName: clientName,
+        };
+        return data;
       }
 
-      async function saveData(){
+      async function saveData() {
         const dialog = document.querySelector("dialog");
         const formId = dialog.getAttribute("formId");
         const data = extractData();
-
 
         const res = await fetch(`/api/form/update/${formId}`, {
           method: "POST",
@@ -1801,7 +1921,7 @@
             icon: "success",
             confirmButtonText: "Ok",
             confirmButtonColor: "#002655",
-          })
+          });
         } else {
           swal.fire({
             title: "Error",
@@ -1812,7 +1932,6 @@
           });
         }
       }
-
     </script>
   </body>
 </html>

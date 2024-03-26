@@ -6,20 +6,20 @@ const router = express.Router();
 router.get("/clients", verify, async (req, res, next)=>{
     try {
         const [rows] = await __pool.query(`SELECT * FROM clients`);
-        res.render("clients.ejs", {clients:rows});
+        res.render("clients.ejs", {clients:rows, admin:req.user.role === "admin"});
     } catch (error) {
         console.log(error.message);
         next();
     }
 
 }).post("/api/client/create", verify, async (req, res)=>{
-    const {name, website} = req.body;
+    const {name} = req.body;
     try {
-        const [rows] = await __pool.query(`SELECT * FROM clients WHERE name = ? AND website = ?`, [name, website]);
+        const [rows] = await __pool.query(`SELECT * FROM clients WHERE name = ?`, [name]);
         if(rows.length > 0){
-            return res.status(401).json({message:"Client with this name and website already exists"});
+            return res.status(401).json({message:"Client with this name already exists"});
         }
-        const [row] = await __pool.query(`INSERT INTO clients (name, website) VALUES(?, ?)`, [name, website]);
+        const [row] = await __pool.query(`INSERT INTO clients (name) VALUES(?)`, [name]);
         res.status(200).json({id:row.insertId});
     } catch (error) {
         
@@ -41,18 +41,18 @@ router.get("/clients", verify, async (req, res, next)=>{
     }
 }).post("/api/client/update/:id", verify, async (req, res)=>{
     const {id} = req.params;
-    const {name, website} = req.body;
+    const {name} = req.body;
     try {
         const [rows] = await __pool.query(`SELECT * FROM clients WHERE id = ?`, [id]);
         if(rows.length === 0){
             return res.status(404).json({message:"Client not found"});
         }
-        // check existing client with same name and website
-        const [row] = await __pool.query(`SELECT * FROM clients WHERE name = ? AND website = ? AND id != ?`, [name, website, id]);
+        // check existing client with same name
+        const [row] = await __pool.query(`SELECT * FROM clients WHERE name = ? AND id != ?`, [name, id]);
         if(row.length > 0){
-            return res.status(400).json({message:"Client with this name and website already exists"});
+            return res.status(400).json({message:"Client with this name already exists"});
         }
-        await __pool.query(`UPDATE clients SET name = ?, website = ? WHERE id = ?`, [name, website, id]);
+        await __pool.query(`UPDATE clients SET name = ? WHERE id = ?`, [name, id]);
         res.status(200).json("Client Updated Successfully with name "+ name);
     } catch (error) {
         console.log(error.message);

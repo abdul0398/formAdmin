@@ -5,9 +5,9 @@ const startWorker = require("../queue/workers");
 const router = express.Router();
 
 router
-.get("/form/:id/:name", async (req, res, next) => {
-    const { name, id } = req.params;
-    const {formtype, reqtype, devtext} = req.query;
+.get("/form/:id", async (req, res, next) => {
+    const { id } = req.params;
+    const {formtype, reqtype, devtext, label} = req.query;
     if(!['chatbot','registration','header','footer'].includes(formtype)){
       return next();
     }
@@ -21,23 +21,37 @@ router
       const bedroomOptions = rows[0].form_fields.find((elem)=>{
         return elem.name === "bedroom";
       })
-      const condoOptions = rows[0].form_fields.find((elem)=>{
-        return elem.name === "condo";
-      }
-      )
+
       const requestOptions = rows[0].form_fields.find((elem)=>{
         return elem.name === "request";
-      }
-      )
+      })
+
+      const inputLable = rows[0].form_fields.filter((elem)=>{
+        return elem.name == 'name';
+      })
+
+      const emailLable = rows[0].form_fields.filter((elem)=>{
+        return elem.name == 'email';
+      })
+
+      const phoneLable = rows[0].form_fields.filter((elem)=>{
+        return elem.name == 'phone';
+      });
+
+
       return res.render("form.ejs", {
-        title: name,
         form: rows[0],
+        inputLabel: inputLable[0].label,
+        emailLabel: emailLable[0].label,
+        phoneLabel: phoneLable[0].label,
         bedroomOptions: bedroomOptions.options? bedroomOptions.options : [],
-        condoOptions: condoOptions.options? condoOptions.options : [],
         requestOptions: requestOptions.options? requestOptions.options : [],
+        bedroomLabel: bedroomOptions.label,
+        requestLabel: requestOptions.label,
         formType: formtype,
         reqtype:reqtype,
-        devtext:devtext
+        devtext:devtext,
+        label:label
       });
     } catch (error) {
       console.log(error.message);
@@ -78,6 +92,14 @@ router
           .json({ message: "Form with this name already exists" });
       }
 
+
+      const dev_info = `
+      Your information is secure with us! Register now to secure your spot at 19 Nassim
+
+      Follow the official booking process for a smooth experience. Brought to you by Keppel Land Limited a trusted developer
+
+`
+
       const form_fields = [
         {
           name: "bedroom",
@@ -89,16 +111,7 @@ router
             "4 bedroom Premium",
             "5 bedroom Premium",
           ],
-        },
-        {
-          name: "condo",
-          options: [
-            "Lentor Modern",
-            "Lentor Hill Resedence",
-            "Hillock Green",
-            "Lentoria",
-            "Lento Mansion",
-          ],
+          label: "Bedroom",
         },
         {
           name: "request",
@@ -107,7 +120,22 @@ router
             "Units And Price list",
             "Arrange Showflat Viewing",
           ],
+          label: "Request",
         },
+      
+        {
+          name: "name",
+          label: "Name",
+        },
+        {
+          name: "email",
+          label: "Email",
+        },
+        {
+          name: "phone",
+          label: "Phone",
+        }
+      
       ];
 
       await __pool.query(
@@ -121,10 +149,10 @@ router
               name_id,
               email_id,
               phone_id,
-              select1_id,
-              select2_id,
-              select3_id,
-              css
+              bedroom_select_id,
+              request_select_id,
+              css,
+              dev_info
             ) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `,
@@ -138,9 +166,9 @@ router
           "email",
           "phone",
           "bedroom",
-          "condo",
           "request",
-          ""
+          "",
+          dev_info
         ]
       );
 
@@ -162,14 +190,12 @@ router
       name_id,
       email_id,
       phone_id,
-      select1_id,
-      select2_id,
-      select3_id,
+      bedroom_select_id,
+      request_select_id,
       dev_info,
       css
     } = req.body;
 
-    console.log(typeof css);
     try {
       await __pool.query(
         `
@@ -184,9 +210,8 @@ router
            name_id = ?,
            email_id = ?,
            phone_id = ?,
-           select1_id = ?,
-           select2_id = ?,
-           select3_id = ?,
+           bedroom_select_id = ?,
+           request_select_id = ?,
            css = ?,
            dev_info = ?
            WHERE id = ?
@@ -201,9 +226,8 @@ router
            name_id,
            email_id,
            phone_id,
-           select1_id,
-           select2_id,
-           select3_id,
+           bedroom_select_id,
+           request_select_id,
            css,
            dev_info,
            formID

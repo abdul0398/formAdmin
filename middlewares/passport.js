@@ -17,7 +17,7 @@ async function verifyForUser(email, password, cb) {
 
 function serializeUser(user, cb) {
     process.nextTick(function() {
-      cb(null, { id: user.id, username: user.email})
+      cb(null, { id: user.id, username: user.email, role: user.role})
     })
 }
 
