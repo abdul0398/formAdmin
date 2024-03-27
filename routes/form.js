@@ -250,7 +250,27 @@ router
       console.log(error.message);
       res.status(500).json({ message: error.message });
     }
-  })
+}).get("/api/fetch/forms", verify, async (req, res, next)=>{
+  try {
+      const query = `
+          SELECT 
+              forms.id,
+              forms.name,
+              forms.client_id,
+              clients.name AS client_name
+          FROM 
+              forms
+          JOIN 
+              clients ON forms.client_id = clients.id
+      `;
+      const [forms] = await __pool.query(query);
+      res.status(200).json(forms);
+  } catch (error) {
+      console.error(error);
+      next();
+  }
+})
+
   
 
 module.exports = router;

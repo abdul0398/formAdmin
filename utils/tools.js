@@ -132,10 +132,22 @@ async function saveDataToMasterDb(data) {
   }
 }
 
+async function saveLeadToLocalDb(lead, client_id, form_id) {
+  try {
+    await __pool.query(
+      `INSERT INTO leads (client_id, form_id, name, email, phone, ip_address, status, is_send_discord) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [client_id, form_id, lead.name, lead.email, lead.ph_number, lead.ip_address, lead.status, lead.is_send_discord]
+    );
+  } catch (error) {
+    console.error('Error saving to local DB:', error);
+  }
+}
+
 module.exports = {
   changeleadtoString,
   contentModerationCustom,
   contentModeratorationAPI,
   validateEmailFromDB,
-  saveDataToMasterDb
+  saveDataToMasterDb,
+  saveLeadToLocalDb
 };

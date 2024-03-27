@@ -1,5 +1,5 @@
 const { Worker } = require("bullmq");
-const { validateEmailFromDB, contentModeratorationAPI, contentModerationCustom, saveDataToMasterDb, changeleadtoString } = require("../utils/tools");
+const { validateEmailFromDB, contentModeratorationAPI, contentModerationCustom, saveDataToMasterDb, changeleadtoString, saveLeadToLocalDb } = require("../utils/tools");
 const { bulkDiscordSender } = require("../utils/discord");
 const { bulkHookSender } = require("../utils/zappier");
 
@@ -29,9 +29,11 @@ async function startWorker() {
                 data.status = "junk";
                 data.is_send_discord = 0;
                 await saveDataToMasterDb(data);
-                console.log("Data is not valid");
+                await saveLeadToLocalDb(data, form.client_id, form.id);
+                console.log("Junk Lead detected. Not sending to discord or zappier." + data.email + " " + data.ph_number + " " + data.name + " " + data.ip_address);
                 return ;
             }
+            await saveLeadToLocalDb(data, form.client_id, form.id);
             await saveDataToMasterDb(data);
             const lead = {
                 ...data,
