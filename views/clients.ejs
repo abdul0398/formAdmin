@@ -1678,7 +1678,7 @@
 
         const developerinfo = document.getElementById("developerinfo");
         developerinfo.addEventListener("input", () => {
-          document.querySelector(".devtext-preview").innerText =
+          document.querySelector(".devtext-preview").innerHTML =
             developerinfo.value;
         });
 
@@ -1700,7 +1700,7 @@
         const form = document.getElementById("headform1");
 
         const devText = document.querySelector(".devtext-preview");
-        devText.innerText = formDetails.dev_info;
+        devText.innerHTML = formDetails.dev_info;
 
         //populate the form labels
         const nameField = formDetails.form_fields.find(
