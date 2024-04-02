@@ -167,7 +167,61 @@ router
           "phone",
           "bedroom",
           "request",
-          "",
+          `/* Form styling */
+          .styled-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0; /* Default background color */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+          
+          /* Background color customization */
+          .styled-form.blue-bg {
+            background-color: #3498db; /* Blue background color */
+          }
+          
+          /* Button styling with shimmer effect */
+          .styled-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50; /* Default button color */
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .styled-form button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.13);
+            transform: rotate(45deg);
+            transition: transform 1s ease-in-out;
+            animation: shimmer 2s infinite;
+          }
+          
+          @keyframes shimmer {
+            0% {
+              transform: rotate(45deg) translate(-50%, -50%);
+            }
+            100% {
+              transform: rotate(45deg) translate(100%, 100%);
+            }
+          }
+          
+          /* Button hover effect */
+          .styled-form button:hover::before {
+            transition: transform 1s ease-in-out;
+            transform: rotate(45deg) translate(100%, 100%);
+          }`,
           dev_info
         ]
       );
