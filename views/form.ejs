@@ -68,7 +68,7 @@
             <div class="w-100">
                 <form id="headform1"
                     class="text-white w-100"
-                    method="post">
+                    method="post" target="_parent" action="thank-you">
                     <div class="<%-formType == 'registration'?"": "d-flex"%> justify-content-between">   
                       <div class="w40">
                         <%if(label == "true"){%>
@@ -247,8 +247,6 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         });
 
         document.getElementById(FormID).addEventListener('submit', function(e) {
-            e.preventDefault();
-            window.parent.location = document.referrer + "thank-you";
         });
       function validateEmail(email) {
           if (!email) {
