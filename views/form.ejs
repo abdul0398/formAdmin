@@ -68,7 +68,7 @@
             <div class="w-100">
                 <form id="headform1"
                     class="text-white w-100"
-                    method="post" target="_parent" action="https://emeraldofkatong-officialsite.com/thank-you">
+                    method="post" target="_parent">
                     <div class="<%-formType == 'registration'?"": "d-flex"%> justify-content-between">   
                       <div class="w40">
                         <%if(label == "true"){%>
@@ -171,6 +171,9 @@
 initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=form.email_id%>', '<%=form.phone_id%>', 'error_msg1');
 
   function initializeFormValidation(ButtonID, FormID, NameID, EmailID, PhoneID, ErrorMsgID) {
+    document.getElementById(FormID).setAttribute('action', document.referrer + 'thank-you');
+
+
         const errors = [];
 
         async function checkValidity(formID, nameTextID, emailTextID, phoneTextID, errorID) {
