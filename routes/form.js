@@ -188,7 +188,7 @@ router
           }
 
           /* Apply shimmer animation to button */
-          .text-center {
+          button {
             background-image: linear-gradient(to right, #AA7551 0%, #e0e0e0 20%, #AA7551 40%, #AA7551 100%);
             background-size: 200% auto;
             animation: shimmer 1.9s infinite linear;
