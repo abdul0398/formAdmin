@@ -947,6 +947,10 @@
                   width: 100%;
                 }
               }
+              #form-field-dname1, #form-field-demail1, #form-field-dphone1, #form-bedroom-select, #form-request-select {
+                  border: none !important;
+                  border-bottom: 2px solid black !important;
+              }
             </style>
             <div class="width-res mx-auto d-flex align-items-center mt-5">
               <form
@@ -962,7 +966,7 @@
                       style="height: 45px;  pointer-events: none;"
                       type="text"
                       name="name"
-                      class="form-control border-0 border-bottom border-3 rounded-0"
+                      class="form-control  rounded-0"
                       id="form-field-dname1"
                       placeholder="Full Name"
                     />
@@ -973,7 +977,7 @@
                       style="height: 45px;pointer-events: none;"
                       type="email"
                       name="email"
-                      class="form-control rounded-0 border-0 border-bottom border-3"
+                      class="form-control rounded-0 "
                       id="form-field-demail1"
                       placeholder="Email"
                     />
@@ -981,7 +985,7 @@
                 </div>
                 <div class="mb-3">
                   <label style="color:black !important" for="form-field-dphone1">Phone</label>
-                  <div class="mb-3 d-flex flex-row align-items-center border-0 border-bottom border-3">
+                  <div class="mb-3 d-flex flex-row align-items-center ">
                     <img src="/flag.svg" alt="Singapore Flag" class="flag-icon" style="width: 20px;">
                     <input
                       type="tel"
@@ -998,7 +1002,7 @@
                   <select
                     id="form-bedroom-select"
                     style="height: 45px"
-                    class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
+                    class="form-select mb-3 rounded-0 "
                     aria-label="Default select example"
                   ></select>
                 </div>
@@ -1007,7 +1011,7 @@
                   <select
                     id="form-request-select"
                     style="height: 45px"
-                    class="form-select mb-3 rounded-0 border-0 border-bottom border-3"
+                    class="form-select mb-3 rounded-0 "
                     aria-label="Default select example"
                   ></select>
                 </div>
@@ -1743,7 +1747,7 @@
         bedroomSelect.innerHTML = "";
 
         bedroomSelect.innerHTML = `
-        <option selected disabled>Please Select</option>
+        <option selected disabled>Select Bedroom</option>
         `;
 
         const requestSelect = document.getElementById("form-request-select");

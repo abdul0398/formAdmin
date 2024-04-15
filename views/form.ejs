@@ -27,6 +27,7 @@
           }
           input{
             font-family: "Montserrat", sans-serif;
+            
           }
           input:focus{
             outline: none !important;
@@ -49,6 +50,11 @@
           button:hover{
             color: black !important;
           }
+
+          input, select{
+            border: none !important;
+            border-bottom: 2px solid black !important;
+          }
         </style>
         <style>
 
@@ -68,23 +74,23 @@
                         <%if(label == "true"){%>
                           <label style="color:black" for="<%=form.name_id%>"><%=inputLabel%></label>  
                         <%}%>
-                          <input  style="height: 45px;" type="text" class="form-control border-0 border-bottom border-3 rounded-0 custom-input-bg"
+                          <input  style="height: 45px;" type="text" class="form-control rounded-0 custom-input-bg"
                               id="<%=form.name_id%>" placeholder="Full Name">
                       </div>
                       <div class="w40">
                         <%if(label == "true"){%>
                           <label style="color:black" for="<%=form.email_id%>"><%=emailLabel%></label>  
                         <%}%>
-                          <input  style="height: 45px;" type="email" class="form-control rounded-0 custom-input-bg border-0 border-bottom border-3"
+                          <input  style="height: 45px;" type="email" class="form-control rounded-0 custom-input-bg "
                               id="<%=form.email_id%>" placeholder="Email">
                       </div>
                     </div>
                     <%if(label == "true"){%>
                       <label style="color:black" for="<%=form.phone_id%>"><%=phoneLabel%></label>  
                     <%}%>
-                    <div class="mb-3 d-flex flex-row align-items-center border-0 border-bottom border-3">
+                    <div class="mb-3 d-flex flex-row align-items-center ">
                       <img src="/flag.svg" alt="Singapore Flag" class="flag-icon">
-                      <input type="tel" style="height: 45px;" class="form-control rounded-0 custom-input-bg border border-0  "
+                      <input type="tel" style="height: 45px;" class="form-control rounded-0 custom-input-bg "
                           id="<%=form.phone_id%>" placeholder="83974987">
                     </div>
 
@@ -102,7 +108,7 @@
                             <%}%>                                           
                             </div>
                           <%}else{%>
-                          <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
+                          <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
                             aria-label="Default select example">
                             <option selected disabled>Please Select</option>
                             <%for(let i = 0; i < requestOptions.length; i++){%>
@@ -124,7 +130,7 @@
                           <%}%>                                           
                           </div>
                         <%}else{%>
-                        <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
+                        <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
                           aria-label="Default select example">
                           <option selected disabled>Please Select</option>
                           <%for(let i = 0; i < requestOptions.length; i++){%>
@@ -135,9 +141,9 @@
                       <%if(label == "true"){%>
                         <label style="color:black"><%=bedroomLabel%></label>  
                       <%}%>
-                      <select name="Bedroom" id="<%=form.select1Id%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg border-0 border-bottom border-3"
+                      <select name="Bedroom" id="<%=form.select1Id%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
                         aria-label="Default select example">
-                        <option selected disabled>Please Select</option>
+                        <option selected disabled>Select Bedroom</option>
                         <%for(let i = 0; i < bedroomOptions.length; i++){%>
                           <option value="<%=bedroomOptions[i]%>"><%=bedroomOptions[i]%></option>
                           <%}%>
