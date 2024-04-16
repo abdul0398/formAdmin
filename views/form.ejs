@@ -90,7 +90,7 @@
                     <%}%>
                     <div class="mb-3 d-flex flex-row align-items-center phone-div">
                       <img src="/flag.svg" alt="Singapore Flag" class="flag-icon">
-                      <input type="tel" style="height: 45px;" class="form-control rounded-0 custom-input-bg "
+                      <input type="tel" style="height: 45px;" value="+65" class="form-control rounded-0 custom-input-bg "
                           id="<%=form.phone_id%>" placeholder="83974987">
                     </div>
 
@@ -239,13 +239,23 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
     
 
         phoneNumberInput.addEventListener("input", function() {
-            let phoneNumber = this.value.replace(/\D/g, '');
-            phoneNumber = phoneNumber.slice(0, 8);
-            this.value = phoneNumber;
-            if (phoneNumber.length === 8) {
+          let phoneNumber = this.value.replace(/\D/g, '');
+          phoneNumber = "+" + phoneNumber;
+          if(!phoneNumber.startsWith("+65")){
+            phoneNumber = "+65";
+          }
+
+          if(phoneNumber.length > 11){
+            phoneNumber = phoneNumber.slice(0, 11);
+          }
+
+          this.value = phoneNumber; 
+            // this.value = phoneNumber;
+            console.log(phoneNumber.length);
+            if (phoneNumber.length === 11) {
                 this.setCustomValidity('');
             } else {
-                this.setCustomValidity('Please enter a valid 11-digit Singaporean phone number.');
+                this.setCustomValidity('Please enter a valid Singaporean phone number.');
             }
         });
 
@@ -266,6 +276,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
       }
         
       function validatePhone(phoneNumber) {
+        phoneNumber = phoneNumber.slice(3);
           if (!phoneNumber) {
             errors.push("Phone number cannot be empty.")
             return false;
