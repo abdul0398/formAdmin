@@ -11,7 +11,7 @@ function changeleadtoString(lead, selects, client_name, project_name) {
     const resultStr = resultStrings.join('\n');  
 
   const result = resultStrings.join('\n');
-  const str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead :\n\n●  Name: ${lead.name}\n●  Contact: https://wa.me/${lead.ph_number}\n●  Email: ${lead.email}\n${resultStr}`;
+  const str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead :\n\n●  Name: ${lead.name}\n●  Contact: https://wa.me/+65${lead.ph_number}\n●  Email: ${lead.email}\n${resultStr}`;
   return str;
 }
 
