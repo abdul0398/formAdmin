@@ -38,7 +38,7 @@
             box-shadow: none !important;
           }
           .w40 {
-            width: <%- formType == 'registration' ? '100%' : '48%' %>;
+            width: <%- formType == 'header' || 'footer' ? '100%' : '48%' %>;
           }
           .flag-icon{
             width: 20px;
@@ -69,7 +69,7 @@
                 <form id="headform1"
                     class="text-white w-100"
                     method="post" target="_parent">
-                    <div class="<%-formType == 'registration'?"": "d-flex"%> justify-content-between">   
+                    <div class="<%-formType == 'header' || 'footer' ?"": "d-flex"%> justify-content-between">   
                       <div class="w40">
                         <%if(label == "true"){%>
                           <label style="color:black" for="<%=form.name_id%>"><%=inputLabel%></label>  
