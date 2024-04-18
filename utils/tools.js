@@ -30,7 +30,6 @@ function contentModerationCustom(text) {
 
   for (let i = 0; i < blacklistWords.length; i++) {
     if (text.toLowerCase().includes(blacklistWords[i].toLowerCase())) {
-      errors.push(`Text contains forbidden word: "${blacklistWords[i]}"`);
       return false;
     }
   }
@@ -58,18 +57,15 @@ async function contentModeratorationAPI(props) {
       const responseBody = await response.json();
       if (responseBody.hasOwnProperty('Terms')) {
         if (responseBody.Terms && responseBody.Terms.length > 0) {
-          errors.push("Content contains forbidden terms.");
           return false;
         }
       }
       return true;
     } else {
-      errors.push("Error, Please try submitting again !");
       return false;
     }
   } catch (error) {
     console.error('Error:', error);
-    errors.push("Error accessing moderation API.")
     return false;
   }
 }
