@@ -194,7 +194,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
                 errors.length = 0;
 
-                if (!validateEmail(email) || !validatePhone(phone)) {
+                if (!validateEmail(email) || !validatePhone(phone) || !validateName(name)) {
                     errorElement.innerText = errors.join('\n');
                     return false;
                 } else {
@@ -307,6 +307,12 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
           return isValid;
       }
 
+      function validateName(name) {
+          if(name === ""){
+            errors.push("name cannot be empty.");
+            return false;
+          }
+      }
       }
 
 async function sendToServer(data) {
