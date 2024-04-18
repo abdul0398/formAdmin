@@ -217,16 +217,16 @@ router
           }
           
           .mb-3 {
-          margin-top:1rem ;
-              margin-bottom: 1rem !important;
+          margin-top:5px ;
+              margin-bottom: 5px !important;
           }
           .btn{
           color:#ffff;
-          margin-top:-5px !important;
+          margin-top:5px !important;
           }
           
           .w40{
-          margin:15px 0px 15px 0px;
+          margin:5px 0px 5px 0px;
           }`,
           dev_info,
         ]
