@@ -165,19 +165,23 @@ router
           "bedroom",
           "request",
           `/* Form styling */
-          .registration {
-       
-        
-            background-color: #f0f0f0; /* Default background color */
-       
-          }
-       
-          /* Background color customization */
-          .registration {
-            background-color: #F2E6CE; /* Blue background color */
-          }
-
-          /* Keyframes for shimmer animation */
+          .chatbot
+           {
+          background-color: #DFA57D;
+          }        
+           .registration {
+                 
+                  
+                      background-color: #f0f0f0; /* Default background color */
+                 
+                    }
+                 
+                    /* Background color customization */
+                    .registration {
+                      background-color: #F2E6CE; /* Blue background color */
+                    }
+          
+                    /* Keyframes for shimmer animation */
           @keyframes shimmer {
             0% {
               background-position: -200px 0;
@@ -186,7 +190,7 @@ router
               background-position: 200px 0;
             }
           }
-
+          
           /* Apply shimmer animation to button */
           button {
             background-image: linear-gradient(to right, #AA7551 0%, #e0e0e0 20%, #AA7551 40%, #AA7551 100%);
@@ -194,6 +198,35 @@ router
             animation: shimmer 1.9s infinite linear;
             border-radius: 10px;
             
+          }
+           .custom-input-bg {
+              background-color: white !important;
+          border-radius:10px !important;
+          border: solid 1px #A9A9A9 !important;
+          }
+          .phone-div {
+             background-color: white !important;
+          border-radius:10px !important;
+          border: solid 1px #A9A9A9 !important;
+          padding-left:3px !important;
+          }
+          .phone-div input {
+             background-color: white !important;
+          border-radius:0px;
+          border: none !important;
+          }
+          
+          .mb-3 {
+          margin-top:1rem ;
+              margin-bottom: 1rem !important;
+          }
+          .btn{
+          color:#ffff;
+          margin-top:-5px !important;
+          }
+          
+          .w40{
+          margin:15px 0px 15px 0px;
           }`,
           dev_info,
         ]
