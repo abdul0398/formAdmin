@@ -245,6 +245,11 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         document.getElementById(ButtonID).addEventListener('click', function(e) {
             e.preventDefault();
             console.log("clicked")
+            const btn = document.getElementById(ButtonID);
+            btn.disabled = true;
+            btn.innerText = "Sending...";
+            btn.style.cursor = "not-allowed";
+            btn.style.backgroundColor = "grey";
             checkValidity(FormID, NameID, EmailID, PhoneID, ErrorMsgID);
         });
 
