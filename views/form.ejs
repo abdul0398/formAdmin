@@ -194,7 +194,13 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
                 errors.length = 0;
 
-                if (!validateEmail(email) || !validatePhone(phone) || !validateName(name)) {
+                console.log(name, email, phone);
+                const isValidName = validateName(name);
+                const isValidEmail = validateEmail(email);
+                const isValidPhone = validatePhone(phone);
+                console.log(isValidName, isValidEmail, isValidPhone);
+                if (!validateName(name) || !validateEmail(email) || !validatePhone(phone)) {
+
                     errorElement.innerText = errors.join('\n');
                     return false;
                 } else {
@@ -212,6 +218,8 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                     errorElement.innerText = errors.join('\n');
                     return false;
                 } else {
+            console.log("b")
+
                     errorElement.innerText = '';
                     const dataToSave = {
                         client_id: null,
@@ -235,6 +243,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
         document.getElementById(ButtonID).addEventListener('click', function(e) {
             e.preventDefault();
+            console.log("clicked")
             checkValidity(FormID, NameID, EmailID, PhoneID, ErrorMsgID);
         });
 
@@ -312,6 +321,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
             errors.push("name cannot be empty.");
             return false;
           }
+          return true;
       }
       }
 
