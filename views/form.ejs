@@ -194,14 +194,12 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
                 errors.length = 0;
 
-                console.log(name, email, phone);
                 const isValidName = validateName(name);
                 const isValidEmail = validateEmail(email);
                 const isValidPhone = validatePhone(phone);
                 console.log(isValidName, isValidEmail, isValidPhone);
                 if (!validateName(name) || !validateEmail(email) || !validatePhone(phone)) {
-
-                    errorElement.innerText = errors.join('\n');
+                    errorElement.innerText = errors[0];
                     return false;
                 } else {
                     errorElement.innerText = '';
@@ -218,7 +216,6 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                     errorElement.innerText = errors.join('\n');
                     return false;
                 } else {
-            console.log("b")
 
                     errorElement.innerText = '';
                     const dataToSave = {
@@ -242,15 +239,11 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
             }
         }
 
-        document.getElementById(ButtonID).addEventListener('click', function(e) {
+        document.getElementById(ButtonID).addEventListener('click', async function(e) {
             e.preventDefault();
-            console.log("clicked")
-            const btn = document.getElementById(ButtonID);
-            btn.disabled = true;
-            btn.innerText = "Sending...";
-            btn.style.cursor = "not-allowed";
-            btn.style.backgroundColor = "grey";
-            checkValidity(FormID, NameID, EmailID, PhoneID, ErrorMsgID);
+          disableBtn();
+            await checkValidity(FormID, NameID, EmailID, PhoneID, ErrorMsgID);
+            enableBtn();
         });
 
         const phoneNumberInput = document.getElementById(PhoneID);
@@ -330,42 +323,63 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
           }
           return true;
       }
-      }
-
-async function sendToServer(data) {
-    const id = document.getElementById('formId').innerText;
-    const selects = document.querySelectorAll('select');
-    const selectValues = [];
-    selects.forEach(select => {
-       // Check if there is a selected option and if it's not disabled
-  if (select.selectedIndex !== -1 && !select.options[select.selectedIndex].disabled) {
-    selectValues.push({ name: select.name, value: select.value });
-  }
-    });
-
-    const reqtype = `<%-reqtype%>`
-
-    if(reqtype == "checkbox"){
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      let selectedReq = ""
-      checkboxes.forEach(checkbox=>{
-        if(checkbox.checked){
-          selectedReq += checkbox.value + ", ";
-        }
-      })
-      selectValues.push({name:"Request", value:selectedReq});
+     
+    
     }
 
-    const res = await fetch(`/api/form/submit/${id}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({data:data, selects:selectValues})
-    });
-    const response = await res.json();
-    return;
-}
+
+    function disableBtn() {
+        const btn = document.getElementById('submitBtn1');
+        btn.disabled = true;
+        btn.innerText = "Sending...";
+        btn.style.cursor = "not-allowed";
+    }
+
+    function enableBtn() {
+        const btn = document.getElementById('submitBtn1');
+        btn.disabled = false;
+        btn.innerText = "Send";
+        btn.style.cursor = "pointer";
+    }
+
+
+
+
+
+    async function sendToServer(data) {
+        const id = document.getElementById('formId').innerText;
+        const selects = document.querySelectorAll('select');
+        const selectValues = [];
+        selects.forEach(select => {
+          // Check if there is a selected option and if it's not disabled
+      if (select.selectedIndex !== -1 && !select.options[select.selectedIndex].disabled) {
+        selectValues.push({ name: select.name, value: select.value });
+      }
+        });
+
+        const reqtype = `<%-reqtype%>`
+
+        if(reqtype == "checkbox"){
+          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+          let selectedReq = ""
+          checkboxes.forEach(checkbox=>{
+            if(checkbox.checked){
+              selectedReq += checkbox.value + ", ";
+            }
+          })
+          selectValues.push({name:"Request", value:selectedReq});
+        }
+
+        const res = await fetch(`/api/form/submit/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({data:data, selects:selectValues})
+        });
+        const response = await res.json();
+        return;
+    }
         </script>
     </body>
 </html>
