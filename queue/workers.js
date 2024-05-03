@@ -1,7 +1,7 @@
 const { Worker } = require("bullmq");
 const { validateEmailFromDB, contentModeratorationAPI, contentModerationCustom, saveDataToMasterDb, changeleadtoString, saveLeadToLocalDb } = require("../utils/tools");
 const { bulkDiscordSender } = require("../utils/discord");
-const { bulkHookSender } = require("../utils/zappier");
+const { bulkHookSender, sendToHooks } = require("../utils/zappier");
 
 let workerInstance; // Singleton worker instance
 
@@ -46,10 +46,10 @@ async function startWorker() {
             const bot_name = form.bot_name || form.name ;
 
             await bulkDiscordSender(form.discord, str, bot_name);
-            await bulkHookSender(lead, form.zappier, form.project_name, form.client_name);            
+            await sendToHooks(lead, form.zappier, form.project_name, form.client_name, selects);            
         } catch (error) {
             console.log(error.message);
-            throw error; // Rethrow the error to mark the job as failed
+            throw error;
         }
       },
       {

@@ -12,7 +12,7 @@ async function bulkHookSender(lead, hooklinks, projectName, clientName){
 
 
 
-async function sendToHooks(lead, hooklink, projectName, clientName){
+async function sendToHooks(lead, hooklink, projectName, clientName, selects){
     const cleanLead = {
         name: lead.name,
         email:lead.email,
@@ -21,6 +21,11 @@ async function sendToHooks(lead, hooklink, projectName, clientName){
         projectName:projectName,
         clientName:clientName
     }
+    
+    selects.forEach(element => {
+        cleanLead[element.name] = element.value;
+    });
+
     
 
         const res = await fetch(hooklink, {
