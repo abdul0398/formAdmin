@@ -1,3 +1,4 @@
+require('dotenv').config()
 const nodemailer = require('nodemailer');
 async function initializeNodemailer(sender_email, app_pass) {
     try {
@@ -17,7 +18,7 @@ async function initializeNodemailer(sender_email, app_pass) {
 }
 
 async function sendMail(lead, receive_email) {
-
+    console.log("sending lead to Mail");
     const sender_email = process.env.SENDER_EMAIL;
     const app_pass = process.env.APP_PASS;
     console.log(sender_email, app_pass, receive_email);
