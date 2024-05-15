@@ -75,6 +75,7 @@
       user-select: none;
       font-size: 14px;
     }
+
     .container_checkbox input {
       position: absolute;
       opacity: 0;
@@ -92,6 +93,7 @@
       background-color: #eee;
       border-radius: 10px;
     }
+
     .container_checkbox:hover input ~ .checkmark_discord {
       background-color: #ccc;
     }
@@ -128,52 +130,64 @@
     .small_icon {
       display: none;
     }
+
     @media (max-width: 927px) {
       .main_container {
         flex-wrap: wrap;
       }
+
       .clients_div {
         width: 100% !important;
       }
+
       #show_profiles_div {
         width: 100% !important;
         margin-top: 15px;
       }
+
       #thankyoupagepopup {
         width: 90% !important;
         margin: auto;
         height: fit-content !important;
         padding: 0px !important;
       }
+
       #meta_form_popup_inner {
         width: 90% !important;
         margin: auto;
       }
+
       .form-container {
         width: 90% !important;
         margin: auto;
       }
+
       #Insurance_form {
         width: 90% !important;
         margin: auto;
       }
+
       #Add_hbd_popup {
         width: 90% !important;
         margin: auto;
       }
+
       .clientedit-popup,
       .clientadd-popup,
       .formAddPopup {
         width: 90% !important;
         margin: auto;
       }
+
       .big_icon {
         display: none;
       }
+
       .small_icon {
         display: inline;
         margin: 6px !important;
       }
+
       .options_div {
         min-width: 120px !important;
         padding-top: 10px;
@@ -183,6 +197,7 @@
     #inputField {
       display: none;
     }
+
     #close_popup_btn {
       position: absolute;
       right: 8px;
@@ -193,6 +208,7 @@
       /* border: 1px solid; */
       height: 25px;
     }
+
     #close_popup_btn:hover {
       cursor: pointer;
     }
@@ -206,6 +222,7 @@
       margin-top: 5px;
       border: 1px solid #c6c6c6;
     }
+
     .question-group button {
       margin-top: 5px;
     }
@@ -245,6 +262,7 @@
     .delete-option-button:hover {
       background-color: #e64c71;
     }
+
     .submit-button {
       background-color: #2ecc71;
       color: #fff;
@@ -256,12 +274,15 @@
       transition: background-color 0.3s;
       margin-bottom: 10px;
     }
+
     textarea {
       padding: 5px;
     }
+
     .submit-button:hover {
       background-color: #27ae60;
     }
+
     #discord_edit_client,
     .clientedit-popup,
     .clientadd-popup,
@@ -278,18 +299,22 @@
       border-radius: 5px;
       padding: 20px;
     }
+
     .clientadd-popup input {
       border: 1px solid #ced4da;
       border-radius: 5px;
       padding: 5px;
       margin-bottom: 5px;
     }
+
     .close_popup {
       display: none;
     }
+
     .open_popup {
       display: block;
     }
+
     .overlay {
       display: none;
       position: fixed;
@@ -301,21 +326,27 @@
       height: 100%;
       z-index: 999;
     }
+
     button {
       border: none;
       background-color: #002655 !important;
       color: white !important;
     }
+
     .overlay_loading {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
-      display: none; /* Initially hidden */
-      z-index: 99999; /* Ensures it's on top of other content */
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Semi-transparent black overlay */
+      display: none;
+      /* Initially hidden */
+      z-index: 99999;
+      /* Ensures it's on top of other content */
     }
+
     .loader {
       border: 4px solid rgba(255, 255, 255, 0.3);
       border-radius: 50%;
@@ -327,43 +358,53 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 10000; /* Ensure the loader is above the overlay */
+      z-index: 10000;
+      /* Ensure the loader is above the overlay */
     }
+
     @keyframes spin {
       0% {
         transform: translate(-50%, -50%) rotate(0deg);
       }
+
       100% {
         transform: translate(-50%, -50%) rotate(360deg);
       }
     }
+
     .menu_icon_div {
       width: 30px;
       height: 30px;
       text-align: center;
       border-radius: 50%;
     }
+
     .menu_icon_div:hover {
       cursor: pointer;
     }
+
     .menu_popup li {
       padding: 5px 18px;
       list-style: none;
       font-size: 16px;
       border-radius: 3px;
     }
+
     .menu_popup li:hover {
       cursor: pointer;
       background-image: linear-gradient(195deg, #028090 0%, #00bfb2 100%);
       color: white;
     }
+
     li:hover > a {
       color: white;
     }
+
     li a {
       text-decoration: none;
       color: black;
     }
+
     .menu_popup {
       background-color: white;
       position: fixed;
@@ -377,6 +418,7 @@
       padding: 10px;
       /* text-align: center; */
     }
+
     .clients_div {
       border-radius: 10px;
       background: #f1f2f5;
@@ -387,10 +429,12 @@
       background-color: #56575b;
       color: white;
     }
+
     .unselected_client {
       background-color: white;
       color: black;
     }
+
     #search_client:focus {
       outline: none;
     }
@@ -409,25 +453,31 @@
       font-weight: 400;
       box-shadow: 0px 4px 11px -7px rgba(0, 0, 0, 0.37);
     }
+
     .center_span {
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     li:hover {
       cursor: pointer;
     }
+
     .forms_div {
       border-radius: 6px;
       height: 60px;
       background-color: #f1f2f5;
     }
+
     #meta_form_popup > div ::-webkit-scrollbar {
       display: none;
     }
+
     #meta_form_popup ::-webkit-scrollbar {
       display: none;
     }
+
     #thankyoupagepopup ::-webkit-scrollbar {
       display: none;
     }
@@ -436,18 +486,22 @@
       cursor: pointer;
       background-color: #bdbdbd;
     }
+
     #client_del:hover {
       cursor: pointer;
     }
+
     @media screen and (max-width: 900px) {
       #client_container {
         position: relative !important;
         top: 0px !important;
       }
+
       #dynamic-form {
         width: 100% !important;
       }
     }
+
     .cross-hover {
       cursor: pointer;
     }
@@ -579,14 +633,14 @@
             </a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link text-white"
-              href="/leads"
-            >
+            <a class="nav-link text-white" href="/leads">
               <div
                 class="text-white text-center me-2 d-flex align-items-center justify-content-center"
               >
-                <i class="fa-solid fa-solid fa-database" style="color: #ffffff"></i>
+                <i
+                  class="fa-solid fa-solid fa-database"
+                  style="color: #ffffff"
+                ></i>
               </div>
               <span class="nav-link-text ms-1">Leads</span>
             </a>
@@ -675,7 +729,7 @@
                   </div>
 
                   <div class="clientsname_div">
-                    <%for(let i = 0; i < clients.length; i++){%>
+                    <%for(let i=0; i < clients.length; i++){%>
                     <li
                       style="width: 150px"
                       class="nav-link-text unselected_client border-0"
@@ -693,7 +747,7 @@
                         "
                         ><i class="fa-solid fa-list" style="color: #ffffff"></i
                       ></span>
-                      <%if(clients[i].name.length > 18){%>
+                      <%if(clients[i].name.length> 18){%>
                       <%=clients[i].name.substring(0, 14) + '...' %> <%}else{%>
                       <%=clients[i].name%> <%}%>
 
@@ -775,7 +829,7 @@
 
             <hr style="border-top: 2px solid black !important" />
             <p class="mt-4" style="font-weight: 600">Developer Info</p>
-            
+
             <textarea
               name="developerinfo"
               id="developerinfo"
@@ -786,61 +840,54 @@
 
             <hr style="border-top: 2px solid black !important" />
 
-
             <div class="labels_div">
               <p class="mt-4" style="font-weight: 600">Labels</p>
-              
+
               <div class="d-flex">
                 <input
-                type="text"
-                class="border border-3 p-2 form-control mb-1"
-                placeholder="Name Label"
-                id="nameLabel"
+                  type="text"
+                  class="border border-3 p-2 form-control mb-1"
+                  placeholder="Name Label"
+                  id="nameLabel"
                 />
               </div>
-  
+
               <div class="d-flex">
                 <input
-                type="text"
-                class="border border-3 p-2 form-control mb-1"
-                placeholder="Email Label"
-                id="emailLabel"
+                  type="text"
+                  class="border border-3 p-2 form-control mb-1"
+                  placeholder="Email Label"
+                  id="emailLabel"
                 />
-                
               </div>
-              
+
               <div class="d-flex">
                 <input
-                type="text"
-                class="border border-3 p-2 form-control mb-1"
-                placeholder="Phone Label"
-                id="phoneLabel"
+                  type="text"
+                  class="border border-3 p-2 form-control mb-1"
+                  placeholder="Phone Label"
+                  id="phoneLabel"
                 />
-                
               </div>
-              
+
               <div class="d-flex">
                 <input
-                type="text"
-                class="border border-3 p-2 form-control mb-1"
-                placeholder="Bedroom Label"
-                id="bedroomLabel"
+                  type="text"
+                  class="border border-3 p-2 form-control mb-1"
+                  placeholder="Bedroom Label"
+                  id="bedroomLabel"
                 />
-                
               </div>
-              
+
               <div class="d-flex">
                 <input
-                type="text"
-                class="border border-3 p-2 form-control mb-1"
-                placeholder="Request Label"
-                id="requestLabel"
+                  type="text"
+                  class="border border-3 p-2 form-control mb-1"
+                  placeholder="Request Label"
+                  id="requestLabel"
                 />
               </div>
             </div>
-
-
-
 
             <hr style="border-top: 2px solid black !important" />
             <div class="bedroom-edit">
@@ -868,6 +915,26 @@
               </button>
             </div>
 
+            <div class="created-fields-container"></div>
+
+            <hr style="border-top: 2px solid black !important" />
+
+            <div>
+              <p class="mt-4" style="font-weight: 600">Create a New Field</p>
+              <Select
+                onchange="createFieldHandler(this)"
+                class="form-select px-2 create-new-field border border-3"
+              >
+                <option selected disabled>Select field Type</option>
+                <option value="input">Input</option>
+                <option value="textarea">TextArea</option>
+                <option value="checkbox">Checkbox</option>
+                <option value="radio">Radio</option>
+                <option value="select">Select</option>
+              </Select>
+              <div class="new-field-edit-container mt-3"></div>
+            </div>
+
             <hr style="border-top: 2px solid black !important" />
             <div class="<%- admin == true ? '' : 'd-none' %>">
               <p class="mt-4" style="font-weight: 600">Automation</p>
@@ -889,9 +956,15 @@
                 placeholder="Client Name"
                 id="clientName"
               />
-  
               <hr style="border-top: 2px solid black !important" />
-  
+              <input
+                type="text"
+                class="border border-3 p-2 form-control mb-1"
+                placeholder="Email"
+                id="email"
+              />
+              <hr style="border-top: 2px solid black !important" />
+
               <div id="discord-container" style="text-align: start">
                 <div id="discord-dynamic-container"></div>
                 <button
@@ -902,7 +975,7 @@
                   Add Discord Link
                 </button>
               </div>
-  
+
               <hr style="border-top: 2px solid black !important" />
               <div id="hook-container" style="text-align: start">
                 <div id="hook-dynamic-container"></div>
@@ -927,14 +1000,17 @@
               .width-res {
                 width: 60%;
               }
+
               @media (max-width: 750px) {
                 .width-res {
                   width: 90% !important;
                 }
               }
+
               input {
                 font-family: "Montserrat", sans-serif;
               }
+
               input:focus {
                 outline: none !important;
               }
@@ -942,14 +1018,21 @@
               .w40 {
                 width: 48%;
               }
+
               @media screen and (max-width: 768px) {
                 .w40 {
                   width: 100%;
                 }
               }
-              #form-field-dname1, #form-field-demail1, #form-field-dphone1, #form-bedroom-select, #form-request-select {
-                  border: none !important;
-                  border-bottom: 2px solid black !important;
+
+              #form-field-dname1,
+              #form-field-demail1,
+              #form-field-dphone1,
+              .new-fields,
+              #form-bedroom-select,
+              #form-request-select {
+                border: none !important;
+                border-bottom: 2px solid black !important;
               }
             </style>
             <div class="width-res mx-auto d-flex align-items-center mt-5">
@@ -961,35 +1044,52 @@
               >
                 <div class="d-lg-flex d-md-flex justify-content-between">
                   <div class="mb-3 w40">
-                    <label style="color:black !important" for="form-field-dname1">Name</label>
+                    <label
+                      style="color: black !important"
+                      for="form-field-dname1"
+                      >Name</label
+                    >
                     <input
-                      style="height: 45px;  pointer-events: none;"
+                      style="height: 45px; pointer-events: none"
                       type="text"
                       name="name"
-                      class="form-control  rounded-0"
+                      class="form-control rounded-0"
                       id="form-field-dname1"
                       placeholder="Full Name"
                     />
                   </div>
                   <div class="mb-3 w40">
-                    <label style="color:black !important" for="form-field-demail1">Email</label>
+                    <label
+                      style="color: black !important"
+                      for="form-field-demail1"
+                      >Email</label
+                    >
                     <input
-                      style="height: 45px;pointer-events: none;"
+                      style="height: 45px; pointer-events: none"
                       type="email"
                       name="email"
-                      class="form-control rounded-0 "
+                      class="form-control rounded-0"
                       id="form-field-demail1"
                       placeholder="Email"
                     />
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label style="color:black !important" for="form-field-dphone1">Phone</label>
-                  <div class="mb-3 d-flex flex-row align-items-center ">
-                    <img src="/flag.svg" alt="Singapore Flag" class="flag-icon" style="width: 20px;">
+                  <label
+                    style="color: black !important"
+                    for="form-field-dphone1"
+                    >Phone</label
+                  >
+                  <div class="mb-3 d-flex flex-row align-items-center">
+                    <img
+                      src="/flag.svg"
+                      alt="Singapore Flag"
+                      class="flag-icon"
+                      style="width: 20px"
+                    />
                     <input
                       type="tel"
-                      style="height: 45px; pointer-events: none;"
+                      style="height: 45px; pointer-events: none"
                       name="phone"
                       class="form-control rounded-0 border-0 ms-1"
                       id="form-field-dphone1"
@@ -998,23 +1098,32 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label style="color:black !important" for="form-bedroom-select">Bedrooms</label>
+                  <label
+                    style="color: black !important"
+                    for="form-bedroom-select"
+                    >Bedrooms</label
+                  >
                   <select
                     id="form-bedroom-select"
                     style="height: 45px"
-                    class="form-select mb-3 rounded-0 "
+                    class="form-select mb-3 rounded-0"
                     aria-label="Default select example"
                   ></select>
                 </div>
                 <div class="mb-3">
-                  <label style="color:black !important" for="form-request-select">Request</label>
+                  <label
+                    style="color: black !important"
+                    for="form-request-select"
+                    >Request</label
+                  >
                   <select
                     id="form-request-select"
                     style="height: 45px"
-                    class="form-select mb-3 rounded-0 "
+                    class="form-select mb-3 rounded-0"
                     aria-label="Default select example"
                   ></select>
                 </div>
+                <div class="new-form-fields"></div>
                 <p class="devtext-preview" style="white-space: pre-line"></p>
                 <div class="text-center">
                   <button
@@ -1570,8 +1679,7 @@
         const emailLabel = document.getElementById("emailLabel");
         const bedroomLabel = document.getElementById("bedroomLabel");
         const requestLabel = document.getElementById("requestLabel");
-
-
+        const email = document.getElementById("email");
 
         phoneLabel.value = formDetails.form_fields.find(
           (field) => field.name == "phone"
@@ -1589,8 +1697,6 @@
           (field) => field.name == "request"
         )?.label;
 
-
-
         botName.value = formDetails.bot_name;
         projectName.value = formDetails.project_name;
         clientName.value = formDetails.client_name;
@@ -1601,6 +1707,7 @@
         request_select_id.value = formDetails.request_select_id;
         css.value = formDetails.css;
         developerinfo.value = formDetails.dev_info;
+        email.value = formDetails.email;
 
         // setting up the discord links
         const discordContainer = document.getElementById(
@@ -1701,8 +1808,7 @@
 
         const labels_div = document.querySelectorAll(".labels_div input");
         const form_labels = document.querySelectorAll("form label");
-        
-        
+
         labels_div.forEach((label, index) => {
           label.addEventListener("input", () => {
             form_labels[index].innerText = label.value;
@@ -1733,14 +1839,12 @@
           (field) => field.name == "request"
         );
 
-        const labels = form.querySelectorAll('label');
+        const labels = form.querySelectorAll("label");
         labels[0].innerText = nameField.label;
         labels[1].innerText = emailField.label;
         labels[2].innerText = phoneField.label;
         labels[3].innerText = bedroomField.label;
         labels[4].innerText = requestField.label;
-
-
 
         // Setting the select options
         const bedroomSelect = document.getElementById("form-bedroom-select");
@@ -1775,6 +1879,9 @@
           newOption.text = option;
           requestSelect.add(newOption);
         });
+
+        populatefieldsFromDb(formDetails.created_form_fields);
+
       }
 
       function populateSelectOnForm() {
@@ -1816,27 +1923,24 @@
         const botName = document.getElementById("botName").value;
         const projectName = document.getElementById("projectName").value;
         const clientName = document.getElementById("clientName").value;
+        const email = document.getElementById("email").value;
         const developerinfo = document.getElementById("developerinfo").value;
 
         // Ids of the form fields
         const nameId = document.getElementById("nameId").value;
         const emailId = document.getElementById("emailId").value;
         const phoneId = document.getElementById("phoneId").value;
-        const bedroom_select_id = document.getElementById("bedroom_select_id").value;
-        const request_select_id = document.getElementById("request_select_id").value;
+        const bedroom_select_id =
+          document.getElementById("bedroom_select_id").value;
+        const request_select_id =
+          document.getElementById("request_select_id").value;
         const css = document.getElementById("css").value;
-
 
         const phoneLabel = document.getElementById("phoneLabel").value;
         const nameLabel = document.getElementById("nameLabel").value;
         const emailLabel = document.getElementById("emailLabel").value;
         const bedroomLabel = document.getElementById("bedroomLabel").value;
         const requestLabel = document.getElementById("requestLabel").value;
-
-
-
-
-
 
         const discordContainer = document.getElementById(
           "discord-dynamic-container"
@@ -1904,6 +2008,7 @@
           css: css,
           discord: discordLinks,
           zappier: hookLinks,
+          email: email,
           form_fields: form_fields,
           botName: botName,
           projectName: projectName,
@@ -1914,9 +2019,11 @@
       }
 
       async function saveData() {
+        const fields = extractNewFieldData();
         const dialog = document.querySelector("dialog");
         const formId = dialog.getAttribute("formId");
         const data = extractData();
+        data.createdFields = fields;
 
         const res = await fetch(`/api/form/update/${formId}`, {
           method: "POST",
@@ -1946,6 +2053,697 @@
           });
         }
       }
+
+      function createFieldHandler(select) {
+        const type = select.value;
+        const container = document.querySelector(".new-field-edit-container");
+        container.innerHTML = "";
+        container.setAttribute("type", type);
+        if (type == "input") {
+          const html = `
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Input Id"
+            id="new-input-id"
+            />
+          </div>
+          
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Field Label"
+            id="new-input-Label"
+            />
+          </div>
+          <select id="inputFieldType" class="form-select border border-3 p-2 mb-1" name="inputFieldType">
+            <option selected disabled>Select Type of input Field</option>  
+            <option value="text">Text</option>
+              <option value="number">Number</option>
+              <option value="email">Email</option>
+              <!-- Add more options as needed -->
+          </select>
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Placeholder"
+            id="new-input-placeholder"
+            />
+          </div>
+        `;
+          container.innerHTML = html;
+        } else if (type == "select") {
+          const html = `
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Select Id"
+            id="new-select-id"
+            />
+          </div>
+          
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Select Label"
+            id="new-select-Label"
+            />
+          </div>
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Placeholder"
+            id="new-select-placeholder"
+            />
+          </div>
+          <div id="dynamic-select-container" class="mb-1">
+          </div>
+          <button class="btn  shadow-0" onclick="addMoreOption(this)" str="select">Add Option</button>
+        `;
+          container.innerHTML = html;
+        } else if (type == "checkbox") {
+          const html = `
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Checkbox Id"
+            id="new-checkbox-id"
+            />
+          </div>
+          
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Checkbox Label"
+            id="new-checkbox-Label"
+            />
+          </div>
+          <div id="dynamic-checkbox-container" class="mb-1">
+          </div>
+          <button class="btn  shadow-0" onclick="addMoreOption(this)" str="checkbox">Add Option</button>
+        `;
+          container.innerHTML = html;
+        } else if (type == "radio") {
+          const html = `
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Radio Id"
+            id="new-radio-id"
+            />
+          </div>
+          
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Radio Label"
+            id="new-radio-Label"
+            />
+          </div>
+          </div>
+          <div id="dynamic-radio-container" class="mb-1">
+          </div>
+          <button class="btn  shadow-0" onclick="addMoreOption(this)" str="radio">Add Option</button>
+        `;
+          container.innerHTML = html;
+        } else if (type == "textarea") {
+          const html = `
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Textarea Id"
+            id="new-textarea-id"
+            />
+          </div>
+          
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Textarea Label"
+            id="new-textarea-Label"
+            />
+          </div>
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Textarea Placeholder"
+            id="new-textarea-placeholder"
+            />
+          </div>
+        `;
+          container.innerHTML = html;
+        }
+
+        container.innerHTML += `
+          <div className="">
+            <button class="btn  shadow-0" onclick="showCreatedField(this)">Create Field</button>
+          </div>
+        `;
+      }
+
+      function showCreatedField() {
+        const formNewFieldContainer =
+          document.querySelector(".new-form-fields");
+        const container = document.querySelector(".new-field-edit-container");
+        const type = container.getAttribute("type");
+
+        if (type === "input") {
+          const inputId = document.getElementById("new-input-id").value;
+          const inputLabel = document.getElementById("new-input-Label").value;
+          const inputType = document.getElementById("inputFieldType").value;
+          const inputPlaceholder = document.getElementById(
+            "new-input-placeholder"
+          ).value;
+
+          const fieldDiv = document.createElement("div");
+          fieldDiv.classList.add("mb-3");
+
+          const label = document.createElement("label");
+          label.setAttribute("for", inputId);
+          label.textContent = inputLabel;
+          label.style.color = "black";
+
+          const input = document.createElement("input");
+          input.style.height = "45px";
+          input.type = inputType;
+          input.name = inputId;
+          input.classList.add("form-control", "rounded-0", "new-fields");
+          input.id = inputId;
+          input.placeholder = inputPlaceholder;
+
+          const removeButton = document.createElement("button");
+          removeButton.innerHTML =
+            '<i class="fas fa-trash-alt" style="color:black"></i>';
+          removeButton.classList.add("bg-transparent", "remove-field");
+          removeButton.style.verticalAlign = "middle";
+          removeButton.addEventListener("click", function () {
+            formNewFieldContainer.removeChild(fieldDiv);
+          });
+
+          fieldDiv.appendChild(label);
+          fieldDiv.appendChild(input);
+          fieldDiv.appendChild(removeButton);
+
+          formNewFieldContainer.appendChild(fieldDiv);
+        } else if (type == "select") {
+          const selectId = document.getElementById("new-select-id").value;
+          const selectLabel = document.getElementById("new-select-Label").value;
+          const selectPlaceholder = document.getElementById(
+            "new-select-placeholder"
+          ).value;
+          const selectOptions = document.querySelectorAll(
+            "#dynamic-select-container input"
+          );
+
+          const fieldDiv = document.createElement("div");
+          fieldDiv.classList.add("mb-3");
+
+          const label = document.createElement("label");
+          label.setAttribute("for", selectId);
+          label.textContent = selectLabel;
+          label.style.color = "black";
+
+          const select = document.createElement("select");
+          select.style.height = "45px";
+          select.classList.add("form-select", "rounded-0", "new-fields");
+          select.id = selectId;
+          select.name = selectId;
+
+          selectOptions.forEach((option) => {
+            const newOption = document.createElement("option");
+            newOption.value = option.value;
+            newOption.textContent = option.value;
+            select.appendChild(newOption);
+          });
+
+          const removeButton = document.createElement("button");
+          removeButton.innerHTML =
+            '<i class="fas fa-trash-alt" style="color:black"></i>';
+          removeButton.classList.add("bg-transparent", "remove-field");
+          removeButton.style.verticalAlign = "middle";
+          removeButton.addEventListener("click", function () {
+            formNewFieldContainer.removeChild(fieldDiv);
+          });
+
+          fieldDiv.appendChild(label);
+          fieldDiv.appendChild(select);
+          fieldDiv.appendChild(removeButton);
+
+          formNewFieldContainer.appendChild(fieldDiv);
+        } else if (type == "checkbox") {
+          const checkboxId = document.getElementById("new-checkbox-id").value;
+          const checkboxLabel =
+            document.getElementById("new-checkbox-Label").value;
+          const checkboxOptions = document.querySelectorAll(
+            "#dynamic-checkbox-container input"
+          );
+
+          const fieldDiv = document.createElement("div");
+          fieldDiv.classList.add("mb-3");
+
+          const label = document.createElement("label");
+          label.setAttribute("for", checkboxId);
+          label.textContent = checkboxLabel;
+          label.style.color = "black";
+          fieldDiv.appendChild(label);
+
+          checkboxOptions.forEach((option) => {
+            const div = document.createElement("div");
+            div.classList.add("form-check");
+
+            const input = document.createElement("input");
+            input.type = "checkbox";
+            input.classList.add("new-fields");
+            input.name = checkboxId;
+            input.id = option.value;
+
+            const optionLabel = document.createElement("label");
+            optionLabel.classList.add("form-check-label");
+            optionLabel.setAttribute("for", option.value);
+            optionLabel.textContent = option.value;
+
+            div.appendChild(input);
+            div.appendChild(optionLabel);
+
+            fieldDiv.appendChild(div);
+          });
+
+          const removeButton = document.createElement("button");
+          removeButton.innerHTML =
+            '<i class="fas fa-trash-alt" style="color:black"></i>';
+          removeButton.classList.add("bg-transparent", "remove-field");
+          removeButton.style.verticalAlign = "middle";
+          removeButton.addEventListener("click", function () {
+            formNewFieldContainer.removeChild(fieldDiv);
+          });
+
+          fieldDiv.appendChild(removeButton);
+
+          formNewFieldContainer.appendChild(fieldDiv);
+        } else if (type == "radio") {
+          const radioId = document.getElementById("new-radio-id").value;
+          const radioLabel = document.getElementById("new-radio-Label").value;
+          const radioOptions = document.querySelectorAll(
+            "#dynamic-radio-container input"
+          );
+
+          const fieldDiv = document.createElement("div");
+          fieldDiv.classList.add("mb-3");
+
+          const label = document.createElement("label");
+          label.setAttribute("for", radioId);
+          label.textContent = radioLabel;
+          label.style.color = "black";
+          fieldDiv.appendChild(label);
+
+          radioOptions.forEach((option) => {
+            const div = document.createElement("div");
+            div.classList.add("form-check");
+
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.classList.add("new-fields");
+            input.name = radioId;
+            input.id = option.value;
+
+            const optionLabel = document.createElement("label");
+            optionLabel.classList.add("form-check-label");
+            optionLabel.setAttribute("for", option.value);
+            optionLabel.textContent = option.value;
+
+            div.appendChild(input);
+            div.appendChild(optionLabel);
+
+            fieldDiv.appendChild(div);
+          });
+
+          const removeButton = document.createElement("button");
+          removeButton.innerHTML =
+            '<i class="fas fa-trash-alt" style="color:black"></i>';
+          removeButton.classList.add("bg-transparent", "remove-field");
+          removeButton.style.verticalAlign = "middle";
+          removeButton.addEventListener("click", function () {
+            formNewFieldContainer.removeChild(fieldDiv);
+          });
+
+          fieldDiv.appendChild(removeButton);
+
+          formNewFieldContainer.appendChild(fieldDiv);
+        } else if (type == "textarea") {
+          const textareaId = document.getElementById("new-textarea-id").value;
+          const textareaLabel =
+            document.getElementById("new-textarea-Label").value;
+          const textareaPlaceholder = document.getElementById(
+            "new-textarea-placeholder"
+          ).value;
+
+          const fieldDiv = document.createElement("div");
+          fieldDiv.classList.add("mb-3");
+
+          const label = document.createElement("label");
+          label.setAttribute("for", textareaId);
+          label.textContent = textareaLabel;
+          label.style.color = "black";
+
+          const textarea = document.createElement("textarea");
+          textarea.classList.add("form-control", "rounded-0", "new-fields");
+          textarea.id = textareaId;
+          textarea.name = textareaId;
+          textarea.placeholder = textareaPlaceholder;
+
+          const removeButton = document.createElement("button");
+          removeButton.innerHTML =
+            '<i class="fas fa-trash-alt" style="color:black"></i>';
+          removeButton.classList.add("bg-transparent", "remove-field");
+          removeButton.style.verticalAlign = "middle";
+          removeButton.addEventListener("click", function () {
+            formNewFieldContainer.removeChild(fieldDiv);
+          });
+
+          fieldDiv.appendChild(label);
+          fieldDiv.appendChild(textarea);
+          fieldDiv.appendChild(removeButton);
+
+          formNewFieldContainer.appendChild(fieldDiv);
+        }
+      }
+
+      function extractNewFieldData() {
+        const newFields = document.querySelector(".new-form-fields");
+        const divs = newFields.children;
+        const fields = [];
+
+        for (let i = 0; i < divs.length; i++) {
+          const div = divs[i];
+          const label = div.querySelector("label");
+          const input = div.querySelector("input");
+          const select = div.querySelector("select");
+          const textarea = div.querySelector("textarea");
+
+          if (input && input.type !== "checkbox" && input.type !== "radio") {
+            const field = {
+              type: "input",
+              inputType: input.type,
+              id: input.id,
+              label: label.textContent,
+              placeholder: input.placeholder,
+            };
+            fields.push(field);
+          } else if (select) {
+            const field = {
+              type: "select",
+              id: select.id,
+              label: label.textContent,
+              placeholder: select.placeholder,
+              options: [],
+            };
+            const options = select.querySelectorAll("option");
+            options.forEach((option) => {
+              field.options.push(option.value);
+            });
+            fields.push(field);
+          } else if (textarea) {
+            const field = {
+              type: "textarea",
+              id: textarea.id,
+              label: label.textContent,
+              placeholder: textarea.placeholder,
+            };
+            fields.push(field);
+          } else if (div.querySelector('input[type="checkbox"]')) {
+            const field = {
+              type: "checkbox",
+              id: div.querySelector('input[type="checkbox"]').name,
+              label: label.textContent,
+              options: [],
+            };
+            const checkboxes = div.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach((checkbox) => {
+              field.options.push(checkbox.id);
+            });
+
+            fields.push(field);
+          } else if (div.querySelector('input[type="radio"]')) {
+            const field = {
+              type: "radio",
+              id: div.querySelector('input[type="radio"]').name,
+              label: label.textContent,
+              options: [],
+            };
+            const radios = div.querySelectorAll('input[type="radio"]');
+            radios.forEach((radio) => {
+              field.options.push(radio.id);
+            });
+            fields.push(field);
+          }
+        }
+
+        return fields;
+      }
+    
+    
+      function populatefieldsFromDb(fields) {
+        const formNewFieldContainer =
+          document.querySelector(".new-form-fields");
+
+          formNewFieldContainer.innerHTML = "";
+        
+        fields.forEach((field) => {
+          const type = field.type;
+
+
+
+          if (type === "input") {
+            const inputId = field.id;   ;
+            const inputLabel = field.label;
+            const inputType = field.inputType;
+            const inputPlaceholder = field.placeholder;
+  
+            const fieldDiv = document.createElement("div");
+            fieldDiv.classList.add("mb-3");
+  
+            const label = document.createElement("label");
+            label.setAttribute("for", inputId);
+            label.textContent = inputLabel;
+            label.style.color = "black";
+  
+            const input = document.createElement("input");
+            input.style.height = "45px";
+            input.type = inputType;
+            input.name = inputId;
+            input.classList.add("form-control", "rounded-0", "new-fields");
+            input.id = inputId;
+            input.placeholder = inputPlaceholder;
+  
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML =
+              '<i class="fas fa-trash-alt" style="color:black"></i>';
+            removeButton.classList.add("bg-transparent", "remove-field");
+            removeButton.style.verticalAlign = "middle";
+            removeButton.addEventListener("click", function () {
+              formNewFieldContainer.removeChild(fieldDiv);
+            });
+  
+            fieldDiv.appendChild(label);
+            fieldDiv.appendChild(input);
+            fieldDiv.appendChild(removeButton);
+  
+            formNewFieldContainer.appendChild(fieldDiv);
+          } else if (type == "select") {
+            const selectId = field.id;
+            const selectLabel = field.label;
+            const selectPlaceholder = field.placeholder;
+            const selectOptions = field.options;
+  
+            const fieldDiv = document.createElement("div");
+            fieldDiv.classList.add("mb-3");
+  
+            const label = document.createElement("label");
+            label.setAttribute("for", selectId);
+            label.textContent = selectLabel;
+            label.style.color = "black";
+  
+            const select = document.createElement("select");
+            select.style.height = "45px";
+            select.classList.add("form-select", "rounded-0", "new-fields");
+            select.id = selectId;
+            select.name = selectId;
+  
+            selectOptions.forEach((option) => {
+              const newOption = document.createElement("option");
+              newOption.value = option;
+              newOption.textContent = option;
+              select.appendChild(newOption);
+            });
+  
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML =
+              '<i class="fas fa-trash-alt" style="color:black"></i>';
+            removeButton.classList.add("bg-transparent", "remove-field");
+            removeButton.style.verticalAlign = "middle";
+            removeButton.addEventListener("click", function () {
+              formNewFieldContainer.removeChild(fieldDiv);
+            });
+  
+            fieldDiv.appendChild(label);
+            fieldDiv.appendChild(select);
+            fieldDiv.appendChild(removeButton);
+  
+            formNewFieldContainer.appendChild(fieldDiv);
+          } else if (type == "checkbox") {
+            const checkboxId = field.id;
+            const checkboxLabel = field.label;
+            const checkboxOptions = field.options;
+  
+            const fieldDiv = document.createElement("div");
+            fieldDiv.classList.add("mb-3");
+  
+            const label = document.createElement("label");
+            label.setAttribute("for", checkboxId);
+            label.textContent = checkboxLabel;
+            label.style.color = "black";
+            fieldDiv.appendChild(label);
+  
+            checkboxOptions.forEach((option) => {
+              const div = document.createElement("div");
+              div.classList.add("form-check");
+  
+              const input = document.createElement("input");
+              input.type = "checkbox";
+              input.classList.add("new-fields");
+              input.name = checkboxId;
+              input.id = option;
+  
+              const optionLabel = document.createElement("label");
+              optionLabel.classList.add("form-check-label");
+              optionLabel.setAttribute("for", option);
+              optionLabel.textContent = option;
+  
+              div.appendChild(input);
+              div.appendChild(optionLabel);
+  
+              fieldDiv.appendChild(div);
+            });
+  
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML =
+              '<i class="fas fa-trash-alt" style="color:black"></i>';
+            removeButton.classList.add("bg-transparent", "remove-field");
+            removeButton.style.verticalAlign = "middle";
+            removeButton.addEventListener("click", function () {
+              formNewFieldContainer.removeChild(fieldDiv);
+            });
+  
+            fieldDiv.appendChild(removeButton);
+  
+            formNewFieldContainer.appendChild(fieldDiv);
+          } else if (type == "radio") {
+            const radioId = field.id;
+            const radioLabel = field.label;
+            const radioOptions = field.options;
+  
+            const fieldDiv = document.createElement("div");
+            fieldDiv.classList.add("mb-3");
+  
+            const label = document.createElement("label");
+            label.setAttribute("for", radioId);
+            label.textContent = radioLabel;
+            label.style.color = "black";
+            fieldDiv.appendChild(label);
+  
+            radioOptions.forEach((option) => {
+              const div = document.createElement("div");
+              div.classList.add("form-check");
+  
+              const input = document.createElement("input");
+              input.type = "radio";
+              input.classList.add("new-fields");
+              input.name = radioId;
+              input.id = option;
+  
+              const optionLabel = document.createElement("label");
+              optionLabel.classList.add("form-check-label");
+              optionLabel.setAttribute("for", option);
+              optionLabel.textContent = option;
+  
+              div.appendChild(input);
+              div.appendChild(optionLabel);
+  
+              fieldDiv.appendChild(div);
+            });
+  
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML =
+              '<i class="fas fa-trash-alt" style="color:black"></i>';
+            removeButton.classList.add("bg-transparent", "remove-field");
+            removeButton.style.verticalAlign = "middle";
+            removeButton.addEventListener("click", function () {
+              formNewFieldContainer.removeChild(fieldDiv);
+            });
+  
+            fieldDiv.appendChild(removeButton);
+  
+            formNewFieldContainer.appendChild(fieldDiv);
+          } else if (type == "textarea") {
+            const textareaId = field.id;
+            const textareaLabel = field.label;
+            const textareaPlaceholder = field.placeholder;
+  
+            const fieldDiv = document.createElement("div");
+            fieldDiv.classList.add("mb-3");
+  
+            const label = document.createElement("label");
+            label.setAttribute("for", textareaId);
+            label.textContent = textareaLabel;
+            label.style.color = "black";
+  
+            const textarea = document.createElement("textarea");
+            textarea.classList.add("form-control", "rounded-0", "new-fields");
+            textarea.id = textareaId;
+            textarea.name = textareaId;
+            textarea.placeholder = textareaPlaceholder;
+  
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML =
+              '<i class="fas fa-trash-alt" style="color:black"></i>';
+            removeButton.classList.add("bg-transparent", "remove-field");
+            removeButton.style.verticalAlign = "middle";
+            removeButton.addEventListener("click", function () {
+              formNewFieldContainer.removeChild(fieldDiv);
+            });
+  
+            fieldDiv.appendChild(label);
+            fieldDiv.appendChild(textarea);
+            fieldDiv.appendChild(removeButton);
+  
+            formNewFieldContainer.appendChild(fieldDiv);
+          }
+
+
+
+        })
+
+      }
+
+    
+    
+    
+    
+    
+    
     </script>
   </body>
 </html>

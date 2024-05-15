@@ -15,5 +15,11 @@ async function start() {
     app.listen(port, async ()=>{
         console.log(`##### Express Server Started at port ${port} #####`);
     })
+
+    // await __pool.query(`
+    //     ALTER TABLE forms ADD COLUMN email VARCHAR(255);
+    // `)
+
+
 }
 start();

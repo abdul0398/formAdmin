@@ -7,7 +7,7 @@ const router = express.Router();
 router
   .get("/form/:id", async (req, res, next) => {
     const { id } = req.params;
-    const { formtype, reqtype, devtext, label } = req.query;
+    const { formtype, reqtype, devtext, label, newfield } = req.query;
     if (!["chatbot", "registration", "header", "footer"].includes(formtype)) {
       return next();
     }
@@ -40,6 +40,7 @@ router
 
       return res.render("form.ejs", {
         form: rows[0],
+        createdFields: rows[0].created_form_fields,
         inputLabel: inputLable[0].label,
         emailLabel: emailLable[0].label,
         phoneLabel: phoneLable[0].label,
@@ -51,6 +52,7 @@ router
         reqtype: reqtype,
         devtext: devtext,
         label: label,
+        createdFieldsFlag: newfield,
       });
     } catch (error) {
       console.log(error.message);
@@ -254,7 +256,10 @@ router
       request_select_id,
       dev_info,
       css,
+      email,
+      createdFields
     } = req.body;
+
 
     try {
       await __pool.query(
@@ -273,7 +278,9 @@ router
            bedroom_select_id = ?,
            request_select_id = ?,
            css = ?,
-           dev_info = ?
+           created_form_fields = ?,
+           dev_info = ?,
+           email = ?
            WHERE id = ?
         `,
         [
@@ -289,7 +296,9 @@ router
           bedroom_select_id,
           request_select_id,
           css,
+          JSON.stringify(createdFields),
           dev_info,
+          email,
           formID,
         ]
       );
@@ -302,7 +311,9 @@ router
   .post("/api/form/submit/:formID", async (req, res) => {
     const { data, selects } = req.body;
     const { formID } = req.params;
-    console.log(formID);
+    
+    
+    console.log(data, selects, formID);
     try {
       await producer(data, selects, formID);
       await startWorker();

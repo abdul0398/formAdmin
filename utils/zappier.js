@@ -13,27 +13,31 @@ async function bulkHookSender(lead, hooklinks, projectName, clientName){
 
 
 async function sendToHooks(lead, hooklink, projectName, clientName, selects){
-    const cleanLead = {
-        name: lead.name,
-        email:lead.email,
-        phone:lead.ph_number,
-        ip:lead.ip_address,
-        projectName:projectName,
-        clientName:clientName
-    }
-    
-    selects.forEach(element => {
-        cleanLead[element.name] = element.value;
-    });
-
-    
-
+    try {
+            const cleanLead = {
+            name: lead.name,
+            email:lead.email,
+            phone:lead.ph_number,
+            ip:lead.ip_address,
+            projectName:projectName,
+            clientName:clientName
+        }
+        
+        selects.forEach(element => {
+            cleanLead[element.name] = element.value;
+        });
+        
+        
+        
         const res = await fetch(hooklink, {
             method: "POST",
             body: JSON.stringify(cleanLead)
         })
-        const data = await res.json();
-       
+        const data = await res.json();     
+    } catch (error) {
+        console.log(error.message);
+        
+    }
 }
 
 

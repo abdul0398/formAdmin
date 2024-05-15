@@ -142,6 +142,7 @@
                             <%}%>                   
                           </select>
                       <%}%>
+                      
                       <%if(label == "true"){%>
                         <label style="color:black"><%=bedroomLabel%></label>  
                       <%}%>
@@ -153,6 +154,54 @@
                           <%}%>
                       </select>
                     <%}%>
+
+                      <% if (createdFieldsFlag == "true") { %>
+                        <div class="created-fields-container">
+                          <% for (let i = 0; i < createdFields.length; i++) { %>
+                            <% let field = createdFields[i]; %>
+                            <div id="<%=field.id%>" type="<%=field.type%>" question="<%=field.label%>">
+                              <% if (field.type === 'input') { %>
+                                <%if(label == "true"){%>
+                                  <label for="<%= field.id %>"><%= field.label %></label><br>
+                                <%}%>
+                              <input type="<%= field.inputType %>" id="<%= field.id %>" name="<%= field.id %>" placeholder="<%= field.placeholder %>" />
+                              <% } else if (field.type === 'textarea') { %>
+                                <%if(label == "true"){%>
+                                  <label for="<%= field.id %>"><%= field.label %></label><br>
+                                <%}%>
+                                <textarea id="<%= field.id %>" name="<%= field.id %>" placeholder="<%= field.placeholder %>"></textarea>
+                              <% } else if (field.type === 'checkbox') { %>
+                                <%if(label == "true"){%>
+                                  <label><%= field.label %></label><br>
+                                <%}%>
+                                <% for (let j = 0; j < field.options.length; j++) { %>
+                                  <input type="checkbox" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
+                                  <label for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
+                                <% } %>
+                              <% } else if (field.type === 'radio') { %>
+                                <%if(label == "true"){%>
+                                  <label><%= field.label %></label><br>
+                                <%}%>
+                                <% for (let j = 0; j < field.options.length; j++) { %>
+                                  <input type="radio" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
+                                  <label for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
+                                <% } %>
+                              <% } else if (field.type === 'select') { %>
+                                <%if(label == "true"){%>
+                                  <label><%= field.label %></label><br>
+                                <%}%>
+                                <select id="<%= field.id %>" name="<%= field.id %>">
+                                  <% for (let j = 0; j < field.options.length; j++) { %>
+                                    <option value="<%= field.options[j] %>"><%= field.options[j] %></option>
+                                  <% } %>
+                                </select>
+                              <% } %>
+                            </div>
+                          <% } %>
+                        </div>
+
+                      <% } %>
+
                     <%if(devtext == "true"){%>  
                       <p class="text-black" style="white-space: pre-line;" >
                         <%-form.dev_info%>
@@ -347,15 +396,52 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
 
     async function sendToServer(data) {
-        const id = document.getElementById('formId').innerText;
+      const createdFieldContainer = document.querySelector('.created-fields-container');
+      const id = document.getElementById('formId').innerText;
         const selects = document.querySelectorAll('select');
         const selectValues = [];
+
         selects.forEach(select => {
           // Check if there is a selected option and if it's not disabled
-      if (select.selectedIndex !== -1 && !select.options[select.selectedIndex].disabled) {
-        selectValues.push({ name: select.name, value: select.value });
-      }
-        });
+          if (select.selectedIndex !== -1 && !select.options[select.selectedIndex].disabled) {
+            selectValues.push({ name: select.name, value: select.value });
+          }
+            });
+
+      if (createdFieldContainer) {
+        const createdFields = createdFieldContainer.children;
+        for (let i = 0; i < createdFields.length; i++) {
+          const field = createdFields[i];
+          const fieldType = field.getAttribute('type');
+          const label = field.getAttribute('question');
+          if (fieldType === 'input') {
+            const input = field.querySelector('input');
+            selectValues.push({name:label, value:input.value});
+          } else if (fieldType === 'textarea') {
+            const textarea = field.querySelector('textarea');
+            selectValues.push({name:label, value:textarea.value});
+          } else if (fieldType === 'checkbox') {
+            const checkboxes = field.querySelectorAll('input[type="checkbox"]');
+            const checkedValues = [];
+            checkboxes.forEach(checkbox => {
+              if (checkbox.checked) {
+                checkedValues.push(checkbox.value);
+              }
+            });
+            selectValues.push({name:label, value:checkedValues});
+          } else if (fieldType === 'radio') {
+            const radios = field.querySelectorAll('input[type="radio"]');
+            let checkedValue = '';
+            radios.forEach(radio => {
+              if (radio.checked) {
+                checkedValue = radio.value;
+              }
+            });
+            selectValues.push({name:label, value:checkedValue});
+          }
+        }
+      }  
+       
 
         const reqtype = `<%-reqtype%>`
 

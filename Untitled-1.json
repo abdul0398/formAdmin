@@ -1,0 +1,45 @@
+[
+  {
+    "id": "saS",
+    "type": "input",
+    "label": "ASD",
+    "inputType": "text",
+    "placeholder": "ASD"
+  },
+  {
+    "id": "ASDASD",
+    "type": "textarea",
+    "label": "ASD",
+    "placeholder": "ASD"
+  },
+  {
+    "id": "ASD",
+    "type": "checkbox",
+    "label": "ASD",
+    "options": [
+      "ASD",
+      "ASDAD"
+    ]
+  },
+  {
+    "id": "ASD",
+    "type": "radio",
+    "label": "ASDA",
+    "options": [
+      "OP1",
+      "OP2"
+    ]
+  },
+  {
+    "id": "ID",
+    "type": "select",
+    "label": "LABEL",
+    "options": [
+      "OP1",
+      "OP2"
+    ]
+  }
+]
+
+
+
