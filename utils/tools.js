@@ -11,12 +11,16 @@ function changeleadtoString(lead, selects, client_name, project_name) {
     const resultStr = resultStrings.join('\n');  
 
   const result = resultStrings.join('\n');
-  const str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead :\n\n●  Name: ${lead.name}\n●  Contact: https://wa.me/+65${lead.ph_number}\n●  Email: ${lead.email}\n${resultStr}`;
+  let str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead :\n\n●  Name: ${lead.name}\n●  Contact: https://wa.me/+65${lead.ph_number}`;
+
+  str += lead.email?`\n●  Email: ${lead.email}`:"";
+  str += `\n${resultStr}`;
   return str;
 }
 
 
 function contentModerationCustom(text) {
+  if(!text) return true;
   const blacklistWords = [
     'chee bye',
     'chao chee bye',
@@ -132,7 +136,7 @@ async function saveLeadToLocalDb(lead, client_id, form_id) {
   try {
     await __pool.query(
       `INSERT INTO leads (client_id, form_id, name, email, phone, ip_address, status, is_send_discord) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [client_id, form_id, lead.name, lead.email, lead.ph_number, lead.ip_address, lead.status, lead.is_send_discord]
+      [client_id, form_id, lead.name, lead.email?lead.email:"", lead.ph_number, lead.ip_address, lead.status, lead.is_send_discord]
     );
   } catch (error) {
     console.error('Error saving to local DB:', error);
