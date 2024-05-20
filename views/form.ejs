@@ -163,36 +163,45 @@
                             <% let field = createdFields[i]; %>
                             <div id="<%=field.id%>" type="<%=field.type%>" question="<%=field.label%>">
                               <% if (field.type === 'input') { %>
-                                <%if(label == "true"){%>
-                                  <label for="<%= field.id %>"><%= field.label %></label><br>
-                                <%}%>
-                              <input type="<%= field.inputType %>" id="<%= field.id %>" name="<%= field.id %>" placeholder="<%= field.placeholder %>" />
+                                <div class="form-control">
+                                  <%if(label == "true"){%>
+                                    <label for="<%= field.id %>"><%= field.label %></label><br>
+                                    <%}%>
+                                    <input type="<%= field.inputType %>" name="<%= field.id %>" placeholder="<%= field.placeholder %>" />
+                                </div>
                               <% } else if (field.type === 'textarea') { %>
-                                <%if(label == "true"){%>
-                                  <label for="<%= field.id %>"><%= field.label %></label><br>
-                                <%}%>
-                                <textarea id="<%= field.id %>" name="<%= field.id %>" placeholder="<%= field.placeholder %>"></textarea>
+                                <div class="form-control">
+                                  <%if(label == "true"){%>
+                                    <label for="<%= field.id %>"><%= field.label %></label><br>
+                                    <%}%>
+                                    <textarea name="<%= field.id %>" placeholder="<%= field.placeholder %>"></textarea>
+                                </div>
                               <% } else if (field.type === 'checkbox') { %>
+                              
                                 <%if(label == "true"){%>
                                   <label><%= field.label %></label><br>
                                 <%}%>
                                 <% for (let j = 0; j < field.options.length; j++) { %>
-                                  <input type="checkbox" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
-                                  <label for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
+                                  <div class="form-control">
+                                    <input type="checkbox" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
+                                    <label for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
+                                  </div>
                                 <% } %>
                               <% } else if (field.type === 'radio') { %>
                                 <%if(label == "true"){%>
                                   <label><%= field.label %></label><br>
                                 <%}%>
                                 <% for (let j = 0; j < field.options.length; j++) { %>
-                                  <input type="radio" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
-                                  <label for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
-                                <% } %>
+                                  <div class="form-control">
+                                    <input type="radio" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
+                                    <label for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
+                                  </div>
+                                    <% } %>
                               <% } else if (field.type === 'select') { %>
                                 <%if(label == "true"){%>
                                   <label><%= field.label %></label><br>
                                 <%}%>
-                                <select id="<%= field.id %>" name="<%= field.id %>">
+                                <select class="form-select" name="<%= field.id %>">
                                   <% for (let j = 0; j < field.options.length; j++) { %>
                                     <option value="<%= field.options[j] %>"><%= field.options[j] %></option>
                                   <% } %>
