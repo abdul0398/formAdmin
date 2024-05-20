@@ -184,7 +184,7 @@
                                 <% for (let j = 0; j < field.options.length; j++) { %>
                                   <div class="form-control d-flex">
                                     <input type="checkbox" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
-                                    <label for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
+                                    <label class="ms-3" for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
                                   </div>
                                 <% } %>
                               <% } else if (field.type === 'radio') { %>
@@ -194,7 +194,7 @@
                                 <% for (let j = 0; j < field.options.length; j++) { %>
                                   <div class="form-control d-flex">
                                     <input type="radio" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
-                                    <label for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
+                                    <label class="ms-3" for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
                                   </div>
                                     <% } %>
                               <% } else if (field.type === 'select') { %>
