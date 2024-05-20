@@ -174,7 +174,7 @@
                                   <%if(label == "true"){%>
                                     <label for="<%= field.id %>"><%= field.label %></label><br>
                                     <%}%>
-                                    <textarea name="<%= field.id %>" placeholder="<%= field.placeholder %>"></textarea>
+                                    <textarea class="form-control" name="<%= field.id %>" placeholder="<%= field.placeholder %>"></textarea>
                                 </div>
                               <% } else if (field.type === 'checkbox') { %>
                               
