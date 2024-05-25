@@ -768,7 +768,8 @@
                 }else if(type == "clear"){
                     const clearLeads = [];
                     clearLeads.push(["Date", "Client Name", "Form Name", "Name", "Phone", "Email", "IP Address", "Status"])
-                    clearLeads = allLeads.filter(lead => lead.status === "CLEAR");
+                    let filterLeads = allLeads.filter(lead => lead.status === "CLEAR");
+                    clearLeads.push(...filterLeads);
                     downloadLeads(clearLeads);
                 }
             }
