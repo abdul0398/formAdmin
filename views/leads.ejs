@@ -154,6 +154,7 @@
             filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
         }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <body class="g-sidenav-show bg-gray-200">
     <noscript><iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-K3SG3FFJ"
@@ -233,7 +234,7 @@
     </div>
         <link rel="stylesheet" href="css/leads.css">
         <div class="filter-container">
-            <div class="select_container w-100 w-lg-25 w-md-25" style="border-radius: 7px; display: inline-block; background-color: white; padding: 1px 10px;">
+            <div class="select_container w-100 w-lg-20 w-md-20" style="border-radius: 7px; display: inline-block; background-color: white; padding: 1px 10px;">
                 <span><i
                         class="fa-solid fa-list"
                         style="color: #000000;"></i></span>
@@ -241,7 +242,7 @@
                     <option value selected disabled>Forms</option>        
                 </select>
             </div>
-            <div class="select_container w-100 w-lg-25 w-md-25" style="border-radius: 7px; display: inline-block; background-color: white; padding: 1px 10px;">
+            <div class="select_container w-100 w-lg-20 w-md-20" style="border-radius: 7px; display: inline-block; background-color: white; padding: 1px 10px;">
                 <span><i
                 class="fa-solid fa-list"
                 style="color: #000000;"></i></span>
@@ -253,15 +254,19 @@
             </div>
                
             <div class="download-container ">
-                
-                    <input class="download_input"
-                        type="text"
-                        name="daterange" value="Date" />
+                <input class="download_input"
+                    type="text"
+                    name="daterange" value="Date" />
             </div>
             <div class="search_input mt-2 d-inline-block">
                 <input class="input_search"
                     style="font-size: 14px; padding: 13px 26px; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 5px;  background-color: #ffffff;  border: none; margin-top: 3px;"
                     type="text" placeholder="Search..">
+            </div>
+            <div class="d-inline-block mt-2">
+                <div class="d-flex">
+                    <Button class="btn btn-primary" onclick="openDownloadModal()" style="background-color: #002655; box-shadow: none;">Action</Button>
+                </div>
             </div>
             
         </div>
@@ -306,7 +311,13 @@
                     <thead>
                         <tr>
                             <th> 
+                                <input type="checkbox" class="all-checkbox">
+                            </th>
+                            <th> 
                                 <div class="beforeCollapse">No.</div>
+                            </th>
+                            <th> 
+                                <div class="beforeCollapse">Id</div>
                             </th>
                             
                             <th class="collapsible-column">    
@@ -347,8 +358,18 @@
                 </table>
             </div>
         </div>
-            
-        </div>
+        <dialog class="download-leads-modal position-relative border-1 rounded-2">
+                <button class="position-absolute top-1 end-1 text-dark bg-transparent h4 border-0 rounded-2" onclick="this.parentElement.close()">X</button>
+            <div>
+                <div class="d-flex flex-column gap-2 py-2  pt-4">
+                    <Button class="btn-primary btn border" onclick="markAsJunk()" style="background-color: #002655; box-shadow: none;">Mark as Junk</Button>
+                    <Button class="btn-primary btn border" onclick="downloadLeadsHandler('all')" style="background-color: #002655; box-shadow: none;">Download all leads</Button>
+                    <Button class="btn-primary btn border" onclick="downloadLeadsHandler('selected')" style="background-color: #002655; box-shadow: none;"> Download selected leads</Button>
+                    <Button class="btn-primary btn border" onclick="downloadLeadsHandler('clear')" style="background-color: #002655; box-shadow: none;"> Download clear leads</Button>
+                </div>
+            </div>
+        </dialog>
+    </main>
         <script src="script/leadscript.js"></script>
  
   <!--   Core JS Files   -->
@@ -373,17 +394,26 @@
                 const data = await res.json();
                 forms = await fetchForms();
                 leads = data;
-                console.log(leads);
                 const client_id = document.querySelector(".selected_client").getAttribute("mid");
                 const nextLeads = leads.filter(lead=>{
                     return lead.client_id == client_id;
                 })
-                console.log(nextLeads);
 
                 populateLeads(nextLeads);
                 populateFormsSelect(client_id);
+                
+                const all_checkbox = document.getElementsByClassName("all-checkbox")[0];
+                all_checkbox.addEventListener("click", ()=>{
+                    const isChecked = all_checkbox.checked
+                    const tableBody = document.getElementById("table-body");
+                    const inputs = tableBody.querySelectorAll("input[type='checkbox']") 
+                    
+                    inputs.forEach(input=>{
+                        input.checked = isChecked;
+                    })
+                
+                })
             }
-
 
             function filter() { // ###### Calling the filters ######
 
@@ -484,7 +514,6 @@
                     }
             }
 
-
             function clearFilters(){
                 const clientFilter = document.getElementById("client-filter");
                 const projectFilter = document.getElementById("project-filter");
@@ -494,7 +523,6 @@
                 junkFilter.value = "all";
 
             }
-
 
             function populateLeads(filterleads) {
                 const tbody = document.getElementById('table-body');
@@ -514,10 +542,26 @@
 
                     const newRow = document.createElement('tr');
 
+                    const cell10 = document.createElement('td');
+                    cell10.innerHTML = `
+                    <input type="checkbox"/>
+                    `
+                    cell10.style.width = "10px";
+                    newRow.appendChild(cell10);
+
+
+
                     const cell0 = document.createElement('td');
                     cell0.innerHTML = `${i+1}`
                     cell0.style.width = "10px";
                     newRow.appendChild(cell0);
+
+                    const cell11 = document.createElement('td');
+                    cell11 .innerHTML = filterleads[i].id;
+                    cell11.classList.add('lead_id');
+                    cell11 .style.width = "10px";
+                    newRow.appendChild(cell11);
+                    
                     
                     const cell1 = document.createElement('td');
                     const timestamp = filterleads[i].created_at;
@@ -561,7 +605,7 @@
 
                     const cell9 = document.createElement('td');
                     cell9.innerHTML = `${filterleads[i].status.toUpperCase()}`;
-                    cell9.classList.add("nine");
+                    cell9.classList.add("eight");
                     cell9.style.fontWeight = "900";
                     if(filterleads[i].status == "clear"){
                         cell9.style.backgroundColor = "#61D393";
@@ -574,7 +618,6 @@
                     tbody.appendChild(newRow);
                 }
             }          
-
 
             function dateFormat(dateString) {
                 let date = new Date(dateString);
@@ -589,28 +632,23 @@
                 return humanReadableDate;
             }
 
-
             function disableAnchor(anchor) {
                 anchor.classList.add("disabled");
             }
 
-
             function enableAnchor(anchor) {
                 anchor.classList.remove("disabled");
             }
-
 
             function showLoadingOverlay() {
                 const overlay = document.querySelector('.overlay');
                 overlay.style.display = 'block';
             }
 
-
             function hideLoadingOverlay() {
                 const overlay = document.querySelector('.overlay');
                 overlay.style.display = 'none';
             }
-
 
             clearclientSelected = (curr_elem)=>{
               document.querySelectorAll('.clientsname_div li').forEach((element)=>{
@@ -620,7 +658,6 @@
               curr_elem.classList.remove("unselected_client");
                   curr_elem.classList.add("selected_client");
             }
-
 
             const searchInput = document.getElementById('search_client');
             searchInput.addEventListener('input', function() {
@@ -652,8 +689,7 @@
                     btn.parentElement.classList.toggle('afterCollapsible');
                     btn.previousElementSibling.classList.toggle('beforeCollapse');
                     
-            }
-  
+            }  
   
             async function fetchForms() {
                 try {
@@ -681,6 +717,157 @@
                 });
             }
 
+            function openDownloadModal(){
+                const dialog = document.querySelector(".download-leads-modal");
+                dialog.showModal();
+            }
+            
+            function downloadLeadsHandler(type){
+                // downbload leads as csv
+                const selectedLeads = [];
+                const allLeads = []
+                selectedLeads.push(["Date", "Client Name", "Form Name", "Name", "Phone", "Email", "IP Address", "Status"]);
+                allLeads.push(["Date", "Client Name", "Form Name", "Name", "Phone", "Email", "IP Address", "Status"])
+                const tableBody = document.getElementById("table-body");
+                const inputs = tableBody.querySelectorAll("input[type='checkbox']")
+                inputs.forEach(input=>{
+                    if(input.checked){
+                        const row = input.parentElement.parentElement;
+                        const lead = {
+                            date: row.querySelector(".one").innerHTML,
+                            client_name: row.querySelector(".two").innerHTML,
+                            form_name: row.querySelector(".three").innerHTML,
+                            name: row.querySelector(".four").innerHTML,
+                            phone: row.querySelector(".five").innerHTML,
+                            email: row.querySelector(".six").innerHTML,
+                            ip_address: row.querySelector(".seven").innerHTML,
+                            status: row.querySelector(".eight").innerHTML
+                        }
+                        selectedLeads.push(lead);
+                    }
+                })
+               inputs.forEach(input=>{
+                    const row = input.parentElement.parentElement;
+                    const lead = {
+                        date: row.querySelector(".one").innerHTML,
+                        client_name: row.querySelector(".two").innerHTML,
+                        form_name: row.querySelector(".three").innerHTML,
+                        name: row.querySelector(".four").innerHTML,
+                        phone: row.querySelector(".five").innerHTML,
+                        email: row.querySelector(".six").innerHTML,
+                        ip_address: row.querySelector(".seven").innerHTML,
+                        status: row.querySelector(".eight").innerHTML
+                    }
+                    allLeads.push(lead);
+                })
+
+                if(type == "all"){
+                    downloadLeads(allLeads);
+                }else if(type == "selected"){
+                    downloadLeads(selectedLeads);
+                }else if(type == "clear"){
+                    const clearLeads = allLeads.filter(lead => lead.status === "CLEAR");
+                    clearLeads.push(["Date", "Client Name", "Form Name", "Name", "Phone", "Email", "IP Address", "Status"])
+                    downloadLeads(clearLeads);
+                }
+            }
+
+            function downloadLeads(leads){
+                const csv = convertToCSV(leads);
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.setAttribute('hidden', '');
+                a.setAttribute('href', url);
+                a.setAttribute('download', 'leads.csv');
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+            function convertToCSV(objArray) {
+                const array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+                let str = '';
+                for (let i = 0; i < array.length; i++) {
+                    let line = '';
+                    for (let index in array[i]) {
+                        if (line != '') line += ','
+                        line += array[i][index];
+                    }
+                    str += line + '\r\n';
+                }
+                return str;
+            }
+  
+            async function markAsJunk() {
+                const tableBody = document.getElementById("table-body");
+                const inputs = tableBody.querySelectorAll("input[type='checkbox']");
+                const ids = [];
+
+                inputs.forEach(input => {
+                    if (input.checked) {
+                        const row = input.parentElement.parentElement;
+                        const idElement = row.querySelector(".lead_id");
+                        const id = idElement.textContent || idElement.innerText;
+                        ids.push(id);
+                    }
+                });
+
+                if (ids.length === 0) {
+                    Swal.fire({
+                        toast: true,
+                        icon: 'warning',
+                        title: 'No leads selected',
+                        text: 'Please select at least one lead to mark as junk.',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                    return;
+                }
+
+                try {
+                    const res = await fetch("/api/leads/status", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ids: ids }),
+                    });
+
+                    if (!res.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const responseData = await res.json();
+                    Swal.fire({
+                        toast: true,
+                        icon: 'success',
+                        title: responseData.message || 'Leads marked as junk successfully',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                    }).then(() => {
+                        window.location.reload(); // Refresh the page after showing the success message
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        toast: true,
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while marking leads as junk. Please try again.',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                }
+            }
+
+  
+  
   </script>
   <script src="/script/customselect.js">
 
