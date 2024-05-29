@@ -1,22 +1,42 @@
 const express = require("express");
 const router = express.Router();
 const {verify } = require("../middlewares/verify");
-const { getAccessToken } = require("../vendors/discord");
+const { getAccessToken, organiseDataHandler } = require("../vendors/discord");
 
 
 router
 .get("/discords", verify, async (req, res, next)=>{
-    res.render("discord.ejs");
+    try {
+        const [rows] = await __pool.query(`SELECT * FROM discord`);
+        const organisedData = await organiseDataHandler(rows);  
+        return res.render("discord.ejs", {data:organisedData});
+    } catch (error) {
+        console.log("Error getting discords:", error);
+    }
+
 }).get("/auth/discord", verify, async (req, res, next)=>{
    const {code} = req.query;
     if(!code) return res.redirect("/discord");
     try {
         const data = await getAccessToken(code);
-        console.log(data);
+        const {refresh_token, access_token, guild} = data
+        const owner_id = guild.owner_id;
+        
+        const [rows] = await __pool.query(`SELECT * FROM discord WHERE owner_id = ?`, [owner_id]);
+        if(rows.length > 0){
+            return res.redirect("/discord?error=already_exists");
+        }
+
+        const expires_on = Date.now() + 604800;
+        await __pool.query(`INSERT INTO discord (access_token, owner_id, refresh_token, expires_on) VALUES (?, ?, ?, ?)`, [access_token, owner_id, refresh_token, expires_on]);
+        res.redirect("/discord");
     } catch (error) {
-        console.log(error.message);
+        console.error("Error getting access token:", error);
+        res.redirect("/discord?error=access_token_error");
     }
-})
+}).post("/discord/webhook", verify, async (req, res, next)=>{
+    
+});
 
 module.exports = router;
 

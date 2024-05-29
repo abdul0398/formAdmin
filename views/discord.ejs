@@ -296,11 +296,20 @@
       <!-- End Navbar -->
       <div class="w-100 me-3 mx-auto" style="height: 95vh;">
         <div class="h-8 d-flex justify-content-end">
-            <a href="https://discord.com/oauth2/authorize?client_id=1245224296142344192&permissions=8&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fauth%2Fdiscord%2F&scope=bot+applications.commands+guilds" target="_blank" class="btn me-5 mt-3 shadow-dark btn-primary shadow-none" style="background-color: #002655;">Connect Discord</a>
+            <a href="https://discord.com/oauth2/authorize?client_id=1245224296142344192&permissions=8&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fauth%2Fdiscord%2F&scope=identify+email+guilds+bot+applications.commands" target="_blank" class="btn me-5 mt-3 shadow-dark btn-primary shadow-none" style="background-color: #002655;">Connect Discord</a>
         </div>
 
-        <div>
-
+        <div class="height-200 w-95 mx-auto rounded-2">
+          <%for(let i = 0; i < data.length; i++){%>
+            <div class="d-flex justify-content-between p-3 border-bottom">
+              <div>
+                <p class="text-bold"><%=data[i].email%></p>
+              </div>
+              <div>
+                <button class="btn btn-primary">Disconnect</button>
+              </div>
+            </div>
+          <%}%>
         </div>
 
 
