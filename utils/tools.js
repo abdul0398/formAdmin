@@ -107,6 +107,7 @@ async function validateEmailFromDB(email, ph_number, ip, source_url) {
 }
 
 async function saveDataToMasterDb(data) {
+  // console.log(data);
   try { 
     let headers = new Headers([
       ["Content-Type", "application/json"],
@@ -120,15 +121,15 @@ async function saveDataToMasterDb(data) {
       headers: headers
     };
     const response = await fetch('http://janicez87.sg-host.com/savedata.php', options);
-
     if (!response.ok) {
-      throw new Error('Failed to send data');
+      console.log('Error Saving lead to Master DB:');
+     return false;
     }
     return
     // return await response.json();
   } catch (error) {
     console.error('Error Saving Data:', error);
-    throw error;
+    return false;
   }
 }
 
