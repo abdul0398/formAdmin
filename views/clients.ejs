@@ -985,7 +985,7 @@
                 </Select>
                 <Select
                   onchange="selectChannelHandler(this)"
-                  class="mt-2 form-select px-2 channel-server border border-3"
+                  class="mt-2 form-select px-2 channel-select border border-3"
                 >
                   <option selected disabled>Select Channel</option>
                 </Select>
@@ -1632,16 +1632,17 @@
     </script>
 
     <script>
-      function addDiscord() {
+      function addDiscord(value) {
+        const input_value = value == false?"No Webhook Found":!value? "": value;
         let inputContainer = document.getElementById(
           "discord-dynamic-container"
         );
         let newInput = document.createElement("div");
         newInput.innerHTML =
-          '<div class="discord-inner-container d-flex mb-1">' +
-          '    <input type="text" class="discord-input border border-3 p-2 form-control" placeholder="Discord Link" name="dslink[]">' +
-          '    <button title="Remove Discord" class="my-1 bg-transparent ms-2 remove-discord-input" onclick="removeDiscord(this)"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>' +
-          "</div>";
+         ` <div class="discord-inner-container d-flex mb-1">
+             <input type="text" class="discord-input border border-3 p-2 form-control" value="${input_value}" placeholder="Discord Link" name="dslink[]">
+             <button title="Remove Discord" class="my-1 bg-transparent ms-2 remove-discord-input" onclick="removeDiscord(this)"><i class="fa-solid fa-trash" style="color: rgb(204, 1, 1);"></i></button>
+          </div>`;
         inputContainer.appendChild(newInput);
       }
 
@@ -1809,10 +1810,11 @@
         });
 
         const server_select = document.querySelector(".server-select");
+        server_select.innerHTML = "";
+        server_select.innerHTML = "<option selected disabled>Loading...</option>"
         const data = await getServers();
+        server_select.innerHTML = "<option selected disabled>Select Server</option>"
 
-
-        
         data.forEach((server) => {
           let newOption = document.createElement("option");
           newOption.value = server.id;
@@ -2801,9 +2803,69 @@
       }
     }
     
+      async function selectServerHandler(select){
+      const serverId = select.value;
+      const channelSelect = document.querySelector(".channel-select");
+      channelSelect.innerHTML = "";
+      channelSelect.innerHTML = `<option selected disabled>Loading...</option>`;
+        const collections = await fetchChannels(serverId);
+
+        channelSelect.innerHTML = `<option selected disabled>Select Channel</option>`;
+        collections.forEach((collection) => {
+          let newOption = document.createElement("option");
+          newOption.value = collection.id;
+          newOption.text = collection.name;
+          channelSelect.add(newOption);
+        });
+      }
+
+      async function fetchChannels(serverId){
+      const response = await fetch(`/api/discord/channels/${serverId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if(response.status === 200){
+        const data = await response.json();
+        return data;
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error getting channels'
+        });
+      }
+      }
     
-    
-    
+   async function selectChannelHandler(select){
+      const channelId = select.value;
+      const data = await fetchWebHooks(channelId);
+      const url = data[0]?.url || false;
+
+      addDiscord(url);
+    }
+
+    async function fetchWebHooks(channelId) {
+      const response = await fetch(`/api/discord/webhooks/${channelId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if(response.status === 200){
+        const data = await response.json();
+        return data;
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error getting webhooks'
+        });
+      }
+    }
+
+
     
     </script>
   </body>

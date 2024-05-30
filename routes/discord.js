@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {verify } = require("../middlewares/verify");
-const { getAccessToken, organiseDataHandler, getServersAndChannels, getWebhooksInChannel, getServers } = require("../vendors/discord");
+const { getAccessToken, organiseDataHandler, getServersAndChannels, getWebhooksInChannel, getServers, getChannelsInServer } = require("../vendors/discord");
 
 
 router
@@ -61,17 +61,28 @@ router
         console.log("Error getting servers and channels:", error);
         res.status(500).json({message:"Error getting servers and channels"});
     }
-}).get("/api/discord/getWebhooks/:id", verify, async (req, res, next)=>{
+}).get("/api/discord/channels/:id", verify, async (req, res, next)=>{
     const {id} = req.params;
     if(!id) return res.status(400).json({message:"Invalid ID"});
     try {
-        const data = await getWebhooksInChannel(id);
+        const data = await getChannelsInServer(id);
         res.status(200).json(data);
     } catch (error) {
         console.log("Error getting servers and channels:", error);
         res.status(500).json({message:"Error getting servers and channels"});
     }
 
+}).get(`/api/discord/webhooks/:channelId`, verify, async (req,res)=>{
+    const {channelId} = req.params;
+    if(!channelId) return res.status(400).json({message:"Invalid Channel ID"});
+    try {
+        const data = await getWebhooksInChannel(channelId);
+        res.status(200).json(data);
+    } catch (error) {
+        console.log("Error getting servers and channels:", error);
+        res.status(500).json({message:"Error getting servers and channels"});
+    }
 })
+
 
 module.exports = router;

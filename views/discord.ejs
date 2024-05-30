@@ -295,11 +295,19 @@
       </nav>
       <!-- End Navbar -->
       <div class="w-100 me-3 mx-auto" style="height: 95vh;">
-        <div class="h-8 d-flex justify-content-end">
+        <div class="h-8 d-flex justify-content-between">
+          <h5 class=" d-flex justify-content-center align-items-center ms-4">Connected Discord Account</h1>
             <a href="https://discord.com/oauth2/authorize?client_id=1245224296142344192&permissions=8&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fauth%2Fdiscord%2F&scope=identify+email+guilds+bot+applications.commands" target="_blank" class="btn me-5 mt-3 shadow-dark btn-primary shadow-none" style="background-color: #002655;">Connect Discord</a>
         </div>
 
+        <!-- <h4 class="text-center">Connected Discord Account</h1> -->
         <div class="w-95 mx-auto rounded-2 mt-3">
+          <%if(data.length == 0){%>
+            <div class="d-flex pt-2 justify-content-between align-items-center bg-white px-3 rounded-3 shadow-sm">
+                <p class="text-bold">No discord connected</p>
+            </div>
+          
+          <%}%>
           <%for(let i = 0; i < data.length; i++){%>
             <div class="d-flex pt-2 justify-content-between align-items-center bg-white px-3 rounded-3 shadow-sm">
                 <p class="text-bold"><%=data[i].email%></p>
@@ -315,43 +323,7 @@
             </div>
           <%}%>
         </div>
-
-
-
       </div>
-      <!-- <dialog class="position-relative discord-setting-dialog w-95 h-100 border-0 p-5 rounded-3 shadow-1">
-        <span
-        class="cross-hover position-absolute end-0 top-0 icon-link-hover text-4xl d-flex cursor-pointer justify-content-center align-content-center"
-        onclick="this.parentElement.close()"
-        style="height: 50px; width: 50px"
-        >&times;</span
-      >
-
-      <div class="channels-div">
-        <div class="w-95 mx-auto rounded-2 mt-3">
-          <table>
-            <thead>
-              <tr>
-                <th>Server Name</th>
-                <th>Channel Name</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Ge</td>
-                <td>123456789</td>
-                <td>
-                  <button class="pt-1 btn shadow-none text-white" style="background-color: #002655;"></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-
-      </dialog> -->
     </main>
     <script src="script/leadscript.js"></script>
 
@@ -396,21 +368,15 @@
         }
       });
       if(response.status === 200){
-        const data = await response.json();
-        if(data.success){
+        
           Swal.fire({
             icon: 'success',
             title: 'Success',
             text: 'Discord deleted successfully'
+          }).then((res) => {
+            if(res.isConfirmed) window.location.reload();
           });
-          location.reload();
-        }else{
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Error deleting discord'
-          });
-        }
+        
       }else{
         Swal.fire({
           icon: 'error',
@@ -419,113 +385,6 @@
         });
       }
     }
-
-
-  
-
-
-
-  //   async function openDialogDiscord(btn) {
-  //     const id = btn.getAttribute('data-id');
-  //     btn.disabled = true;
-  //     btn.style.cursor = 'not-allowed';
-  //     btn.innerHTML = 'Opening...';
-
-  //     try {
-  //       const data = await getServersAndChannels(id);
-  //       populateChannels(data);
-  //       btn.disabled = false;
-  //       btn.style.cursor = 'pointer';
-  //       btn.innerHTML = 'Edit';
-  //       const dialog = document.querySelector('.discord-setting-dialog');
-  //       dialog.showModal();
-  //     } catch (error) {
-  //       console.error("Error opening Discord dialog:", error);
-  //       btn.disabled = false;
-  //       btn.style.cursor = 'pointer';
-  //       btn.innerHTML = 'Edit';
-  //     }
-  //   }
-
-
-
-  //   function populateChannels(servers){
-  //       const channelsDiv = document.querySelector('.channels-div');
-  //       channelsDiv.innerHTML = '';
-  //       for(let i = 0; i < servers.length; i++){
-  //         const server = servers[i];
-  //         const table = document.createElement('table');
-  //         const thead = document.createElement('thead');
-  //         const tbody = document.createElement('tbody');
-  //         const tr = document.createElement('tr');
-  //         const th1 = document.createElement('th');
-  //         th1.classList.add('text-center');
-  //         th1.innerHTML = 'Server Name';
-  //         const th2 = document.createElement('th');
-  //         th2.innerHTML = 'Channel Name';
-  //         th2.classList.add('text-center');
-
-  //         const th3 = document.createElement('th');
-  //         th3.innerHTML = 'Actions';
-  //         th3.classList.add('text-center');
-  //         tr.appendChild(th1);
-  //         tr.appendChild(th2);
-  //         tr.appendChild(th3);
-  //         thead.appendChild(tr);
-  //         table.appendChild(thead);
-  //         for(let j = 0; j < server.channels.length; j++){
-  //           const channel = server.channels[j];
-  //           const tr = document.createElement('tr');
-  //           const td1 = document.createElement('td');
-  //           td1.classList.add('text-center');
-
-  //           td1.innerHTML = server.server;
-  //           const td2 = document.createElement('td');
-  //           td2.innerHTML = channel.name;
-  //           td2.classList.add('text-center');
-  //           const td3 = document.createElement('td');
-  //           td3.classList.add('text-center');
-  //           const button = document.createElement('button');
-  //           button.innerHTML = 'Copy webhook';
-  //           button.classList.add('pt-1');
-  //           button.classList.add('btn');
-  //           button.classList.add('shadow-none');
-  //           button.classList.add('text-white');
-  //           button.style.backgroundColor = '#002655';
-  //           button.onclick = () => {
-  //             deleteChannel(channel.id);
-  //           }
-  //           td3.appendChild(button);
-  //           tr.appendChild(td1);
-  //           tr.appendChild(td2);
-  //           tr.appendChild(td3);
-  //           tbody.appendChild(tr);
-  //         }
-  //         table.appendChild(tbody);
-  //         channelsDiv.appendChild(table);
-  //       }
-  //   }
-   
-   
-   
-  // async function getWebhooks(channelId){
-  //     const response = await fetch(`/api/discord/getWebhooks/${channelId}`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       }
-  //     });
-  //     if(response.status === 200){
-  //       const data = await response.json();
-  //       return data;
-  //     }else{
-  //       Swal.fire({
-  //         icon: 'error',
-  //         title: 'Error',
-  //         text: 'Error getting webhooks'
-  //       });
-  //     }
-  // }
    
    </script>
   </body>
