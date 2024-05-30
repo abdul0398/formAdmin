@@ -2,6 +2,7 @@ const axios = require('axios');
 
 const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID;
 const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
+const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 const DISCORD_API_ENDPOINT = 'https://discord.com/api/v10';
 
 // Utility function to create URL-encoded form data
@@ -73,9 +74,81 @@ async function organiseDataHandler(rows) {
   return finalData;
 }
 
+
+async function getServers(access_token) {
+  try {
+    const response = await axios.get(`${DISCORD_API_ENDPOINT}/users/@me/guilds`, {
+      headers: { Authorization: `Bearer ${access_token}` }
+    });
+
+    if (response.status!== 200) {
+      throw new Error(`Failed to fetch guilds: ${response.statusText}`);
+    }
+
+    const servers = response.data;
+    console.log(servers);
+    let owned_servers = [];
+    for (let server of servers) {
+      if(server.owner){
+        owned_servers.push(server)
+      }
+      // const res = await getChannelsInServer(server.id);
+      // if(server.owner && res.status == 200){
+        // owned_servers.push(server)
+      // }
+    }
+    return owned_servers;
+  } catch (error) {
+    console.error("Error fetching servers and channels:", error.message);
+    return [];
+  }
+}
+
+
+async function getChannelsInServer(serverId) {
+  try {
+    const response = await axios.get(`${DISCORD_API_ENDPOINT}/guilds/${serverId}/channels`, {
+      headers: { Authorization: `Bot MTI0NTIyNDI5NjE0MjM0NDE5Mg.GcJn1S.J0g8ZMVRvUxIyw65Fz-dCJ7ZYKKQYhgdfQki8g` }
+    });
+
+    if (response.status !== 200) {
+      throw new Error(`Failed to fetch channels for guild ${serverId}: ${response.statusText}`);
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching channels for guild ${serverId}:`, error.message);
+    return [];
+  }
+}
+
+
+
+
+async function getWebhooksInChannel(channelId) {
+  try {
+    const response = await axios.get(`${DISCORD_API_ENDPOINT}/channels/${channelId}/webhooks`, {
+      headers: { Authorization: `Bot ${DISCORD_BOT_TOKEN}` }
+    });
+
+    if (response.status!== 200) {
+      throw new Error(`Failed to fetch webhooks: ${response.statusText}`);
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching webhooks:", error.message);
+    return [];
+  }
+}
+
+
 module.exports = {
   getAccessToken,
   organiseDataHandler,
   getUserInfo,
-  updateAccessToken
+  updateAccessToken,
+  getServers,
+  getWebhooksInChannel,
+  getChannelsInServer
 };

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {verify } = require("../middlewares/verify");
-const { getAccessToken, organiseDataHandler } = require("../vendors/discord");
+const { getAccessToken, organiseDataHandler, getServersAndChannels, getWebhooksInChannel, getServers } = require("../vendors/discord");
 
 
 router
@@ -16,7 +16,7 @@ router
 
 }).get("/auth/discord", verify, async (req, res, next)=>{
    const {code} = req.query;
-    if(!code) return res.redirect("/discord");
+    if(!code) return res.redirect("/discords");
     try {
         const data = await getAccessToken(code);
         const {refresh_token, access_token, guild} = data
@@ -24,22 +24,54 @@ router
         
         const [rows] = await __pool.query(`SELECT * FROM discord WHERE owner_id = ?`, [owner_id]);
         if(rows.length > 0){
-            return res.redirect("/discord?error=already_exists");
+            return res.redirect("/discords?error=Account already Linked");
         }
 
         const expires_on = Date.now() + 604800;
         await __pool.query(`INSERT INTO discord (access_token, owner_id, refresh_token, expires_on) VALUES (?, ?, ?, ?)`, [access_token, owner_id, refresh_token, expires_on]);
-        res.redirect("/discord");
+        res.redirect("/discords");
     } catch (error) {
         console.error("Error getting access token:", error);
-        res.redirect("/discord?error=access_token_error");
+        res.redirect("/discords?error=access_token_error");
     }
 }).post("/discord/webhook", verify, async (req, res, next)=>{
     
-});
+}).delete("/api/discord/delete/:id", verify, async (req, res, next)=>{
+    const {id} = req.params;
+    if(!id) return res.redirect("/discord");
+    try {
+        await __pool.query(`DELETE FROM discord WHERE id = ?`, [id]);
+        res.status(200).json({message:"Deleted"});
+    } catch (error) {
+        console.log("Error deleting discord:", error);
+        res.status(500).json({message:"Error deleting discord"});
+    }
+}).get("/api/discord/getServers", verify, async (req, res, next)=>{
+    try {
+        const [rows] = await __pool.query(`SELECT * FROM discord`);
+        if(rows.length < 1) return res.status(404).json({message:"Not Found"});
+        const finalData = [];
+        for (let element of rows) {
+            const {access_token} = element;
+            const data = await getServers(access_token);
+            finalData.push(...data);
+        }
+        res.status(200).json(finalData);
+    } catch (error) {
+        console.log("Error getting servers and channels:", error);
+        res.status(500).json({message:"Error getting servers and channels"});
+    }
+}).get("/api/discord/getWebhooks/:id", verify, async (req, res, next)=>{
+    const {id} = req.params;
+    if(!id) return res.status(400).json({message:"Invalid ID"});
+    try {
+        const data = await getWebhooksInChannel(id);
+        res.status(200).json(data);
+    } catch (error) {
+        console.log("Error getting servers and channels:", error);
+        res.status(500).json({message:"Error getting servers and channels"});
+    }
+
+})
 
 module.exports = router;
-
-// https://discord.com/oauth2/authorize?client_id=1245224296142344192&permissions=8&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fauth%2Fdiscord%2F&scope=bot+applications.commands+guilds
-// MTI0NTIyNDI5NjE0MjM0NDE5Mg.GcJn1S.J0g8ZMVRvUxIyw65Fz-dCJ7ZYKKQYhgdfQki8g
-// 8

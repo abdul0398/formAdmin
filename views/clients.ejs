@@ -975,6 +975,23 @@
               />
               <hr style="border-top: 2px solid black !important" />
 
+              <div>
+                <p class="mt-4" style="font-weight: 600">Discord Webhook</p>
+                <Select
+                  onchange="selectServerHandler(this)"
+                  class="form-select px-2 server-select border border-3"
+                >
+                  <option selected disabled>Select Server</option>
+                </Select>
+                <Select
+                  onchange="selectChannelHandler(this)"
+                  class="mt-2 form-select px-2 channel-server border border-3"
+                >
+                  <option selected disabled>Select Channel</option>
+                </Select>
+              </div>
+              <hr style="border-top: 2px solid black !important" />
+
               <div id="discord-container" style="text-align: start">
                 <div id="discord-dynamic-container"></div>
                 <button
@@ -985,6 +1002,7 @@
                   Add Discord Link
                 </button>
               </div>
+
 
               <hr style="border-top: 2px solid black !important" />
               <div id="hook-container" style="text-align: start">
@@ -1672,7 +1690,7 @@
         populateSelectOnForm();
       }
 
-      function populatetheSettings(formDetails) {
+      async function populatetheSettings(formDetails) {
         // Setting up the colors
         const botName = document.getElementById("botName");
         const projectName = document.getElementById("projectName");
@@ -1789,7 +1807,22 @@
             "</div>";
           requestContainer.appendChild(newInput);
         });
+
+        const server_select = document.querySelector(".server-select");
+        const data = await getServers();
+
+
+        
+        data.forEach((server) => {
+          let newOption = document.createElement("option");
+          newOption.value = server.id;
+          newOption.text = server.name;
+          server_select.add(newOption);
+        });
       }
+
+
+
 
       function addEventListenerCustom() {
         const bedroomOptionsContainer = document.querySelector(
@@ -2749,6 +2782,24 @@
       }
 
     
+        async function getServers() {
+      const response = await fetch(`/api/discord/getServers/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if(response.status === 200){
+        const data = await response.json();
+        return data;
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error getting servers and channels'
+        });
+      }
+    }
     
     
     
