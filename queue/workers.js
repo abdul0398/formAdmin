@@ -22,7 +22,7 @@ async function startWorker() {
                 throw new Error("Form not found");
             }
             const form = rows[0];
-            const {isValid} = data.email? await validateEmailFromDB(data.email, data.ph_number, data.ip_address, job.data.referer) : {isValid: true};
+            const {isValid} = data.email? await validateEmailFromDB(data.email, data.ph_number, data.ip_address, data.source_url) : {isValid: true};
             const isClean =data.eamil? await contentModeratorationAPI({name: data.name, email: data.email, ph_number: data.ph_number}) : true;
 
             const isTestingDetails =  data.email && data.email.toLowerCase() == "jometesting@gmail.com" && data.ph_number == "91111111";
