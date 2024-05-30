@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {verify } = require("../middlewares/verify");
-const { getAccessToken, organiseDataHandler, getServersAndChannels, getWebhooksInChannel, getServers, getChannelsInServer } = require("../vendors/discord");
+const { getAccessToken, organiseDataHandler, getWebhooksInChannel, getServers, getChannelsInServer } = require("../vendors/discord");
 
 
 router
@@ -34,8 +34,6 @@ router
         console.error("Error getting access token:", error);
         res.redirect("/discords?error=access_token_error");
     }
-}).post("/discord/webhook", verify, async (req, res, next)=>{
-    
 }).delete("/api/discord/delete/:id", verify, async (req, res, next)=>{
     const {id} = req.params;
     if(!id) return res.redirect("/discord");

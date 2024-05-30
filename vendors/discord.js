@@ -11,70 +11,89 @@ function createFormData(data) {
     .map((key) => key + "=" + encodeURIComponent(data[key]))
     .join("&");
 }
-
 async function getAccessToken(code) {
-  const data = createFormData({
-    grant_type: "authorization_code",
-    code,
-    redirect_uri: "http://localhost:4000/auth/discord/",
-  });
+  try {
+    const data = createFormData({
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: "http://localhost:4000/auth/discord/",
+    });
 
-  const response = await axios.post(
-    `${DISCORD_API_ENDPOINT}/oauth2/token`,
-    data,
-    {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      auth: { username: DISCORD_CLIENT_ID, password: DISCORD_CLIENT_SECRET },
-    }
-  );
+    const response = await axios.post(
+      `${DISCORD_API_ENDPOINT}/oauth2/token`,
+      data,
+      {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        auth: { username: DISCORD_CLIENT_ID, password: DISCORD_CLIENT_SECRET },
+      }
+    );
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.error("Error getting access token:", error.message);
+    throw error;
+  }
 }
 
 async function getNewAccessToken(refresh_token) {
-  const data = createFormData({ grant_type: "refresh_token", refresh_token });
+  try {
+    const data = createFormData({ grant_type: "refresh_token", refresh_token });
 
-  const response = await axios.post(
-    `${DISCORD_API_ENDPOINT}/oauth2/token`,
-    data,
-    {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      auth: { username: DISCORD_CLIENT_ID, password: DISCORD_CLIENT_SECRET },
-    }
-  );
+    const response = await axios.post(
+      `${DISCORD_API_ENDPOINT}/oauth2/token`,
+      data,
+      {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        auth: { username: DISCORD_CLIENT_ID, password: DISCORD_CLIENT_SECRET },
+      }
+    );
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.error("Error getting new access token:", error.message);
+    throw error;
+  }
 }
 
 async function getUserInfo(access_token) {
-  const response = await axios.get(`${DISCORD_API_ENDPOINT}/users/@me`, {
-    headers: { Authorization: `Bearer ${access_token}` },
-  });
+  try {
+    const response = await axios.get(`${DISCORD_API_ENDPOINT}/users/@me`, {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.error("Error getting user info:", error.message);
+    throw error;
+  }
 }
 
 async function updateAccessToken(owner_id, refresh_token) {
-  const data = await getNewAccessToken(refresh_token);
-  const {
-    access_token: newAccess_token,
-    expires_in,
-    refresh_token: newRefresh_token,
-  } = data;
+  try {
+    const data = await getNewAccessToken(refresh_token);
+    const {
+      access_token: newAccess_token,
+      expires_in,
+      refresh_token: newRefresh_token,
+    } = data;
 
-  // Assuming __pool is a MySQL connection pool instance
-  await __pool.query(
-    `UPDATE discord SET access_token =?, expires_on =?, refresh_token =? WHERE owner_id =?`,
-    [
-      newAccess_token,
-      Date.now() + expires_in * 1000,
-      newRefresh_token,
-      owner_id,
-    ]
-  );
+    // Assuming __pool is a MySQL connection pool instance
+    await __pool.query(
+      `UPDATE discord SET access_token =?, expires_on =?, refresh_token =? WHERE owner_id =?`,
+      [
+        newAccess_token,
+        Date.now() + expires_in * 1000,
+        newRefresh_token,
+        owner_id,
+      ]
+    );
 
-  console.log(`Updated access token for owner_id ${owner_id}`);
-  return data;
+    console.log(`Updated access token for owner_id ${owner_id}`);
+    return data;
+  } catch (error) {
+    console.error(`Error updating access token for owner_id ${owner_id}:`, error.message);
+    throw error;
+  }
 }
 
 async function organiseDataHandler(rows) {
@@ -82,17 +101,21 @@ async function organiseDataHandler(rows) {
 
   for (let element of rows) {
     let { access_token, owner_id, refresh_token, expires_on } = element;
-    if (Date.now() > expires_on) {
-      const data = await updateAccessToken(owner_id, refresh_token);
-      access_token = data.access_token;
+    try {
+      if (Date.now() > expires_on) {
+        const data = await updateAccessToken(owner_id, refresh_token);
+        access_token = data.access_token;
+      }
+      const userInfo = await getUserInfo(access_token);
+      finalData.push({ email: userInfo.email, id: element.id });
+    } catch (error) {
+      console.error(`Error processing owner_id ${owner_id}:`, error.message);
+      // Optionally, you can continue processing other rows or handle this differently
     }
-    const userInfo = await getUserInfo(access_token);
-    finalData.push({ email: userInfo.email, id: element.id });
   }
 
   return finalData;
 }
-
 async function getServers(access_token) {
   try {
     const response = await axios.get(
