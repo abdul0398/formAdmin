@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="/assets/img/apple-icon.png"
+    />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <title>Jome Journey</title>
+    <!--     Fonts and icons     -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700"
+    />
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/customselect.css" />
+    <!-- Font Awesome Icons -->
+    <script
+      src="https://kit.fontawesome.com/658a2960da.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <!-- CSS Files -->
+    <link
+      id="pagestyle"
+      href="/assets/css/material-dashboard.css?v=3.1.0"
+      rel="stylesheet"
+    />
+    <!-- Nepcha Analytics (nepcha.com) -->
+    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+    <script
+      defer
+      data-site="YOUR_DOMAIN_HERE"
+      src="https://api.nepcha.com/js/nepcha-analytics.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+    ></script>
+  </head>
+  <style>
+    table {
+      color: black;
+    }
+  </style>
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-K3SG3FFJ");
+  </script>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+    .beforeCollapse {
+      margin-right: 30px;
+    }
+
+    .collapsible-column {
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .collapsible-btn {
+      cursor: pointer;
+      position: absolute;
+      top: -6px;
+      right: 5px;
+    }
+
+    .content {
+      display: table-cell;
+    }
+
+    .hidden {
+      display: none;
+    }
+    .vertical-header {
+      writing-mode: vertical-lr;
+      transform: rotate(270 deg);
+      white-space: nowrap;
+      overflow: visible;
+      margin-top: 20px;
+    }
+
+    .afterCollapsible {
+      width: 10px;
+    }
+    .selected_client {
+      background-color: #56575b;
+      color: white;
+    }
+    .unselected_client {
+      background-color: white;
+      color: black;
+    }
+    .clients_div li {
+      width: 100%;
+      list-style: none;
+      height: 50px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: start;
+      padding-left: 10px;
+      align-items: center;
+      margin-top: 15px;
+      font-weight: 400;
+    }
+    li:hover {
+      cursor: pointer;
+    }
+    .forms_div {
+      border-radius: 6px;
+      height: 60px;
+      background-color: #f1f2f5;
+    }
+    .clients_div {
+      border-radius: 10px;
+      background: #f1f2f5;
+      box-shadow: 0px 4px 3px -1px rgba(0, 0, 0, 0.25);
+    }
+    @media (max-width: 800px) {
+      .wrapper_div {
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .clients_div {
+        width: 100% !important;
+        margin: auto;
+      }
+    }
+    .table-container {
+      height: 400px;
+      overflow: auto;
+      font-size: 12px;
+    }
+    /* td{
+            padding: 2px !important;
+        } */
+    .center_span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .select_container {
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <body class="g-sidenav-show bg-gray-200">
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-K3SG3FFJ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <aside
+      style="background-color: #0e4884 !important"
+      class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3"
+      id="sidenav-main"
+    >
+      <div class="sidenav-header">
+        <i
+          class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+          aria-hidden="true"
+          id="iconSidenav"
+        ></i>
+        <a class="navbar-brand m-0" href="/dashboard">
+          <img src="/logo.png" class="navbar-brand-img h-100" alt="main_logo" />
+          <span class="ms-1 font-weight-bold text-white">Jome Journey</span>
+        </a>
+      </div>
+      <hr class="horizontal light mt-0 mb-2" />
+      <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/clients">
+              <div
+                class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+              >
+                <i class="fa-solid fa-users" style="color: #ffffff"></i>
+              </div>
+              <span class="nav-link-text ms-1">Clients</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white"
+             
+              href="/leads"
+            >
+              <div
+                class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+              >
+                <i class="fa-solid fa-database"></i>
+              </div>
+              <span class="nav-link-text ms-1">Leads</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white"  style="background-color: #002655" href="/discords">
+              <div
+                class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+              >
+                <i class="fa-brands fa-discord" style="color: white"></i>
+              </div>
+              <span class="nav-link-text ms-1">Discord</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/logout">
+              <div
+                class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+              >
+                <i class="material-icons opacity-10">logout</i>
+              </div>
+              <span class="nav-link-text ms-1">Log Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <main
+      class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+    >
+      <!-- Navbar -->
+      <nav
+        class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
+        id="navbarBlur"
+        data-scroll="true"
+      >
+        <div class="container-fluid py-1 px-3">
+          <li class="ms-auto nav-item d-xl-none ps-3 d-flex align-items-center">
+            <a
+              href="javascript:;"
+              class="nav-link text-body p-0"
+              id="iconNavbarSidenav"
+            >
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </a>
+          </li>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="w-100 me-3 mx-auto" style="height: 95vh;">
+        <div class="h-8 d-flex justify-content-between">
+          <h5 class=" d-flex justify-content-center align-items-center ms-4">Connected Discord Account</h1>
+            <a href="https://discord.com/oauth2/authorize?client_id=1245224296142344192&permissions=8&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fauth%2Fdiscord%2F&scope=identify+email+guilds+bot+applications.commands" target="_blank" class="btn me-5 mt-3 shadow-dark btn-primary shadow-none" style="background-color: #002655;">Connect Discord</a>
+        </div>
+
+        <!-- <h4 class="text-center">Connected Discord Account</h1> -->
+        <div class="w-95 mx-auto rounded-2 mt-3">
+          <%if(data.length == 0){%>
+            <div class="d-flex pt-2 justify-content-between align-items-center bg-white px-3 rounded-3 shadow-sm">
+                <p class="text-bold">No discord connected</p>
+            </div>
+          
+          <%}%>
+          <%for(let i = 0; i < data.length; i++){%>
+            <div class="d-flex pt-2 justify-content-between align-items-center bg-white px-3 rounded-3 shadow-sm">
+                <p class="text-bold"><%=data[i].email%></p>
+                <div class="d-flex">
+
+                  <!-- <div class="me-2">
+                    <button onclick="openDialogDiscord(this)" data-id='<%=data[i].id%>' class="pt-1 btn shadow-none text-white" style="background-color: #002655;">Edit</button>
+                  </div> -->
+                  <div>
+                    <button onclick="deleteDiscord('<%=data[i].id%>')" class="pt-1 btn shadow-non text-white" style="background-color: #002655;">delete</button>
+                  </div>
+                </div>
+            </div>
+          <%}%>
+        </div>
+      </div>
+    </main>
+    <script src="script/leadscript.js"></script>
+
+    <!--   Core JS Files   -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/chartjs.min.js"></script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="/assets/js/material-dashboard.min.js?v=3.1.0"></script>
+   
+   <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+
+    if (error) {
+      const errorShown = localStorage.getItem('errorShown');
+
+      if (!errorShown) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error
+        }).then(() => {
+          // Set the flag in localStorage to prevent the error from being shown again
+          localStorage.setItem('errorShown', 'true');
+        });
+      }
+    }
+
+
+
+
+    async function deleteDiscord(id){
+      const response = await fetch(`/api/discord/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if(response.status === 200){
+        
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Discord deleted successfully'
+          }).then((res) => {
+            if(res.isConfirmed) window.location.reload();
+          });
+        
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error deleting discord'
+        });
+      }
+    }
+   
+   </script>
+  </body>
+</html>

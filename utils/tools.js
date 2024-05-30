@@ -107,6 +107,7 @@ async function validateEmailFromDB(email, ph_number, ip, source_url) {
 }
 
 async function saveDataToMasterDb(data) {
+  console.log(data);
   try { 
     let headers = new Headers([
       ["Content-Type", "application/json"],

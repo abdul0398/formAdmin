@@ -1,5 +1,5 @@
 const mysql = require('mysql2/promise');
-const {User, Form, Client, Lead} = require("../models");
+const {User, Form, Client, Lead, Discord} = require("../models");
 const crypto = require("crypto");
 
 async function setupDb() {
@@ -27,6 +27,7 @@ async function createTables() {
     await __pool.query(Client);
     await __pool.query(Form);
     await __pool.query(Lead);
+    await __pool.query(Discord);
 
 
     createUsers();
