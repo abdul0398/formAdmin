@@ -145,6 +145,7 @@ async function saveLeadToLocalDb(lead, client_id, form_id, select) {
 }
 
 async function discordBulkSender(leads) {
+  if(leads.length == 0) return;
   try {
     const formIds = leads.map(lead => lead.form_id);
     const [forms] = await __pool.query('SELECT * FROM forms WHERE id IN (?)', [formIds]);
@@ -162,6 +163,7 @@ async function discordBulkSender(leads) {
         const str = changeleadtoString(lead, selects, form.client_name, form.project_name);
         const botName = form.bot_name || form.name;
         const leadSent = await bulkDiscordSender(form.discord, str, botName); 
+        console.log(leadSent);
         if (leadSent) {
           await __pool.query('UPDATE leads SET is_send_discord = 1 WHERE id = ?', [lead.id]);
         }
