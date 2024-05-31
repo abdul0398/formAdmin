@@ -8,6 +8,7 @@ const Lead = `
         phone VARCHAR(255) NOT NULL,
         ip_address VARCHAR(255) NOT NULL,
         status ENUM('junk', 'clear') DEFAULT 'clear',
+        more_fields JSON,
         is_send_discord BOOLEAN DEFAULT 1,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

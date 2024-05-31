@@ -1,6 +1,7 @@
 require('dotenv').config()
 const setMiddleWares = require("./middlewares/express.js");
 const {userRouter, formRouter, clientRouter, leadRouter, discordsRouter} = require("./routes");
+const { modifyTable } = require('./script.js');
 const setupDb = require("./services/dbHandler.js");
 const { getServersAndChannels } = require('./vendors/discord.js');
 async function start() {
@@ -15,6 +16,8 @@ async function start() {
     app.listen(port, async ()=>{
         console.log(`##### Express Server Started at port ${port} #####`);
     })
+
+    // await modifyTable()
 
 }
 start();

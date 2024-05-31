@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const {verify } = require("../middlewares/verify");
+const { discordBulkSender } = require("../utils/tools");
 
 
 router
@@ -69,6 +70,17 @@ router
         res.status(500).json({ error: 'An error occurred while updating the leads' });
     }
 
+}).post("/api/leads/sendTodiscord/", verify, async (req, res, next)=>{
+    const {ids} = req.body;
+    try {
+        // get all leads with the ids
+        const [leads] = await __pool.query(`SELECT * FROM leads WHERE id IN (?)`, [ids]);
+        await discordBulkSender(leads);
+        res.status(200).json({message: "Leads sent to discord successfully"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error: error.message});
+    }
 })
 
 

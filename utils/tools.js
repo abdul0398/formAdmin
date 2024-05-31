@@ -1,4 +1,5 @@
 const https = require('https');
+const { bulkDiscordSender } = require('./discord');
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false, // Bypasses SSL certificate check;
 });
@@ -94,7 +95,6 @@ async function validateEmailFromDB(email, ph_number, ip, source_url) {
     });
     if (response.ok) {
       const validationData = await response.json();
-      console.log(validationData)
       return validationData;
     } else {
       console.error('Error fetching validation URL:', response.statusText);
@@ -107,7 +107,6 @@ async function validateEmailFromDB(email, ph_number, ip, source_url) {
 }
 
 async function saveDataToMasterDb(data) {
-  console.log(data);
   try { 
     let headers = new Headers([
       ["Content-Type", "application/json"],
@@ -133,16 +132,50 @@ async function saveDataToMasterDb(data) {
   }
 }
 
-async function saveLeadToLocalDb(lead, client_id, form_id) {
+async function saveLeadToLocalDb(lead, client_id, form_id, select) {
+  console.log("selects are " , select);
   try {
     await __pool.query(
-      `INSERT INTO leads (client_id, form_id, name, email, phone, ip_address, status, is_send_discord) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [client_id, form_id, lead.name, lead.email?lead.email:"", lead.ph_number, lead.ip_address, lead.status, lead.is_send_discord]
+      `INSERT INTO leads (client_id, form_id, name, email, phone, ip_address, status, is_send_discord, more_fields) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [client_id, form_id, lead.name, lead.email?lead.email:"", lead.ph_number, lead.ip_address, lead.status, lead.is_send_discord, JSON.stringify(select)]
     );
   } catch (error) {
     console.error('Error saving to local DB:', error);
   }
 }
+
+async function discordBulkSender(leads) {
+  try {
+    const formIds = leads.map(lead => lead.form_id);
+    const [forms] = await __pool.query('SELECT * FROM forms WHERE id IN (?)', [formIds]);
+    const leadsWithForms = leads.map(lead => ({
+     ...lead,
+      form: forms.find(form => form.id === lead.form_id)
+    }));
+    for (const { form, more_fields,...lead } of leadsWithForms) {
+      if (!form) {
+        console.error("Form not found for a lead");
+        continue;
+      }
+      try { 
+        const selects = more_fields || [];
+        const str = changeleadtoString(lead, selects, form.client_name, form.project_name);
+        const botName = form.bot_name || form.name;
+        const leadSent = await bulkDiscordSender(form.discord, str, botName); 
+        if (leadSent) {
+          await __pool.query('UPDATE leads SET is_send_discord = 1 WHERE id = ?', [lead.id]);
+        }
+      } catch (error) {
+        console.error("Error sending to discord: of  ", form.name);
+        continue;
+      }
+    }
+  } catch (error) {
+    console.error("Error processing leads:", error);
+    throw new Error(error.message);
+  }
+}
+
 
 module.exports = {
   changeleadtoString,
@@ -150,5 +183,6 @@ module.exports = {
   contentModeratorationAPI,
   validateEmailFromDB,
   saveDataToMasterDb,
-  saveLeadToLocalDb
+  saveLeadToLocalDb,
+  discordBulkSender
 };

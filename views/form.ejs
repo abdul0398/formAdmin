@@ -268,7 +268,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                     errorElement.innerText = '';
                 }
 
-                const response = await fetch('https://api.ipify.org?format=json')
+                const response = await fetch('https://ipinfo.io/json?token=8122b43242b7f4')
                 const data = await response.json();
                 const ip_address = data.ip;
 

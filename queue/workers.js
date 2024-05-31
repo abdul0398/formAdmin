@@ -1,10 +1,10 @@
 const { Worker } = require("bullmq");
 const { validateEmailFromDB, contentModeratorationAPI, contentModerationCustom, saveDataToMasterDb, changeleadtoString, saveLeadToLocalDb } = require("../utils/tools");
 const { bulkDiscordSender } = require("../utils/discord");
-const { bulkHookSender, sendToHooks } = require("../utils/zappier");
+const {sendToHooks } = require("../utils/zappier");
 const { sendMail } = require("../services/mailHandler");
 
-let workerInstance; // Singleton worker instance
+let workerInstance;
 
 async function startWorker() {
  if (!workerInstance) {
@@ -23,7 +23,7 @@ async function startWorker() {
             }
             const form = rows[0];
             const {isValid} = data.email? await validateEmailFromDB(data.email, data.ph_number, data.ip_address, data.source_url) : {isValid: true};
-            const isClean =data.eamil? await contentModeratorationAPI({name: data.name, email: data.email, ph_number: data.ph_number}) : true;
+            const isClean = await contentModeratorationAPI({name: data.name, email: data.email, ph_number: data.ph_number});
 
             const isTestingDetails =  data.email && data.email.toLowerCase() == "jometesting@gmail.com" && data.ph_number == "91111111";
     
@@ -31,23 +31,24 @@ async function startWorker() {
                 data.status = "junk";
                 data.is_send_discord = 0;
                 await saveDataToMasterDb(data);
-                await saveLeadToLocalDb(data, form.client_id, form.id);
+                await saveLeadToLocalDb(data, form.client_id, form.id, selects);
                 console.log("Junk Lead detected. Not sending to discord or zappier." + data.email + " " + data.ph_number + " " + data.name + " " + data.ip_address);
                 return ;
             }
-            await saveLeadToLocalDb(data, form.client_id, form.id);
-            await saveDataToMasterDb(data);
             const lead = {
                 ...data,
             };
     
-            const str = changeleadtoString(lead, selects, form.client_name, form.project_name);
-            
+            const str = changeleadtoString(lead, selects, form.client_name, form.project_name);  
             const bot_name = form.bot_name || form.name ;
-
-            await bulkDiscordSender(form.discord, str, bot_name);
+            const leadSent = await bulkDiscordSender(form.discord, str, bot_name);
             await sendToHooks(lead, form.zappier, form.project_name, form.client_name, selects);  
-            await sendMail(str, form.email);          
+            await sendMail(str, form.email);        
+            if(!leadSent){
+              data.is_send_discord = 0;
+            }            
+            await saveLeadToLocalDb(data, form.client_id, form.id, selects);
+            await saveDataToMasterDb(data);
         } catch (error) {
             console.log(error.message);
             throw error;

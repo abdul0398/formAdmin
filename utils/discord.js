@@ -8,18 +8,27 @@ async function sendWebhookMessage(hookURL, projectName, msg) {
     });
     return response
   } catch (error) {
-    console.error('Error sending message:', error);
+    throw new Error(error.message);
   }
 }
 
 async function bulkDiscordSender(discords, leadStr, botName){
-  if(discords.length === 0 || discords[0] === "") return;
+  if(!discords || !Array.isArray(discords) || discords.length === 0 || discords[0] === "") return;
+  let leadSent = false;
 try {
-  for(dsLink of discords){
-    await sendWebhookMessage(dsLink, botName , leadStr);
-  };
+  for(let dsLink of discords){
+    try {
+      await sendWebhookMessage(dsLink, botName , leadStr);
+      leadSent = true;
+    } catch (error) {
+      console.log("Error sending to discord: on", dsLink, "of Form ", botName);
+      continue;
+      
+    }
+  }
+  return leadSent;
 } catch (error) {
-  console.log(error.message);
+  throw new Error(error.message);
 }
   
 }

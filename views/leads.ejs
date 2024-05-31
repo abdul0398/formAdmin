@@ -376,6 +376,8 @@
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('all')" style="background-color: #002655; box-shadow: none;">Download all leads</Button>
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('selected')" style="background-color: #002655; box-shadow: none;"> Download selected leads</Button>
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('clear')" style="background-color: #002655; box-shadow: none;"> Download clear leads</Button>
+                    <Button class="btn-primary btn border" onclick="sendLeadsToDiscord()" style="background-color: #002655; box-shadow: none;">Send selected leads to Discord</Button>
+                    
                 </div>
             </div>
         </dialog>
@@ -878,6 +880,76 @@
                 }
             }
 
+
+            async function sendLeadsToDiscord() {
+                const tableBody = document.getElementById("table-body");
+                const inputs = tableBody.querySelectorAll("input[type='checkbox']");
+                const ids = [];
+
+                inputs.forEach(input => {
+                    if (input.checked) {
+                        const row = input.parentElement.parentElement;
+                        const idElement = row.querySelector(".lead_id");
+                        const id = idElement.textContent || idElement.innerText;
+                        ids.push(id);
+                    }
+                });
+
+                if (ids.length === 0) {
+                    Swal.fire({
+                        toast: true,
+                        icon: 'warning',
+                        title: 'No leads selected',
+                        text: 'Please select at least one lead to mark as junk.',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                    return;
+                }
+
+
+                try {
+                    const res = await fetch("/api/leads/sendTodiscord", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ids: ids }),
+                    });
+
+                    const responseData = await res.json();
+
+                    if (!res.ok) {
+                        throw new Error(responseData.error);
+                    }
+
+                    Swal.fire({
+                        toast: true,
+                        icon: 'success',
+                        title: responseData.message || 'Lead sent to discord successfully',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                    }).then(() => {
+                        window.location.reload(); // Refresh the page after showing the success message
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        toast: true,
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while sending leads to discord. Please Check Discord Webhook in form',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                }
+
+            }
   
   
   </script>
