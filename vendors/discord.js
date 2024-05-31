@@ -16,7 +16,7 @@ async function getAccessToken(code) {
     const data = createFormData({
       grant_type: "authorization_code",
       code,
-      redirect_uri: "https://form.jomejourney-portal.com/auth/discords",
+      redirect_uri: "https://form.jomejourney-portal.com/auth/discord",
     });
 
     const response = await axios.post(
