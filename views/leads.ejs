@@ -357,6 +357,9 @@
                             <th class="collapsible-column">   
                                 <div class="beforeCollapse">IP Address</div>
                             </th>
+                            <th class="collapsible-column">   
+                                <div class="beforeCollapse">Discord Status</div>
+                            </th>
                             
                             <th class="collapsible-column">    
                                 <div class="beforeCollapse">Status</div>
@@ -615,10 +618,21 @@
                     newRow.appendChild(cell7);
 
 
+                    const cell8 = document.createElement('td');
+                    cell8.innerHTML = `${filterleads[i].is_send_discord == 1 ? "SENT" : "PENDING"}`;
+                    cell8.style.backgroundColor = filterleads[i].is_send_discord == 1 ? "#61D393" : "red";
+                    cell8.style.fontWeight = "900";
+                    cell8.style.color = filterleads[i].is_send_discord == 1 ? "black" : "white";
+                    newRow.appendChild(cell8);
+
+
+
+
                     const cell9 = document.createElement('td');
                     cell9.innerHTML = `${filterleads[i].status.toUpperCase()}`;
                     cell9.classList.add("eight");
                     cell9.style.fontWeight = "900";
+                    cell9.style.color = filterleads[i].status == "junk" ? "white" : "black";
                     if(filterleads[i].status == "clear"){
                         cell9.style.backgroundColor = "#61D393";
                     }else if (filterleads[i].status == "junk"){
