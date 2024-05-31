@@ -24,7 +24,10 @@ router
         
         const [rows] = await __pool.query(`SELECT * FROM discord WHERE owner_id = ?`, [owner_id]);
         if(rows.length > 0){
-            return res.redirect("/discords?error=Account already Linked");
+            // Update the access token
+            const expires_on = Date.now() + 604800;
+            await __pool.query(`UPDATE discord SET access_token =?, expires_on =?, refresh_token =? WHERE owner_id =?`, [access_token, expires_on, refresh_token, owner_id]);
+            return res.redirect("/discords");
         }
 
         const expires_on = Date.now() + 604800;
