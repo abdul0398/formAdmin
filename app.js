@@ -34,6 +34,6 @@ async function start() {
              `);
         await discordBulkSender(leads)
     });
-    await modifyTable()
+    // await modifyTable()
 }
 start();
