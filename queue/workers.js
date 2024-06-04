@@ -3,6 +3,7 @@ const { validateEmailFromDB, contentModeratorationAPI, contentModerationCustom, 
 const { bulkDiscordSender } = require("../utils/discord");
 const {sendToHooks } = require("../utils/zappier");
 const { sendMail } = require("../services/mailHandler");
+const { addRow } = require("../services/googleSheets");
 
 let workerInstance;
 
@@ -46,10 +47,14 @@ async function startWorker() {
             await sendMail(str, form.email);        
             if(!leadSent){
               data.is_send_discord = 0;
-            }            
+            }
             await saveLeadToLocalDb(data, form.client_id, form.id, selects);
             await saveDataToMasterDb(data);
-        } catch (error) {
+            console.log(formID, form.name)
+            if(form.client_id == process.env.CLIENT_ID){
+              await addRow(process.env.SHEET_ID, form.name, data, selects);
+            }
+          } catch (error) {
             console.log(error.message);
             throw error;
         }

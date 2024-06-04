@@ -2,6 +2,7 @@ const express = require("express");
 const { verify } = require("../middlewares/verify");
 const producer = require("../queue/producer");
 const startWorker = require("../queue/workers");
+const { createSheet, renameSheet } = require("../services/googleSheets");
 const router = express.Router();
 
 router
@@ -75,7 +76,19 @@ router
   .get("/api/form/delete/:id", verify, async (req, res) => {
     const { id } = req.params;
     try {
+
+
+      const [rows] = await __pool.query(`SELECT * FROM forms WHERE id = ?`, [id]);
       await __pool.query(`DELETE FROM forms WHERE id = ?`, [id]);
+
+      const clientID = rows[0].client_id;
+      const formName = rows[0].name;
+
+      if(clientID == process.env.CLIENT_ID){
+        await renameSheet(process.env.SHEET_ID, formName, `${formName} (Deleted)` );
+      }
+
+
       res.redirect("/clients");
     } catch (error) {
       console.log(error.message);
@@ -234,6 +247,9 @@ router
           dev_info,
         ]
       );
+      if(clientID == process.env.CLIENT_ID){
+        await createSheet(process.env.SHEET_ID, name);
+      }
 
       res.status(200).json("Form Created Successfully with name " + name);
     } catch (error) {
