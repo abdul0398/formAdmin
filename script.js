@@ -33,7 +33,7 @@ async function modifyTable() {
 
 
 
-
+      new Promise((resolve, reject) => setTimeout(resolve, 2000));
       await addRow(process.env.SHEET_ID, forms[i].name, data, leads[j].more_fields || []);
     }
   }
