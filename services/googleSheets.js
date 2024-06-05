@@ -59,7 +59,7 @@ async function GetSpreadSheetValues(spreadsheetId, sheetName) {
 
 
 async function createSheet(spreadsheetId, sheetName) {
-  const defaultColumns = ["Name", "Email", "Phone", "IP", "Discord", "Status", "Additional Data"];
+  const defaultColumns = ["Name", "Email", "Phone", "Additional Data"];
   const auth = await getAuthToken();
   const sheets = google.sheets({ version: "v4", auth });
 
@@ -167,9 +167,6 @@ async function addRow(spreadsheetId, sheetName, data, selects) {
     data.name || '',
     data.email || '',
     data.ph_number || '',
-    data.ip_address || '',
-    data.is_send_discord == 0? 'Not Sent': 'Sent',
-    data.status || '',
     additionalDataString.trim() || '',
   ];
 

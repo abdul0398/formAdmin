@@ -247,6 +247,7 @@ router
           dev_info,
         ]
       );
+      console.log(clientID);
       if(clientID == process.env.CLIENT_ID){
         await createSheet(process.env.SHEET_ID, name);
       }
