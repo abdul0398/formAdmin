@@ -252,7 +252,7 @@
                     <option value selected disabled>Forms</option>        
                 </select>
             </div>
-            <div class="select_container w-100 w-lg-20 w-md-20" style="border-radius: 7px; display: inline-block; background-color: white; padding: 1px 10px;">
+            <div class="select_container w-100 w-lg-15 w-md-20" style="border-radius: 7px; display: inline-block; background-color: white; padding: 1px 10px;">
                 <span><i
                 class="fa-solid fa-list"
                 style="color: #000000;"></i></span>
@@ -262,7 +262,16 @@
                     <option value="clear">Clear</option>
                 </select>
             </div>
-               
+            <div class="select_container w-100 w-lg-15 w-md-20" style="border-radius: 7px; display: inline-block; background-color: white; padding: 1px 10px;">
+                <span><i
+                class="fa-solid fa-list"
+                style="color: #000000;"></i></span>
+                <select id="read-filter" class="filter-input">
+                    <option value="all">All</option>
+                    <option value="0">Not Read</option>
+                    <option value="1">Read</option>
+                </select>
+            </div>              
             <div class="download-container ">
                 <input class="download_input"
                     type="text"
@@ -281,7 +290,7 @@
             
         </div>
         <div class="d-flex wrapper_div">
-            <div class="p-3 ms-2 text-center clients_div w-30 height-400 border border-2 overflow-auto">
+            <div class="p-3 ms-2 text-center clients_div height-400 border border-2 overflow-auto">
                 <div  class="d-flex w-100 border border-0 rounded-2 p-2"
                 style="background-color: white; box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.25);">
                     <input id="search_client" class="w-100 border border-0 rounded-2 p-2" placeholder="Search Client" type="text">
@@ -316,66 +325,78 @@
                     <%}%>
                 </div>
             </div>
-            <div class="d-flex w-100 overflow-auto table-container p-3">
-                <table id="myTable" style="height: fit-content;">
-                    <thead>
-                        <tr>
-                            <th> 
-                                <input type="checkbox" class="all-checkbox">
-                            </th>
-                            <th> 
-                                <div class="beforeCollapse">No.</div>
-                            </th>
-                            <th> 
-                                <div class="beforeCollapse">Id</div>
-                            </th>
-                            
-                            <th class="collapsible-column">    
-                                <div class="beforeCollapse" >Date</div>
-                            </th>
-
-                            <th class="collapsible-column">    
-                                <div class="beforeCollapse" >Client Name</div>
-                            </th>
-
-                            <th class="collapsible-column">    
-                                <div class="beforeCollapse">Project name</div>
-                            </th>
-
-                            <th class="collapsible-column">    
-                                <div class="beforeCollapse" >Name</div>
-                            </th>
-
-                            <th class="collapsible-column">    
-                                <div class="beforeCollapse">Mobile</div>
-                            </th>
-
-                            <th class="collapsible-column">    
-                                <div class="beforeCollapse">Email</div>
-                            </th>
-
-                            <th class="collapsible-column">   
-                                <div class="beforeCollapse">IP Address</div>
-                            </th>
-                            <th class="collapsible-column">   
-                                <div class="beforeCollapse">Discord Status</div>
-                            </th>
-                            
-                            <th class="collapsible-column">    
-                                <div class="beforeCollapse">Status</div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                    </tbody>
-                </table>
+            <div class="d-flex w-90 overflow-hidden px-3">
+                <div class="w-100 overflow-x-auto" >
+                    <p id="leads-count" class="mb-0 font-weight-bold text-dark">Leads Count: 20</p>
+                    <div class="overflow-auto scroll table-container">
+                        <table id="myTable" style="height: fit-content;">
+                            <thead>
+                                <tr>
+                                    <th> 
+                                        <input type="checkbox" class="all-checkbox">
+                                    </th>
+                                    <th> 
+                                        <div class="beforeCollapse">No.</div>
+                                    </th>
+                                    <th> 
+                                        <div class="beforeCollapse">Id</div>
+                                    </th>
+                                    
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse" >Date</div>
+                                    </th>
+        
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse" >Client Name</div>
+                                    </th>
+        
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">Project name</div>
+                                    </th>
+        
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse" >Name</div>
+                                    </th>
+        
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">Mobile</div>
+                                    </th>
+        
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">Email</div>
+                                    </th>
+        
+                                    <th class="collapsible-column">   
+                                        <div class="beforeCollapse">IP Address</div>
+                                    </th>
+                                    <th class="collapsible-column">   
+                                        <div class="beforeCollapse">Discord Status</div>
+                                    </th>
+                                    
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">Status</div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">Read </div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">Params</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <dialog class="download-leads-modal position-relative border-1 rounded-2">
                 <button class="position-absolute top-1 end-1 text-dark bg-transparent h4 border-0 rounded-2" onclick="this.parentElement.close()">X</button>
             <div>
                 <div class="d-flex flex-column gap-2 py-2  pt-4">
-                    <Button class="btn-primary btn border" onclick="markAsJunk()" style="background-color: #002655; box-shadow: none;">Mark as Junk</Button>
+                    <Button class="btn-primary btn border" onclick="markStatus('junk')" style="background-color: #002655; box-shadow: none;">Mark as Junk</Button>
+                    <Button class="btn-primary btn border" onclick="markStatus('read')" style="background-color: #002655; box-shadow: none;">Mark as Read</Button>
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('all')" style="background-color: #002655; box-shadow: none;">Download all leads</Button>
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('selected')" style="background-color: #002655; box-shadow: none;"> Download selected leads</Button>
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('clear')" style="background-color: #002655; box-shadow: none;"> Download clear leads</Button>
@@ -436,6 +457,7 @@
                 const input_search = document.querySelector(".input_search");
                 const form_filter = document.getElementById("form-filter");
                 const junk_flter = document.getElementById("junk-filter");
+                const read_flter = document.getElementById("read-filter");
                 const liElements = document.querySelectorAll('.nav-link-text');
 
                 
@@ -465,6 +487,7 @@
                 form_filter.addEventListener("change", applyFilters);
                 input_search.addEventListener("input", applyFilters);
                 junk_flter.addEventListener("change", applyFilters);
+                read_flter.addEventListener('change', applyFilters);
 
 
                 liElements.forEach(function (li) {
@@ -491,6 +514,7 @@
                     form_filter_value = form_filter.value
                     search_value = input_search.value;
                     junk_filter_value = junk_flter.value;
+                    read_filter_value = read_flter.value;
     
                         if(search_value){
                             filterleads = filterleads.filter(elem=>{
@@ -508,6 +532,13 @@
                         if(junk_filter_value && junk_filter_value != 'all'){
                             filterleads = filterleads.filter(elem => {
                                 return elem.status == junk_filter_value;
+                            })
+                        }
+
+
+                        if(read_filter_value && read_filter_value != 'all'){
+                            filterleads = filterleads.filter(elem => {
+                                return elem.is_read == read_filter_value;
                             })
                         }
                         
@@ -550,7 +581,8 @@
                     btn.previousElementSibling.classList.add('beforeCollapse');
                     // btn.previousElementSibling.classList.remove('hidden');
                 });
-
+                const leadsCount = document.getElementById('leads-count');
+                leadsCount.textContent = `Leads Count: ${filterleads.length}`;
 
 
                 for (let i = 0; i < filterleads.length; i++) {
@@ -641,6 +673,19 @@
                         cell9.style.backgroundColor = "#FFCA46";
                     }
                     newRow.appendChild(cell9);
+
+                    const cell12 = document.createElement('td');
+                    cell12.innerHTML = `${filterleads[i].is_read == 1 ? "READ" : "NOT READ"}`;
+                    cell12.style.backgroundColor = filterleads[i].is_read == 1 ? "#61D393" : "red";
+                    cell12.style.fontWeight = "900";
+                    cell12.style.color = filterleads[i].is_read == 1 ? "black" : "white";
+                    newRow.appendChild(cell12);
+
+                    
+                    const cell13 = document.createElement('td');
+                    cell13.innerHTML = `${JSON.stringify(filterleads[i].params?filterleads[i].params:[])}`;
+                    newRow.appendChild(cell13);
+
                     tbody.appendChild(newRow);
                 }
             }          
@@ -827,7 +872,7 @@
                 return str;
             }
   
-            async function markAsJunk() {
+            async function markStatus(status) {
                 const tableBody = document.getElementById("table-body");
                 const inputs = tableBody.querySelectorAll("input[type='checkbox']");
                 const ids = [];
@@ -856,7 +901,7 @@
                 }
 
                 try {
-                    const res = await fetch("/api/leads/status", {
+                    const res = await fetch(`/api/leads/status/${status}`, {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json'
@@ -872,7 +917,7 @@
                     Swal.fire({
                         toast: true,
                         icon: 'success',
-                        title: responseData.message || 'Leads marked as junk successfully',
+                        title: responseData.message || `Leads marked as ${status} successfully`,
                         position: 'top-end',
                         showConfirmButton: false,
                         timer: 2000,
@@ -885,7 +930,7 @@
                         toast: true,
                         icon: 'error',
                         title: 'Error',
-                        text: 'An error occurred while marking leads as junk. Please try again.',
+                        text: `An error occurred while marking leads as ${status}. Please try again.`,
                         position: 'top-end',
                         showConfirmButton: false,
                         timer: 3000,
@@ -914,7 +959,7 @@
                         toast: true,
                         icon: 'warning',
                         title: 'No leads selected',
-                        text: 'Please select at least one lead to mark as junk.',
+                        text: `Please select at least one lead to mark as ${status}.`,
                         position: 'top-end',
                         showConfirmButton: false,
                         timer: 3000,

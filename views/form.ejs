@@ -240,6 +240,10 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
   function initializeFormValidation(ButtonID, FormID, NameID, EmailID, PhoneID, ErrorMsgID) {
     document.getElementById(FormID).setAttribute('action', document.referrer + 'thank-you');
 
+    // get all params in the url
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlParams.entries());
 
         const errors = [];
 
@@ -290,7 +294,8 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                         name: name,
                         ph_number: phone.slice(3),
                         ip_address: ip_address,
-                        source_url:document.referrer
+                        source_url:document.referrer,
+                        params:params
                     };
 
                     if (noemail == "true") {
