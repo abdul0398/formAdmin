@@ -8,7 +8,7 @@ const { discordBulkSender } = require("../utils/tools");
 router
 .get("/leads", verify, async (req, res, next)=>{
     try {
-        const [clients] = await __pool.query(`SELECT * FROM clients`);
+        const [clients] = await __pool.query(`SELECT * FROM clients ORDER BY name ASC`);
         const [forms] = await __pool.query(`SELECT * FROM forms`);
         res.render("leads.ejs", {clients, forms})
     } catch (error) {

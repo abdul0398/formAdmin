@@ -133,11 +133,12 @@ async function saveDataToMasterDb(data) {
 }
 
 async function saveLeadToLocalDb(lead, client_id, form_id, select) {
-  console.log("selects are " , select);
+
+  const is_read = lead.status == 'junk' ? 1 : 0;
   try {
     await __pool.query(
-      `INSERT INTO leads (client_id, form_id, name, email, phone, ip_address, status, is_send_discord, more_fields, params) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [client_id, form_id, lead.name, lead.email?lead.email:"", lead.ph_number, lead.ip_address, lead.status, lead.is_send_discord, JSON.stringify(select), JSON.stringify(lead.params)]
+      `INSERT INTO leads (client_id, form_id, name, email, phone, ip_address, status, is_send_discord, more_fields, params, is_read) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [client_id, form_id, lead.name, lead.email?lead.email:"", lead.ph_number, lead.ip_address, lead.status, lead.is_send_discord, JSON.stringify(select), JSON.stringify(lead.params), is_read]
     );
   } catch (error) {
     console.error('Error saving to local DB:', error);

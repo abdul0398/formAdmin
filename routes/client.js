@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/clients", verify, async (req, res, next)=>{
     try {
-        const [rows] = await __pool.query(`SELECT * FROM clients`);
+        const [rows] = await __pool.query(`SELECT * FROM clients ORDER BY name ASC`);
         res.render("clients.ejs", {clients:rows, admin:req.user.role === "admin"});
     } catch (error) {
         console.log(error.message);

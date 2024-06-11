@@ -259,7 +259,7 @@
                 <select id="junk-filter" class="filter-input">
                     <option value="all">All</option>
                     <option value="junk">Junk</option>
-                    <option value="clear">Clear</option>
+                    <option selected default value="clear">Clear</option>
                 </select>
             </div>
             <div class="select_container w-100 w-lg-15 w-md-20" style="border-radius: 7px; display: inline-block; background-color: white; padding: 1px 10px;">
@@ -268,7 +268,7 @@
                 style="color: #000000;"></i></span>
                 <select id="read-filter" class="filter-input">
                     <option value="all">All</option>
-                    <option value="0">Not Read</option>
+                    <option selected default value="0">Not Read</option>
                     <option value="1">Read</option>
                 </select>
             </div>              
@@ -289,8 +289,8 @@
             </div>
             
         </div>
-        <div class="d-flex wrapper_div">
-            <div class="p-3 ms-2 text-center clients_div height-400 border border-2 overflow-auto">
+        <div class="d-flex wrapper_div" style="height: 80vh;" >
+            <div class="p-3 ms-2 text-center clients_div height-400 border border-2 overflow-hidden">
                 <div  class="d-flex w-100 border border-0 rounded-2 p-2"
                 style="background-color: white; box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.25);">
                     <input id="search_client" class="w-100 border border-0 rounded-2 p-2" placeholder="Search Client" type="text">
@@ -326,10 +326,10 @@
                 </div>
             </div>
             <div class="d-flex w-90 overflow-hidden px-3">
-                <div class="w-100 overflow-x-auto" >
+                <div class="w-100 overflow-hidden h-100" >
                     <p id="leads-count" class="mb-0 font-weight-bold text-dark">Leads Count: 20</p>
-                    <div class="overflow-auto scroll table-container">
-                        <table id="myTable" style="height: fit-content;">
+                    <div class="overflow-auto scroll table-container h-100">
+                        <table id="myTable">
                             <thead>
                                 <tr>
                                     <th> 
@@ -369,15 +369,15 @@
                                     <th class="collapsible-column">   
                                         <div class="beforeCollapse">IP Address</div>
                                     </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">Read </div>
+                                    </th>
                                     <th class="collapsible-column">   
                                         <div class="beforeCollapse">Discord Status</div>
                                     </th>
                                     
                                     <th class="collapsible-column">    
                                         <div class="beforeCollapse">Status</div>
-                                    </th>
-                                    <th class="collapsible-column">    
-                                        <div class="beforeCollapse">Read </div>
                                     </th>
                                     <th class="collapsible-column">    
                                         <div class="beforeCollapse">Params</div>
@@ -431,9 +431,15 @@
                 forms = await fetchForms();
                 leads = data;
                 const client_id = document.querySelector(".selected_client").getAttribute("mid");
+                const junk_flter = document.getElementById("junk-filter");
+                const read_flter = document.getElementById("read-filter");
                 const nextLeads = leads.filter(lead=>{
-                    return lead.client_id == client_id;
+                    if(lead.status == "clear" && lead.is_read == 0 && lead.client_id == client_id){
+                        return true;
+                    }
                 })
+
+
 
                 populateLeads(nextLeads);
                 populateFormsSelect(client_id);
@@ -498,10 +504,13 @@
                         populateFormsSelect(client_id);
                         input_search.value = "";
                         startDate = "";
-                        endDate = "";                        
-                        junk_flter.value = "all";
+                        endDate = "";
+                        const junk_flter = document.getElementById("junk-filter");
+                        const read_flter = document.getElementById("read-filter");    
                         filterLeads = leads.filter(lead=>{
-                            return lead.client_id == client_id;
+                            if(lead.status == "clear" && lead.is_read == 0 && lead.client_id == client_id){
+                                return true;
+                            }
                         })
                         populateLeads(filterLeads);
                         
@@ -585,109 +594,123 @@
                 leadsCount.textContent = `Leads Count: ${filterleads.length}`;
 
 
-                for (let i = 0; i < filterleads.length; i++) {
+             // Iterate through the filterleads array
+            for (let i = 0; i < filterleads.length; i++) {
+                const newRow = document.createElement('tr');
 
-                    const newRow = document.createElement('tr');
+                // Create a checkbox cell
+                const cellCheckbox = document.createElement('td');
+                cellCheckbox.innerHTML = `<input type="checkbox"/>`;
+                cellCheckbox.style.width = "10px";
+                newRow.appendChild(cellCheckbox);
 
-                    const cell10 = document.createElement('td');
-                    cell10.innerHTML = `
-                    <input type="checkbox"/>
-                    `
-                    cell10.style.width = "10px";
-                    newRow.appendChild(cell10);
+                // Create a cell for the index
+                const cellIndex = document.createElement('td');
+                cellIndex.innerHTML = `${i + 1}`;
+                cellIndex.style.width = "10px";
+                newRow.appendChild(cellIndex);
 
+                // Create a cell for the lead ID
+                const cellLeadId = document.createElement('td');
+                cellLeadId.innerHTML = filterleads[i].id;
+                cellLeadId.classList.add('lead_id');
+                cellLeadId.style.width = "10px";
+                newRow.appendChild(cellLeadId);
 
+                // Create a cell for the creation date
+                const cellCreatedAt = document.createElement('td');
+                const timestamp = filterleads[i].created_at;
+                const date = new Date(timestamp);
+                const formattedDate = date.toISOString().split('T')[0];
+                cellCreatedAt.innerHTML = `${formattedDate}`;
+                cellCreatedAt.style.whiteSpace = "nowrap";
+                cellCreatedAt.classList.add("one");
+                newRow.appendChild(cellCreatedAt);
 
-                    const cell0 = document.createElement('td');
-                    cell0.innerHTML = `${i+1}`
-                    cell0.style.width = "10px";
-                    newRow.appendChild(cell0);
+                // Create a cell for the client name
+                const cellClientName = document.createElement('td');
+                cellClientName.innerHTML = `${filterleads[i].client_name}`;
+                cellClientName.classList.add("two");
+                newRow.appendChild(cellClientName);
 
-                    const cell11 = document.createElement('td');
-                    cell11 .innerHTML = filterleads[i].id;
-                    cell11.classList.add('lead_id');
-                    cell11 .style.width = "10px";
-                    newRow.appendChild(cell11);
-                    
-                    
-                    const cell1 = document.createElement('td');
-                    const timestamp = filterleads[i].created_at;
-                    const date = new Date(timestamp);
-                    const formattedDate = date.toISOString().split('T')[0];
-                    cell1.innerHTML = `${formattedDate}`;
-                    cell1.style.whiteSpace = "nowrap";
-                    cell1.classList.add("one");
-                    newRow.appendChild(cell1);
+                // Create a cell for the form name
+                const cellFormName = document.createElement('td');
+                cellFormName.innerHTML = `${filterleads[i].form_name}`;
+                cellFormName.classList.add("three");
+                newRow.appendChild(cellFormName);
 
-                    const cell2 = document.createElement('td');
-                    cell2.innerHTML = `${filterleads[i].client_name}`;
-                    cell2.classList.add("two");
-                    newRow.appendChild(cell2);
+                // Create a cell for the name
+                const cellName = document.createElement('td');
+                cellName.innerHTML = `${filterleads[i].name}`;
+                cellName.classList.add("four");
+                newRow.appendChild(cellName);
 
-                    const cell3 = document.createElement('td');
-                    cell3.innerHTML = `${filterleads[i].form_name}`;
-                    cell3.classList.add("three");
-                    newRow.appendChild(cell3);
+                // Create a cell for the phone number
+                const cellPhone = document.createElement('td');
+                cellPhone.innerHTML = `${filterleads[i].phone}`;
+                cellPhone.classList.add("five");
+                newRow.appendChild(cellPhone);
 
-                    const cell4 = document.createElement('td');
-                    cell4.innerHTML = `${filterleads[i].name}`;
-                    cell4.classList.add("four");
-                    newRow.appendChild(cell4);
+                // Create a cell for the email
+                const cellEmail = document.createElement('td');
+                cellEmail.innerHTML = `${filterleads[i].email}`;
+                cellEmail.classList.add("six");
+                newRow.appendChild(cellEmail);
 
-                    const cell5 = document.createElement('td');
-                    cell5.innerHTML = `${filterleads[i].phone}`;
-                    cell5.classList.add("five");
-                    newRow.appendChild(cell5);
+                // Create a cell for the IP address
+                const cellIPAddress = document.createElement('td');
+                cellIPAddress.innerHTML = `${filterleads[i].ip_address}`;
+                cellIPAddress.classList.add("seven");
+                newRow.appendChild(cellIPAddress);
 
-                    const cell6 = document.createElement('td');
-                    cell6.innerHTML = `${filterleads[i].email}`;
-                    cell6.classList.add("six");
-                    newRow.appendChild(cell6);
+                  // Create a cell for the read status
+                  const cellReadStatus = document.createElement('td');
+                cellReadStatus.innerHTML = filterleads[i].is_read == 1 ? "READ" : "NOT READ";
+                cellReadStatus.style.backgroundColor = filterleads[i].is_read == 1 ? "#61D393" : "red";
+                cellReadStatus.style.fontWeight = "900";
+                cellReadStatus.style.color = filterleads[i].is_read == 1 ? "black" : "white";
+                newRow.appendChild(cellReadStatus);
 
-                    const cell7 = document.createElement('td');
-                    cell7.innerHTML = `${filterleads[i].ip_address}`;
-                    cell7.classList.add("seven");
-                    newRow.appendChild(cell7);
+                // Create a cell for the Discord status
+                const cellDiscordStatus = document.createElement('td');
+                cellDiscordStatus.innerHTML = filterleads[i].is_send_discord == 1 ? "SENT" : "PENDING";
+                cellDiscordStatus.style.backgroundColor = filterleads[i].is_send_discord == 1 ? "#61D393" : "red";
+                cellDiscordStatus.style.fontWeight = "900";
+                cellDiscordStatus.style.color = filterleads[i].is_send_discord == 1 ? "black" : "white";
+                newRow.appendChild(cellDiscordStatus);
 
-
-                    const cell8 = document.createElement('td');
-                    cell8.innerHTML = `${filterleads[i].is_send_discord == 1 ? "SENT" : "PENDING"}`;
-                    cell8.style.backgroundColor = filterleads[i].is_send_discord == 1 ? "#61D393" : "red";
-                    cell8.style.fontWeight = "900";
-                    cell8.style.color = filterleads[i].is_send_discord == 1 ? "black" : "white";
-                    newRow.appendChild(cell8);
-
-
-
-
-                    const cell9 = document.createElement('td');
-                    cell9.innerHTML = `${filterleads[i].status.toUpperCase()}`;
-                    cell9.classList.add("eight");
-                    cell9.style.fontWeight = "900";
-                    cell9.style.color = filterleads[i].status == "junk" ? "white" : "black";
-                    if(filterleads[i].status == "clear"){
-                        cell9.style.backgroundColor = "#61D393";
-                    }else if (filterleads[i].status == "junk"){
-                        cell9.style.backgroundColor = "red";
-                    }else if(filterleads[i].status == "unknown"){
-                        cell9.style.backgroundColor = "#FFCA46";
-                    }
-                    newRow.appendChild(cell9);
-
-                    const cell12 = document.createElement('td');
-                    cell12.innerHTML = `${filterleads[i].is_read == 1 ? "READ" : "NOT READ"}`;
-                    cell12.style.backgroundColor = filterleads[i].is_read == 1 ? "#61D393" : "red";
-                    cell12.style.fontWeight = "900";
-                    cell12.style.color = filterleads[i].is_read == 1 ? "black" : "white";
-                    newRow.appendChild(cell12);
-
-                    
-                    const cell13 = document.createElement('td');
-                    cell13.innerHTML = `${JSON.stringify(filterleads[i].params?filterleads[i].params:[])}`;
-                    newRow.appendChild(cell13);
-
-                    tbody.appendChild(newRow);
+                // Create a cell for the lead status
+                const cellStatus = document.createElement('td');
+                cellStatus.innerHTML = filterleads[i].status.toUpperCase();
+                cellStatus.classList.add("eight");
+                cellStatus.style.fontWeight = "900";
+                cellStatus.style.color = filterleads[i].status === "junk" ? "white" : "black";
+                switch (filterleads[i].status) {
+                    case "clear":
+                        cellStatus.style.backgroundColor = "#61D393";
+                        break;
+                    case "junk":
+                        cellStatus.style.backgroundColor = "red";
+                        break;
+                    case "unknown":
+                        cellStatus.style.backgroundColor = "#FFCA46";
+                        break;
+                    default:
+                        break;
                 }
+                newRow.appendChild(cellStatus);
+
+              
+
+                // Create a cell for the parameters
+                const cellParams = document.createElement('td');
+                cellParams.innerHTML = JSON.stringify(filterleads[i].params ? filterleads[i].params : []);
+                newRow.appendChild(cellParams);
+
+                // Append the new row to the tbody
+                tbody.appendChild(newRow);
+            }
+
             }          
 
             function dateFormat(dateString) {
