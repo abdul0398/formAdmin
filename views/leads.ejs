@@ -297,7 +297,7 @@
                     <span class="center_span"><i
                         class="fa-solid fa-magnifying-glass fa-xl"></i></span>
                 </div>
-                <div class="clientsname_div">
+                <div class="clientsname_div overflow-y-auto h-100" style="padding-bottom: 70px;">
                     <%for(let i = 0; i < clients.length; i++){%>
                         <%if(i == 0){%>
                             <li  class="nav-link-text selected_client border-0" mid="<%=clients[i].id%>" value="<%=clients[i].name%>" ><span
