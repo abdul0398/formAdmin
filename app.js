@@ -21,19 +21,19 @@ async function start() {
         console.log(`##### Express Server Started at port ${port} #####`);
     })
 
-    const rule = new schedule.RecurrenceRule();
-    // rule.hour = 2;
-    rule.minute = 0;
-    const job = schedule.scheduleJob(rule, async function(){
-        console.log('Checking the pending leads and trying to send on discord ',new Date().toLocaleString());
-    const [leads] = await __pool.query(`
-             SELECT * FROM leads 
-             WHERE is_send_discord = 0 
-            AND DATE(created_at) = CURDATE()
-            AND status = 'clear'
-             `);
-        await discordBulkSender(leads)
-    });
+    // const rule = new schedule.RecurrenceRule();
+    // // rule.hour = 2;
+    // rule.minute = 0;
+    // const job = schedule.scheduleJob(rule, async function(){
+    //     console.log('Checking the pending leads and trying to send on discord ',new Date().toLocaleString());
+    // const [leads] = await __pool.query(`
+    //          SELECT * FROM leads 
+    //          WHERE is_send_discord = 0 
+    //         AND DATE(created_at) = CURDATE()
+    //         AND status = 'clear'
+    //          `);
+    //     await discordBulkSender(leads)
+    // });
     // await modifyTable()
 }
 start();

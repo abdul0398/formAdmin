@@ -328,8 +328,8 @@
             <div class="d-flex w-90 overflow-hidden px-3">
                 <div class="w-100 overflow-hidden h-100" >
                     <p id="leads-count" class="mb-0 font-weight-bold text-dark">Leads Count: 20</p>
-                    <div class="overflow-auto scroll table-container h-100">
-                        <table id="myTable">
+                    <div class="table-container h-100">
+                        <table>
                             <thead>
                                 <tr>
                                     <th> 
@@ -380,7 +380,7 @@
                                         <div class="beforeCollapse">Status</div>
                                     </th>
                                     <th class="collapsible-column">    
-                                        <div class="beforeCollapse">Params</div>
+                                        <div class="beforeCollapse">Source</div>
                                     </th>
                                 </tr>
                             </thead>
@@ -704,7 +704,7 @@
 
                 // Create a cell for the parameters
                 const cellParams = document.createElement('td');
-                cellParams.innerHTML = JSON.stringify(filterleads[i].params ? filterleads[i].params : []);
+                cellParams.innerHTML = JSON.stringify(filterleads[i]?.params?.utm_source ? filterleads[i].params.utm_source : []);
                 newRow.appendChild(cellParams);
 
                 // Append the new row to the tbody

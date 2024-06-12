@@ -15,7 +15,17 @@ function changeleadtoString(lead, selects, client_name, project_name) {
   let str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead for ${project_name}:\n\n●  Name: ${lead.name}\n●  Contact: https://wa.me/+65${lead.ph_number}`;
 
   str += lead.email?`\n●  Email: ${lead.email}`:"";
+  if(lead?.params?.utm_source){
+    str += `\n●  Source: ${lead?.params?.utm_source}`;
+  }
+  
   str += `\n${resultStr}`;
+
+
+
+
+
+
   return str;
 }
 
