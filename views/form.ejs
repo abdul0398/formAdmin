@@ -168,18 +168,18 @@
                             <% let field = createdFields[i]; %>
                             <div id="<%=field.id%>" type="<%=field.type%>" question="<%=field.label%>">
                               <% if (field.type === 'input') { %>
-                                <div class="form-control">
+                                <div class="">
                                   <%if(label == "true"){%>
                                     <label for="<%= field.id %>"><%= field.label %></label><br>
                                     <%}%>
-                                    <input type="<%= field.inputType %>" name="<%= field.id %>" placeholder="<%= field.placeholder %>" />
+                                    <input type="<%= field.inputType %>" class="custom-input-bg" style="height: 45px; width: 100%;" name="<%= field.id %>" placeholder="<%= field.placeholder %>" />
                                 </div>
                               <% } else if (field.type === 'textarea') { %>
-                                <div class="form-control">
+                                <div class="">
                                   <%if(label == "true"){%>
                                     <label for="<%= field.id %>"><%= field.label %></label><br>
                                     <%}%>
-                                    <textarea class="form-control" name="<%= field.id %>" placeholder="<%= field.placeholder %>"></textarea>
+                                    <textarea class="form-control custom-input-bg" name="<%= field.id %>" placeholder="<%= field.placeholder %>"></textarea>
                                 </div>
                               <% } else if (field.type === 'checkbox') { %>
                               
@@ -187,7 +187,7 @@
                                   <label><%= field.label %></label><br>
                                 <%}%>
                                 <% for (let j = 0; j < field.options.length; j++) { %>
-                                  <div class="form-control d-flex">
+                                  <div class="d-flex">
                                     <input type="checkbox" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
                                     <label class="ms-3" for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
                                   </div>
@@ -206,7 +206,7 @@
                                 <%if(label == "true"){%>
                                   <label><%= field.label %></label><br>
                                 <%}%>
-                                <select class="form-select" name="<%= field.id %>">
+                                <select class="form-select custom-input-bg" style="height: 45px;" name="<%= field.id %>">
                                   <option selected disabled>Please Select</option>
                                   <% for (let j = 0; j < field.options.length; j++) { %>
                                     <option value="<%= field.options[j] %>"><%= field.options[j] %></option>
