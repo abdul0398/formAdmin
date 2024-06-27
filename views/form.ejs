@@ -14,6 +14,10 @@
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <style>
+
+          label{
+            color: black;
+          }
           .width-res {
             width: 30%;
           }
@@ -203,6 +207,7 @@
                                   <label><%= field.label %></label><br>
                                 <%}%>
                                 <select class="form-select" name="<%= field.id %>">
+                                  <option selected disabled>Please Select</option>
                                   <% for (let j = 0; j < field.options.length; j++) { %>
                                     <option value="<%= field.options[j] %>"><%= field.options[j] %></option>
                                   <% } %>
