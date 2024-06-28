@@ -332,6 +332,7 @@ router
   .post("/api/form/submit/:formID", async (req, res) => {
     const { data, selects } = req.body;
     const { formID } = req.params;
+    console.log(data);
     try {
       await producer(data, selects, formID);
       await startWorker();

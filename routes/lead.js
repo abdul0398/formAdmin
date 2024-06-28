@@ -49,6 +49,9 @@ router
             ORDER BY 
                 leads.created_at DESC;
         `;
+
+        
+        
         const [leads] = await __pool.query(query);
         res.status(200).json(leads);
     } catch (error) {

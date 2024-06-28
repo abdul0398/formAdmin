@@ -50,7 +50,6 @@ async function startWorker() {
             }
             await saveLeadToLocalDb(data, form.client_id, form.id, selects);
             await saveDataToMasterDb(data);
-            console.log(formID, form.name)
             if(form.client_id == process.env.CLIENT_ID){
               await addRow(process.env.SHEET_ID, form.name, data, selects);
             }

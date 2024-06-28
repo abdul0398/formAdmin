@@ -248,6 +248,15 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
     const urlParams = new URLSearchParams(window.location.search);
     const utm_source = urlParams.get('utm_source');
+    const utm_medium = urlParams.get('utm_medium');
+    const utm_campaign = urlParams.get('utm_campaign');
+    const utm_content = urlParams.get('utm_content');
+    const utm_term = urlParams.get('utm_term');
+    const match_type = urlParams.get('match_type');
+    const extension = urlParams.get('extension');
+    const device = urlParams.get('device');
+    const location = urlParams.get('location');
+    const placement_category = urlParams.get('placement_category');
 
         const errors = [];
 
@@ -299,10 +308,18 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                         ph_number: phone.slice(3),
                         ip_address: ip_address,
                         source_url:document.referrer,
-                        params:utm_source ? {
-                          utm_source: utm_source  
-                        }:{
-                          utm_source: null
+                        params:{
+                          utm_source: utm_source || null,
+                          utm_medium: utm_medium || null,
+                          utm_campaign: utm_campaign || null,
+                          utm_content: utm_content || null,
+                          utm_term: utm_term || null,
+                          match_type: match_type || null,
+                          extension: extension || null,
+                          device: device || null,
+                          location: location || null,
+                          placement_category: placement_category || null
+                          
                         }
                     };
 

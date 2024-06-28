@@ -380,8 +380,36 @@
                                         <div class="beforeCollapse">Status</div>
                                     </th>
                                     <th class="collapsible-column">    
-                                        <div class="beforeCollapse">Source</div>
+                                        <div class="beforeCollapse">utm_source</div>
                                     </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">utm_medium</div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">utm_campaign</div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">utm_content</div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">utm_term</div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">match_type</div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">extension</div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">device</div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">location</div>
+                                    </th>
+                                    <th class="collapsible-column">    
+                                        <div class="beforeCollapse">placement_category</div>
+                                    </th>
+
                                 </tr>
                             </thead>
                             <tbody id="table-body">
@@ -704,8 +732,58 @@
 
                 // Create a cell for the parameters
                 const cellParams = document.createElement('td');
-                cellParams.innerHTML = JSON.stringify(filterleads[i]?.params?.utm_source ? filterleads[i].params.utm_source : []);
+                cellParams.innerHTML = filterleads[i]?.params?.utm_source ? filterleads[i].params.utm_source : "Not found";
                 newRow.appendChild(cellParams);
+
+
+
+                // Create a cell for the utm_medium
+                const cellUtmMedium = document.createElement('td');
+                cellUtmMedium.innerHTML = filterleads[i]?.params?.utm_medium ? filterleads[i].params.utm_medium : "Not found";
+                newRow.appendChild(cellUtmMedium);
+
+                // Create a cell for the utm_campaign
+                const cellUtmCampaign = document.createElement('td');
+                cellUtmCampaign.innerHTML = filterleads[i]?.params?.utm_campaign ? filterleads[i].params.utm_campaign : "Not found";
+                newRow.appendChild(cellUtmCampaign);
+
+                // Create a cell for the utm_content
+                const cellUtmContent = document.createElement('td');
+                cellUtmContent.innerHTML = filterleads[i]?.params?.utm_content ? filterleads[i].params.utm_content : "Not found";
+                newRow.appendChild(cellUtmContent);
+
+                // Create a cell for the utm_term
+                const cellUtmTerm = document.createElement('td');
+                cellUtmTerm.innerHTML = filterleads[i]?.params?.utm_term ? filterleads[i].params.utm_term : "Not found";
+                newRow.appendChild(cellUtmTerm);
+
+                // Create a cell for the match_type
+                const cellMatchType = document.createElement('td');
+                cellMatchType.innerHTML = filterleads[i]?.params?.match_type ? filterleads[i].params.match_type : "Not found";
+                newRow.appendChild(cellMatchType);
+
+                // Create a cell for the extension
+                const cellExtension = document.createElement('td');
+                cellExtension.innerHTML = filterleads[i]?.params?.extension ? filterleads[i].params.extension : "Not found";
+                newRow.appendChild(cellExtension);
+
+                // Create a cell for the device
+                const cellDevice = document.createElement('td');
+                cellDevice.innerHTML = filterleads[i]?.params?.device ? filterleads[i].params.device : "Not found";
+                newRow.appendChild(cellDevice);
+
+                // Create a cell for the location
+                const cellLocation = document.createElement('td');
+                cellLocation.innerHTML = filterleads[i]?.params?.location ? filterleads[i].params.location : "Not found";
+                newRow.appendChild(cellLocation);
+
+                // Create a cell for the placement_category
+                const cellPlacementCategory = document.createElement('td');
+                cellPlacementCategory.innerHTML = filterleads[i]?.params?.placement_category ? filterleads[i].params.placement_category : "Not found";
+                newRow.appendChild(cellPlacementCategory);
+
+
+
 
                 // Append the new row to the tbody
                 tbody.appendChild(newRow);
