@@ -290,7 +290,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                 const isValidName = validateName(name);
                 const isValidEmail = noemail == "true" ? true: validateEmail(email);
                 const isValidPhone = validatePhone(phone);
-                if (!validateName(name) || !isValidEmail || !validatePhone(phone) || !validatePrivacyPolicy()) {
+                if (!validateName(name) || !isValidEmail || !validatePhone(phone) || !validatePrivacyPolicy() || !validateSelect()) {
                     errorElement.innerText = errors[0];
                     return false;
                 } else {
@@ -444,9 +444,43 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
           }
           return true;
       }
-     
-    
-    }
+
+      function validateSelect(){
+        // get params from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        const reqselect1 = urlParams.get('reqselect1');
+        const reqselect2 = urlParams.get('reqselect2');
+
+        if(reqselect1 == 'true'){
+          const select1 = document.querySelector('select[name="Request"]');
+          if(!select1){
+            return true;
+          }
+
+
+          if(select1.selectedIndex === 0){
+            errors.push("Please select a request.");
+            return false;
+          }
+        }
+
+        if(reqselect2 == 'true'){
+          const select2 = document.querySelector('select[name="Bedroom"]');
+          if(!select2){
+            return true;
+          }
+
+          if(select2.selectedIndex === 0){
+            errors.push("Please select a bedroom.");
+            return false;
+          }
+
+
+        }
+        return true;
+      
+      }
+  }
 
 
     function disableBtn() {
@@ -472,6 +506,10 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
       const id = document.getElementById('formId').innerText;
         const selects = document.querySelectorAll('select');
         const selectValues = [];
+
+
+     
+
 
         selects.forEach(select => {
           // Check if there is a selected option and if it's not disabled

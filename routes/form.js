@@ -8,7 +8,7 @@ const router = express.Router();
 router
   .get("/form/:id", async (req, res, next) => {
     const { id } = req.params;
-    const { formtype, reqtype, devtext, label, newfield, noemail, noselect1, noselect2 } = req.query;
+    const { formtype, reqtype, devtext, label, newfield, noemail, noselect1, noselect2, reqselect1, reqselect2 } = req.query;
     if (!["chatbot", "registration", "header", "footer"].includes(formtype)) {
       return next();
     }
@@ -59,6 +59,8 @@ router
         noemail:noemail,
         noselect1:noselect1,
         noselect2:noselect2,
+        reqselect1:reqselect1,
+        reqselect2:reqselect2,
         createdFieldsFlag: newfield,
       });
     } catch (error) {
