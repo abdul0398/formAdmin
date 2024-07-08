@@ -106,6 +106,7 @@
                     </div>
 
                     <%if(formType == "registration"){%>
+                      <%if(noselect1 != 'true'){%>
                       <%if(label == "true"){%>
                         <label style="color:black"><%=requestLabel%></label>  
                       <%}%>
@@ -127,39 +128,46 @@
                               <%}%>                   
                             </select>
                         <%}%>
+                        <%}%>
+
                     <%}else if(formType == "header" || formType == "footer"){%>
-                      <%if(label == "true"){%>
-                        <label style="color:black"><%=requestLabel%></label>  
-                      <%}%>
-                      <%if(reqtype == "checkbox"){%>
-                        <div>
-                          <%for(let i = 0; i < requestOptions.length; i++){%>
-                            <div>
-                              <input checked name="<%=requestOptions[i]%>" id="<%=requestOptions[i]%>" value="<%=requestOptions[i]%>" type="checkbox" class=" mt-2">
-                              <label class="text-black  " for="<%=requestOptions[i]%>"><%=requestOptions[i]%></label>
+                        <%if(label == "true"){%>
+                          <label style="color:black"><%=requestLabel%></label>  
+                        <%}%>
+
+                        <%if(noselect1 != 'true'){%>
+                        <%if(reqtype == "checkbox"){%>
+                          <div>
+                            <%for(let i = 0; i < requestOptions.length; i++){%>
+                              <div>
+                                <input checked name="<%=requestOptions[i]%>" id="<%=requestOptions[i]%>" value="<%=requestOptions[i]%>" type="checkbox" class=" mt-2">
+                                <label class="text-black  " for="<%=requestOptions[i]%>"><%=requestOptions[i]%></label>
+                              </div>
+                            <%}%>                                           
                             </div>
-                          <%}%>                                           
-                          </div>
-                        <%}else{%>
-                        <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
-                          aria-label="Default select example">
-                          <option selected disabled>Please Select</option>
-                          <%for(let i = 0; i < requestOptions.length; i++){%>
-                            <option value="<%=requestOptions[i]%>"><%=requestOptions[i]%></option>
-                            <%}%>                   
-                          </select>
-                      <%}%>
-                      
-                      <%if(label == "true"){%>
-                        <label style="color:black"><%=bedroomLabel%></label>  
-                      <%}%>
-                      <select name="Bedroom" id="<%=form.select1Id%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
-                        aria-label="Default select example">
-                        <option selected disabled>Please Select</option>
-                        <%for(let i = 0; i < bedroomOptions.length; i++){%>
-                          <option value="<%=bedroomOptions[i]%>"><%=bedroomOptions[i]%></option>
+                          <%}else{%>
+                          <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
+                            aria-label="Default select example">
+                            <option selected disabled>Please Select</option>
+                            <%for(let i = 0; i < requestOptions.length; i++){%>
+                              <option value="<%=requestOptions[i]%>"><%=requestOptions[i]%></option>
+                              <%}%>                   
+                            </select>
+                        <%}%>
+                        <%}%>
+
+                        <%if(noselect2 != 'true'){%>
+                          <%if(label == "true"){%>
+                            <label style="color:black"><%=bedroomLabel%></label>  
                           <%}%>
-                      </select>
+                          <select name="Bedroom" id="<%=form.select1Id%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
+                            aria-label="Default select example">
+                            <option selected disabled>Please Select</option>
+                            <%for(let i = 0; i < bedroomOptions.length; i++){%>
+                              <option value="<%=bedroomOptions[i]%>"><%=bedroomOptions[i]%></option>
+                              <%}%>
+                          </select>
+                        <%}%>
                     <%}%>
 
                       <% if (createdFieldsFlag == "true") { %>
