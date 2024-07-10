@@ -132,12 +132,10 @@ async function getServers(access_token) {
     const servers = response.data;
     let owned_servers = [];
     for (let server of servers) {
-      if (server.owner) {
         const res = await getChannelsInServer(server.id);
         if (res.length > 0) {
           owned_servers.push(server);
         }
-      }
     }
     return owned_servers;
   } catch (error) {
@@ -204,3 +202,8 @@ module.exports = {
   getWebhooksInChannel,
   getChannelsInServer,
 };
+
+
+
+
+
