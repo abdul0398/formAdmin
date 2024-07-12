@@ -168,8 +168,33 @@
                               <%}%>
                           </select>
                         <%}%>
-                    <%}%>
+                    <%}else if(formType == "chatbot"){%>
+                      <%if(showselect1 == 'true'){%>
+                        <%if(label == "true"){%>
+                          <label style="color:black"><%=requestLabel%></label>  
+                        <%}%>
+                        <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
+                          aria-label="Default select example">
+                          <option selected disabled> <%= placeselect1 ? placeselect1 : 'Please Select' %></option>
+                          <%for(let i = 0; i < requestOptions.length; i++){%>
+                            <option value="<%=requestOptions[i]%>"><%=requestOptions[i]%></option>
+                            <%}%>                   
+                          </select>
+                      <%}%>
 
+                      <%if(showselect2 == 'true'){%>
+                        <%if(label == "true"){%>
+                          <label style="color:black"><%=bedroomLabel%></label>  
+                        <%}%>
+                        <select name="Bedroom" id="<%=form.select1Id%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
+                          aria-label="Default select example">
+                          <option selected disabled> <%= placeselect2 ? placeselect2 : 'Please Select' %></option>
+                          <%for(let i = 0; i < bedroomOptions.length; i++){%>
+                            <option value="<%=bedroomOptions[i]%>"><%=bedroomOptions[i]%></option>
+                            <%}%>
+                        </select>  
+                      <%}%>
+                      <%}%>
                       <% if (createdFieldsFlag == "true") { %>
                         <div class="created-fields-container">
                           <% for (let i = 0; i < createdFields.length; i++) { %>
