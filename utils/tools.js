@@ -144,6 +144,16 @@ async function saveDataToMasterDb(data) {
 
 async function saveLeadToLocalDb(lead, client_id, form_id, select) {
 
+  const isTestName = containsTestNames(lead.name);
+  const isTestEmail = containsTestEmails(lead.email);
+
+  if (isTestName || isTestEmail) {
+    lead.status = 'junk';
+  }
+
+  console.log(lead);
+
+
   const is_read = lead.status == 'junk' ? 1 : 0;
   try {
     await __pool.query(
@@ -190,6 +200,42 @@ async function discordBulkSender(leads) {
 }
 
 
+
+async function checkForDNC(phone, email){
+  try {
+    const res = await fetch(` https://janicez87.sg-host.com/check_dnc.php`, {
+      method: 'POST',
+      agent:httpsAgent,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ph_number: phone,
+        email: email
+      })
+    });
+  
+    const data = await res.json();
+    return data.status; 
+  } catch (error) {
+    console.error('error in checking dnc lead', error.message);
+    return false;
+  }
+}
+
+
+function containsTestNames(str) {
+  if(!str) return false;
+  const substrings = ["Aprit", "shivam", "Jome", "Test"];
+  return substrings.some(substring => str.includes(substring));
+}
+
+function containsTestEmails(str) {
+  if(!str) return false;
+  const substrings = ["minato", "your.email", "jome", "test"];
+  return substrings.some(substring => str.includes(substring));
+}
+
 module.exports = {
   changeleadtoString,
   contentModerationCustom,
@@ -197,5 +243,8 @@ module.exports = {
   validateEmailFromDB,
   saveDataToMasterDb,
   saveLeadToLocalDb,
-  discordBulkSender
+  discordBulkSender,
+  checkForDNC,
+  containsTestEmails,
+  containsTestNames
 };

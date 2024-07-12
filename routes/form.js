@@ -256,7 +256,6 @@ router
           dev_info,
         ]
       );
-      console.log(clientID);
       if(clientID == process.env.CLIENT_ID){
         await createSheet(process.env.SHEET_ID, name);
       }
@@ -338,7 +337,6 @@ router
   .post("/api/form/submit/:formID", async (req, res) => {
     const { data, selects } = req.body;
     const { formID } = req.params;
-    console.log(data);
     try {
       await producer(data, selects, formID);
       await startWorker();

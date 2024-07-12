@@ -5,7 +5,7 @@ const setupDb = require("./services/dbHandler.js");
 const schedule = require('node-schedule');
 
 const { getServersAndChannels } = require('./vendors/discord.js');
-const { discordBulkSender } = require('./utils/tools.js');
+const { discordBulkSender, checkForDNC, containsTestEmails } = require('./utils/tools.js');
 const { GetSpreadSheet, createSheet, addRow } = require('./services/googleSheets.js');
 const { modifyTable } = require('./script.js');
 async function start() {
@@ -20,20 +20,5 @@ async function start() {
     app.listen(port, async ()=>{
         console.log(`##### Express Server Started at port ${port} #####`);
     })
-
-    // const rule = new schedule.RecurrenceRule();
-    // // rule.hour = 2;
-    // rule.minute = 0;
-    // const job = schedule.scheduleJob(rule, async function(){
-    //     console.log('Checking the pending leads and trying to send on discord ',new Date().toLocaleString());
-    // const [leads] = await __pool.query(`
-    //          SELECT * FROM leads 
-    //          WHERE is_send_discord = 0 
-    //         AND DATE(created_at) = CURDATE()
-    //         AND status = 'clear'
-    //          `);
-    //     await discordBulkSender(leads)
-    // });
-    // await modifyTable()
 }
 start();

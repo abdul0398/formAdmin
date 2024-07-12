@@ -7,7 +7,7 @@ const Lead = `
         email VARCHAR(255) NOT NULL,
         phone VARCHAR(255) NOT NULL,
         ip_address VARCHAR(255) NOT NULL,
-        status ENUM('junk', 'clear') DEFAULT 'clear',
+        status ENUM('junk', 'clear', 'dnc') DEFAULT 'clear',
         is_read INT DEFAULT 0,
         more_fields JSON,
         is_send_discord BOOLEAN DEFAULT 1,

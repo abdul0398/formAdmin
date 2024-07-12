@@ -21,7 +21,6 @@ async function sendMail(lead, receive_email) {
     console.log("sending lead to Mail");
     const sender_email = process.env.SENDER_EMAIL;
     const app_pass = process.env.APP_PASS;
-    console.log(sender_email, app_pass, receive_email);
     try {
         const transporter = await initializeNodemailer(sender_email, app_pass);
         const info = await transporter.sendMail({

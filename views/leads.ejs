@@ -712,7 +712,7 @@
                 cellStatus.innerHTML = filterleads[i].status.toUpperCase();
                 cellStatus.classList.add("eight");
                 cellStatus.style.fontWeight = "900";
-                cellStatus.style.color = filterleads[i].status === "junk" ? "white" : "black";
+                cellStatus.style.color = filterleads[i].status === "junk" || filterleads[i].status == "dnc" ? "white" : "black";
                 switch (filterleads[i].status) {
                     case "clear":
                         cellStatus.style.backgroundColor = "#61D393";
@@ -722,6 +722,9 @@
                         break;
                     case "unknown":
                         cellStatus.style.backgroundColor = "#FFCA46";
+                        break;
+                    case "dnc":
+                        cellStatus.style.backgroundColor = "red";
                         break;
                     default:
                         break;
@@ -852,7 +855,6 @@
             function toggleColumn(btn) {
                 const collapseClass = btn.getAttribute('collapseId');
                 let contentRows = document.querySelectorAll('.' + collapseClass);
-                    console.log(contentRows);
                 contentRows.forEach(function(content) {
                 content.querySelector("p").classList.toggle('hidden')
                 });

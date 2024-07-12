@@ -44,7 +44,6 @@ async function GetSpreadSheet(spreadsheetId) {
 async function GetSpreadSheetValues(spreadsheetId, sheetName) {
   try {
     const auth = await getAuthToken();
-    console.log(auth);
     const response = await getSpreadSheetValues({
       spreadsheetId,
       sheetName,

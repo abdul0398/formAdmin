@@ -1,5 +1,5 @@
 const { Worker } = require("bullmq");
-const { validateEmailFromDB, contentModeratorationAPI, contentModerationCustom, saveDataToMasterDb, changeleadtoString, saveLeadToLocalDb } = require("../utils/tools");
+const { validateEmailFromDB, contentModeratorationAPI, contentModerationCustom, saveDataToMasterDb, changeleadtoString, saveLeadToLocalDb, checkForDNC } = require("../utils/tools");
 const { bulkDiscordSender } = require("../utils/discord");
 const {sendToHooks } = require("../utils/zappier");
 const { sendMail } = require("../services/mailHandler");
@@ -28,12 +28,15 @@ async function startWorker() {
 
             const isTestingDetails =  data.email && data.email.toLowerCase() == "jometesting@gmail.com" && data.ph_number == "91111111";
     
-            if((contentModerationCustom(data.name) === false || (data.email && contentModerationCustom(data.email) === false) || contentModerationCustom(data.ph_number) === false || isValid == false || isClean == false) && isTestingDetails == false){
-                data.status = "junk";
+           
+            const isDNC = await checkForDNC(data.ph_number, data.email);
+
+            if((contentModerationCustom(data.name) === false || (data.email && contentModerationCustom(data.email) === false) || contentModerationCustom(data.ph_number) === false || isValid == false || isClean == false || isDNC) && isTestingDetails == false){
+                data.status = isDNC?'dnc': "junk";
                 data.is_send_discord = 0;
                 await saveDataToMasterDb(data);
                 await saveLeadToLocalDb(data, form.client_id, form.id, selects);
-                console.log("Junk Lead detected. Not sending to discord or zappier." + data.email + " " + data.ph_number + " " + data.name + " " + data.ip_address);
+                console.log(`${isDNC?"DNC":"Junk"} Lead detected. Not sending to discord or zappier.` + data.email + " " + data.ph_number + " " + data.name + " " + data.ip_address);
                 return ;
             }
             const lead = {
