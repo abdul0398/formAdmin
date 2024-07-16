@@ -279,6 +279,15 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
         <script>
+          const parentUrl = new URL(document.referrer);
+          const projectName = "<%=form.project_name%>";
+          const label = document.querySelector('label[for="privacy_checkbox"]');
+          label.innerHTML = `By submitting this form, I agree to be contacted by the ${projectName} appointed as sales team and its associates from ${parentUrl}`;
+
+
+
+
+
           const noemail = "<%=noemail%>";
 initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=form.email_id%>', '<%=form.phone_id%>', 'error_msg1');
 
