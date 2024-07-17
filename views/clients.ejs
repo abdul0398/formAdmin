@@ -1015,6 +1015,12 @@
                   Add Zappier Link
                 </button>
               </div>
+
+              <hr style="border-top: 2px solid black !important" />
+              <div>
+                <p class="mt-4" style="font-weight: 600">Privyr Webhook Link</p>
+                <input type="text" class="privyr-input border border-3 p-2 form-control" placeholder="Privyr Webhook Link" >
+              </div>
             </div>
 
             <div class="text-center mt-4">
@@ -1709,6 +1715,7 @@
         const bedroomLabel = document.getElementById("bedroomLabel");
         const requestLabel = document.getElementById("requestLabel");
         const email = document.getElementById("email");
+        const privyr = document.querySelector(".privyr-input");
 
         phoneLabel.value = formDetails.form_fields.find(
           (field) => field.name == "phone"
@@ -1737,6 +1744,7 @@
         css.value = formDetails.css;
         developerinfo.value = formDetails.dev_info;
         email.value = formDetails.email;
+        privyr.value = formDetails.privyr;
 
         // setting up the discord links
         const discordContainer = document.getElementById(
@@ -1986,6 +1994,7 @@
         const emailLabel = document.getElementById("emailLabel").value;
         const bedroomLabel = document.getElementById("bedroomLabel").value;
         const requestLabel = document.getElementById("requestLabel").value;
+        const privyr = document.querySelector(".privyr-input").value
 
         const discordContainer = document.getElementById(
           "discord-dynamic-container"
@@ -2059,6 +2068,7 @@
           projectName: projectName,
           dev_info: developerinfo,
           clientName: clientName,
+          privyr:privyr.trim()
         };
         return data;
       }

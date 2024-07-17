@@ -4,6 +4,7 @@ const { bulkDiscordSender } = require("../utils/discord");
 const {sendToHooks } = require("../utils/zappier");
 const { sendMail } = require("../services/mailHandler");
 const { addRow } = require("../services/googleSheets");
+const { sendDataToPrivyrWebhook } = require("../vendors/privyr");
 
 let workerInstance;
 
@@ -42,7 +43,14 @@ async function startWorker() {
             const lead = {
                 ...data,
             };
-    
+
+            const send_to_privyr = await sendDataToPrivyrWebhook(form.privyr, lead, selects);
+            data.send_to_privyr = 1;
+            if(!send_to_privyr){
+              data.send_to_privyr = 0;
+            }
+
+
             const str = changeleadtoString(lead, selects, form.client_name, form.project_name);  
             const bot_name = form.bot_name || form.name ;
             const leadSent = await bulkDiscordSender(form.discord, str, bot_name);

@@ -286,7 +286,8 @@ router
       dev_info,
       css,
       email,
-      createdFields
+      createdFields,
+      privyr
     } = req.body;
 
 
@@ -309,7 +310,8 @@ router
            css = ?,
            created_form_fields = ?,
            dev_info = ?,
-           email = ?
+           email = ?,
+           privyr = ?
            WHERE id = ?
         `,
         [
@@ -328,6 +330,7 @@ router
           JSON.stringify(createdFields),
           dev_info,
           email,
+          privyr,
           formID,
         ]
       );

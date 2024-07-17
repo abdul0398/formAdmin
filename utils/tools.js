@@ -157,8 +157,8 @@ async function saveLeadToLocalDb(lead, client_id, form_id, select) {
   const is_read = lead.status == 'junk' ? 1 : 0;
   try {
     await __pool.query(
-      `INSERT INTO leads (client_id, form_id, name, email, phone, ip_address, status, is_send_discord, more_fields, params, is_read) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [client_id, form_id, lead.name, lead.email?lead.email:"", lead.ph_number, lead.ip_address, lead.status, lead.is_send_discord, JSON.stringify(select), JSON.stringify(lead.params), is_read]
+      `INSERT INTO leads (client_id, form_id, name, email, phone, ip_address, status, is_send_discord, more_fields, params, is_read, send_to_privyr) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [client_id, form_id, lead.name, lead.email?lead.email:"", lead.ph_number, lead.ip_address, lead.status, lead.is_send_discord, JSON.stringify(select), JSON.stringify(lead.params), is_read, lead.send_to_privyr]
     );
   } catch (error) {
     console.error('Error saving to local DB:', error);
