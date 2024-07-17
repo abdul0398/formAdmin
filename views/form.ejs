@@ -279,13 +279,12 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
         <script>
-          const parentUrl = new URL(document.referrer);
+          const siteName = "<%=sitename%>";
+          const parentUrl = document.referrer;
           const projectName = "<%=form.project_name%>";
+          const cleanProjectName = capitalizeFirstLetterOfEachWord(projectName);
           const label = document.querySelector('label[for="privacy_checkbox"]');
-          label.innerHTML = `By submitting this form, I agree to be contacted by the ${projectName} appointed as sales team and its associates from ${parentUrl}`;
-
-
-
+          label.innerHTML = `By submitting this form, I agree to be contacted by the ${siteName?siteName:cleanProjectName} appointed as sales team and its associates from ${parentUrl}`;
 
 
           const noemail = "<%=noemail%>";
@@ -636,6 +635,17 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
       // Submit the form
       form.submit();
+    }
+
+    function capitalizeFirstLetterOfEachWord(str) {
+      // Remove "ppc" case-insensitively, including those inside parentheses
+      let cleanedStr = str.replace(/\bppc\b/gi, '').replace(/\(\s*\)/g, '');
+      
+      // Capitalize the first letter of each word
+      return cleanedStr.split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+          .filter(Boolean) // Remove empty strings resulting from removed "ppc"
+          .join(' ');
     }
 
 

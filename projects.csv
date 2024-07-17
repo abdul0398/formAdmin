@@ -1,6 +1,4 @@
-const fs = require('fs');
-
-let projects = `
+project_name
 CHUAN PARK PPC 
 Emerald Of Katong PPC
 Cuscaden Reserve PPC
@@ -115,18 +113,4 @@ EMERALD OF KATONG PPC
 Meow 
 LENTOR MANSION PPC
 GRAND DUNMAN PPC
-MEYER BLUE PPC 
-`;
-
-
-
-// Split the string into an array of project names
-let projectArray = projects.trim().split('\n')
-
-// Create CSV content
-let csvContent = "project_name\n" + projectArray.join('\n');
-
-// Write to a CSV file
-fs.writeFileSync('projects.csv', csvContent);
-
-console.log('CSV file created successfully.');
+MEYER BLUE PPC
