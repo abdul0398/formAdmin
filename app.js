@@ -5,9 +5,8 @@ const setupDb = require("./services/dbHandler.js");
 const schedule = require('node-schedule');
 
 const { getServersAndChannels } = require('./vendors/discord.js');
-const { discordBulkSender, checkForDNC, containsTestEmails } = require('./utils/tools.js');
+const { discordBulkSender, checkForDNC, containsTestEmails, checkDncMulti } = require('./utils/tools.js');
 const { GetSpreadSheet, createSheet, addRow } = require('./services/googleSheets.js');
-const { modifyTable } = require('./script.js');
 async function start() {
     const port = process.env.PORT || 4000;
     const {app, express} = await setMiddleWares();
@@ -20,5 +19,6 @@ async function start() {
     app.listen(port, async ()=>{
         console.log(`##### Express Server Started at port ${port} #####`);
     })
+
 }
 start();

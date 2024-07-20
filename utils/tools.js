@@ -236,6 +236,28 @@ function containsTestEmails(str) {
   return substrings.some(substring => str.includes(substring));
 }
 
+
+async function checkDncMulti(data) {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify(data),
+    redirect: "follow"
+  };
+
+  try {
+    const response = await fetch("http://janicez87.sg-host.com/check_dnc_multi.php", requestOptions);
+    const result = await response.json()
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 module.exports = {
   changeleadtoString,
   contentModerationCustom,
@@ -246,5 +268,6 @@ module.exports = {
   discordBulkSender,
   checkForDNC,
   containsTestEmails,
-  containsTestNames
+  containsTestNames,
+  checkDncMulti
 };

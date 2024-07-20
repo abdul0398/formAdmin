@@ -429,6 +429,7 @@
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('selected')" style="background-color: #002655; box-shadow: none;"> Download selected leads</Button>
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('clear')" style="background-color: #002655; box-shadow: none;"> Download clear leads</Button>
                     <Button class="btn-primary btn border" onclick="sendLeadsToDiscord()" style="background-color: #002655; box-shadow: none;">Send selected leads to Discord</Button>
+                    <Button class="btn-primary btn border" onclick="syncDNCHandler(this)" style="background-color: #002655; box-shadow: none;">Sync DNC Status</Button>
                     
                 </div>
             </div>
@@ -1110,6 +1111,43 @@
                         timerProgressBar: true,
                     });
                 }
+
+            }
+
+
+            async function syncDNCHandler(btn){
+                btn.disabled = true;
+                btn.innerHTML = "Syncing...";
+                btn.style.backgroundColor = "gray";
+
+                try {
+                    const res = await fetch("/api/status/dnc")
+
+                    Swal.fire({
+                        toast: true,
+                        icon: 'success',
+                        title: 'DNC Status Synced Successfully',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    })
+                } catch (error) {
+                    Swal.fire({
+                        toast: true,
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while syncing DNC status. Please try again.',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });   
+                }
+
+                btn.disabled = false;
+                btn.innerHTML = "Sync DNC Status";
+                btn.style.backgroundColor = "#002655";
 
             }
   

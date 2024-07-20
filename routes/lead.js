@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const {verify } = require("../middlewares/verify");
-const { discordBulkSender } = require("../utils/tools");
+const { discordBulkSender, checkDncMulti } = require("../utils/tools");
 
 
 router
@@ -97,6 +97,33 @@ router
         console.log(error);
         res.status(500).json({error: error.message});
     }
+}).get("/api/status/dnc", verify, async (req, res)=>{
+
+    try {
+        // Fetch distinct phone numbers
+        const [rows] = await __pool.query('SELECT DISTINCT phone FROM leads');
+        const phones = rows.map(row => row.phone);
+    
+
+        // // Check DNC status
+        const result = await checkDncMulti(phones);    
+        const phoneWithDNC = result.filter(phone => phone.status === 'DNC Registry').map(phone => phone.phone);
+        
+
+        if (phoneWithDNC.length === 0) {
+          return res.status(200).json({ msg: 'Successfully Synced the DNC status' });
+        }
+    
+        // Update the DNC status
+        await __pool.query('UPDATE leads SET status = ? WHERE phone IN (?)', ['dnc', phoneWithDNC]);
+    
+        return res.status(200).json({ msg: 'Successfully Synced the DNC status' });
+    
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'An error occurred while syncing the DNC status' });
+      }
+
 })
 
 
