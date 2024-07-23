@@ -1,10 +1,12 @@
 const https = require('https');
 const { bulkDiscordSender } = require('./discord');
+const mysql = require('mysql2/promise');
+
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false, // Bypasses SSL certificate check;
 });
 
-function changeleadtoString(lead, selects, client_name, project_name) {
+function changeleadtoString(lead, selects, client_name, project_name, isManual) {
   let resultStrings = [];
   selects.forEach((select) => {
     resultStrings.push(`●  ${select.name}: ${select.value}`);
@@ -12,7 +14,7 @@ function changeleadtoString(lead, selects, client_name, project_name) {
     const resultStr = resultStrings.join('\n');  
 
   const result = resultStrings.join('\n');
-  let str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead for ${project_name}:\n\n●  Name: ${lead.name}\n●  Contact: https://wa.me/+65${lead.ph_number}`;
+  let str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead for ${project_name}:\n\n●  Name: ${lead.name}\n●  Contact: https://wa.me/+65${isManual?lead.phone: lead.ph_number}`;
 
   str += lead.email?`\n●  Email: ${lead.email}`:"";
   if(lead?.params?.utm_source){
@@ -166,32 +168,46 @@ async function saveLeadToLocalDb(lead, client_id, form_id, select) {
 }
 
 async function discordBulkSender(leads) {
+  const pool = await mysql.createPool({
+    host:'3.24.9.244',
+    user: 'local_linux',
+    database: 'adminform',
+    password:'Neet@2019'
+});
+
   if(leads.length == 0) return;
   try {
     const formIds = leads.map(lead => lead.form_id);
-    const [forms] = await __pool.query('SELECT * FROM forms WHERE id IN (?)', [formIds]);
+    const [forms] = await pool.query('SELECT * FROM forms WHERE id IN (?)', [formIds]);
     const leadsWithForms = leads.map(lead => ({
      ...lead,
       form: forms.find(form => form.id === lead.form_id)
     }));
-    for (const { form, more_fields,...lead } of leadsWithForms) {
+
+    for (const { form, more_fields, ...lead } of leadsWithForms) {
       if (!form) {
         console.error("Form not found for a lead");
         continue;
       }
       try { 
         const selects = more_fields || [];
-        const str = changeleadtoString(lead, selects, form.client_name, form.project_name);
+        const str = changeleadtoString(lead, selects, form.client_name, form.project_name, true);
         const botName = form.bot_name || form.name;
         const leadSent = await bulkDiscordSender(form.discord, str, botName); 
-        console.log(leadSent);
         if (leadSent) {
-          await __pool.query('UPDATE leads SET is_send_discord = 1 WHERE id = ?', [lead.id]);
+          console.log(`Discord lead send sucessfully of `, lead.name, " of form name: " , form.name, "of client name: ", form.client_name);
+          await pool.query('UPDATE leads SET is_send_discord = 1 WHERE id = ?', [lead.id]);
         }
       } catch (error) {
         console.error("Error sending to discord: of  ", form.name);
         continue;
       }
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, 300000);
+      });
+      
     }
   } catch (error) {
     console.error("Error processing leads:", error);
