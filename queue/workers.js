@@ -30,7 +30,8 @@ async function startWorker() {
             const isTestingDetails =  data.email && data.email.toLowerCase() == "jometesting@gmail.com" && data.ph_number == "91111111";
     
            
-            const isDNC = await checkForDNC(data.ph_number, data.email);
+            // const isDNC = await checkForDNC(data.ph_number, data.email);
+            const isDNC = false;
 
             if((contentModerationCustom(data.name) === false || (data.email && contentModerationCustom(data.email) === false) || contentModerationCustom(data.ph_number) === false || isValid == false || isClean == false || isDNC) && isTestingDetails == false){
                 data.status = isDNC?'dnc': "junk";
