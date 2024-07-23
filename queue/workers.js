@@ -24,14 +24,13 @@ async function startWorker() {
                 throw new Error("Form not found");
             }
             const form = rows[0];
-            const {isValid} = data.email? await validateEmailFromDB(data.email, data.ph_number, data.ip_address, data.source_url) : {isValid: true};
+            const {isValid} = await validateEmailFromDB(data.email, data.ph_number, data.ip_address, data.source_url);
             const isClean = await contentModeratorationAPI({name: data.name, email: data.email, ph_number: data.ph_number});
 
             const isTestingDetails =  data.email && data.email.toLowerCase() == "jometesting@gmail.com" && data.ph_number == "91111111";
     
            
-            // const isDNC = await checkForDNC(data.ph_number, data.email);
-            const isDNC = false;
+            const isDNC = await checkForDNC(data.ph_number, data.email);
 
             if((contentModerationCustom(data.name) === false || (data.email && contentModerationCustom(data.email) === false) || contentModerationCustom(data.ph_number) === false || isValid == false || isClean == false || isDNC) && isTestingDetails == false){
                 data.status = isDNC?'dnc': "junk";
@@ -57,6 +56,7 @@ async function startWorker() {
             const leadSent = await bulkDiscordSender(form.discord, str, bot_name);
             await sendToHooks(lead, form.zappier, form.project_name, form.client_name, selects);  
             await sendMail(str, form.email);        
+            console.log(leadSent);
             if(!leadSent){
               data.is_send_discord = 0;
             }

@@ -86,7 +86,7 @@ async function contentModeratorationAPI(props) {
 }
 
 async function validateEmailFromDB(email, ph_number, ip, source_url) {
-  const validateUrl = 'http://janicez87.sg-host.com/check_time_email.php';
+  const validateUrl = email? 'http://janicez87.sg-host.com/check_time_email.php' :"http://janicez87.sg-host.com/check_time_phone.php";
 
   try {
     const response = await fetch(validateUrl, {
@@ -257,6 +257,9 @@ async function checkDncMulti(data) {
     console.error(error);
   }
 }
+
+
+
 
 module.exports = {
   changeleadtoString,
