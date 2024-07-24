@@ -2,11 +2,7 @@ require('dotenv').config()
 const setMiddleWares = require("./middlewares/express.js");
 const {userRouter, formRouter, clientRouter, leadRouter, discordsRouter} = require("./routes");
 const setupDb = require("./services/dbHandler.js");
-const schedule = require('node-schedule');
 
-const { getServersAndChannels } = require('./vendors/discord.js');
-const { discordBulkSender, checkForDNC, containsTestEmails, checkDncMulti } = require('./utils/tools.js');
-const { GetSpreadSheet, createSheet, addRow } = require('./services/googleSheets.js');
 async function start() {
     const port = process.env.PORT || 4000;
     const {app, express} = await setMiddleWares();

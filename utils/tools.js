@@ -168,17 +168,11 @@ async function saveLeadToLocalDb(lead, client_id, form_id, select) {
 }
 
 async function discordBulkSender(leads) {
-  const pool = await mysql.createPool({
-    host:'3.24.9.244',
-    user: 'local_linux',
-    database: 'adminform',
-    password:'Neet@2019'
-});
-
+ 
   if(leads.length == 0) return;
   try {
     const formIds = leads.map(lead => lead.form_id);
-    const [forms] = await pool.query('SELECT * FROM forms WHERE id IN (?)', [formIds]);
+    const [forms] = await __pool.query('SELECT * FROM forms WHERE id IN (?)', [formIds]);
     const leadsWithForms = leads.map(lead => ({
      ...lead,
       form: forms.find(form => form.id === lead.form_id)
@@ -196,7 +190,7 @@ async function discordBulkSender(leads) {
         const leadSent = await bulkDiscordSender(form.discord, str, botName); 
         if (leadSent) {
           console.log(`Discord lead send sucessfully of `, lead.name, " of form name: " , form.name, "of client name: ", form.client_name);
-          await pool.query('UPDATE leads SET is_send_discord = 1 WHERE id = ?', [lead.id]);
+          await __pool.query('UPDATE leads SET is_send_discord = 1 WHERE id = ?', [lead.id]);
         }
       } catch (error) {
         console.error("Error sending to discord: of  ", form.name);

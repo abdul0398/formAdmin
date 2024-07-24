@@ -56,7 +56,6 @@ async function startWorker() {
             const leadSent = await bulkDiscordSender(form.discord, str, bot_name);
             await sendToHooks(lead, form.zappier, form.project_name, form.client_name, selects);  
             await sendMail(str, form.email);        
-            console.log(leadSent);
             if(!leadSent){
               data.is_send_discord = 0;
             }
