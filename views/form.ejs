@@ -249,7 +249,7 @@
                                 <%if(label == "true"){%>
                                   <label><%= field.label %></label><br>
                                 <%}%>
-                                <select class="form-select custom-input-bg" style="height: 45px;" name="<%= field.id %>">
+                                <select class="form-select custom-input-bg" style="height: 45px;" name="<%= field.label %>">
                                   <option selected disabled>Please Select</option>
                                   <% for (let j = 0; j < field.options.length; j++) { %>
                                     <option value="<%= field.options[j] %>"><%= field.options[j] %></option>
@@ -388,7 +388,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                     }                    
                     
                     await sendToServer(dataToSave);
-                    Form.submit();
+                    /* Form.submit(); */
 
                     return true;
                 }
@@ -645,6 +645,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         }
       }  
        
+      
 
         const reqtype = `<%-reqtype%>`
 
@@ -658,8 +659,9 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
           })
           selectValues.push({name:"Request", value:selectedReq});
         }
+        console.log(selectValues, data);
 
-        const res = await fetch(`/api/form/submit/${id}`, {
+        /* const res = await fetch(`/api/form/submit/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -667,7 +669,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
             body: JSON.stringify({data:data, selects:selectValues})
         });
         const response = await res.json();
-        return;
+        return; */
     }
 
 

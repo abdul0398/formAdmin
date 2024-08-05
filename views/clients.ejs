@@ -1070,7 +1070,7 @@
               }
             </style>
             <div class="width-res mx-auto d-flex align-items-center mt-5">
-              <form
+              <div
                 aria-disabled="true"
                 id="headform1"
                 class="align-middle mx-auto border px-3 pt-5 w-100 shadow-md"
@@ -1175,7 +1175,7 @@
                   </button>
                 </div>
                 <p id="error_msg1" class="text-danger text-center"></p>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -2325,7 +2325,6 @@
         const type = container.getAttribute("type");
         const is_required = container.querySelector("#req-checkbox").checked;
 
-        console.log(is_required);
         if (type === "input") {
           const inputId = document.getElementById("new-input-id").value;
           const inputLabel = document.getElementById("new-input-Label").value;
@@ -2356,7 +2355,7 @@
             '<i class="fas fa-trash-alt" style="color:black"></i>';
           removeButton.classList.add("bg-transparent", "remove-field");
           removeButton.style.verticalAlign = "middle";
-          removeButton.addEventListener("click", function () {
+          removeButton.addEventListener("click", function (e) {
             formNewFieldContainer.removeChild(fieldDiv);
           });
 
@@ -2365,14 +2364,14 @@
           fieldDiv.appendChild(removeButton);
 
           fieldDiv.innerHTML += `
-  <div>
-    <input
-      type="checkbox"
-      ${is_required ? 'checked' : ''}
-    />
-    <label>Field is Required</label>
-  </div>
-`;
+            <div>
+              <input
+                type="checkbox"
+                ${is_required ? 'checked' : ''}
+              />
+              <label>Field is Required</label>
+            </div>
+          `;
 
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "select") {
@@ -2411,7 +2410,9 @@
             '<i class="fas fa-trash-alt" style="color:black"></i>';
           removeButton.classList.add("bg-transparent", "remove-field");
           removeButton.style.verticalAlign = "middle";
-          removeButton.addEventListener("click", function () {
+          removeButton.addEventListener("click", function (e) {
+            
+
             formNewFieldContainer.removeChild(fieldDiv);
           });
 
@@ -2473,7 +2474,9 @@
             '<i class="fas fa-trash-alt" style="color:black"></i>';
           removeButton.classList.add("bg-transparent", "remove-field");
           removeButton.style.verticalAlign = "middle";
-          removeButton.addEventListener("click", function () {
+          removeButton.addEventListener("click", function (e) {
+            
+
             formNewFieldContainer.removeChild(fieldDiv);
           });
 
@@ -2532,21 +2535,23 @@
             '<i class="fas fa-trash-alt" style="color:black"></i>';
           removeButton.classList.add("bg-transparent", "remove-field");
           removeButton.style.verticalAlign = "middle";
-          removeButton.addEventListener("click", function () {
+          removeButton.addEventListener("click", function (e) {
+            
+
             formNewFieldContainer.removeChild(fieldDiv);
           });
 
           fieldDiv.appendChild(removeButton);
 
           fieldDiv.innerHTML += `
-  <div>
-    <input
-      type="checkbox"
-      ${is_required ? 'checked' : ''}
-    />
-    <label>Field is Required</label>
-  </div>
-`;
+            <div>
+              <input
+                type="checkbox"
+                ${is_required ? 'checked' : ''}
+              />
+              <label>Field is Required</label>
+            </div>
+          `;
 
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "textarea") {
@@ -2576,7 +2581,9 @@
             '<i class="fas fa-trash-alt" style="color:black"></i>';
           removeButton.classList.add("bg-transparent", "remove-field");
           removeButton.style.verticalAlign = "middle";
-          removeButton.addEventListener("click", function () {
+          removeButton.addEventListener("click", function (e) {
+            
+
             formNewFieldContainer.removeChild(fieldDiv);
           });
 
@@ -2585,14 +2592,14 @@
           fieldDiv.appendChild(removeButton);
 
           fieldDiv.innerHTML += `
-  <div>
-    <input
-      type="checkbox"
-      ${is_required ? 'checked' : ''}
-    />
-    <label>Field is Required</label>
-  </div>
-`;
+            <div>
+              <input
+                type="checkbox"
+                ${is_required ? 'checked' : ''}
+              />
+              <label>Field is Required</label>
+            </div>
+          `;
 
           formNewFieldContainer.appendChild(fieldDiv);
         }
@@ -2724,7 +2731,8 @@
               '<i class="fas fa-trash-alt" style="color:black"></i>';
             removeButton.classList.add("bg-transparent", "remove-field");
             removeButton.style.verticalAlign = "middle";
-            removeButton.addEventListener("click", function () {
+            removeButton.addEventListener("click", function (e) {
+              
               formNewFieldContainer.removeChild(fieldDiv);
             });
   
@@ -2775,7 +2783,9 @@
               '<i class="fas fa-trash-alt" style="color:black"></i>';
             removeButton.classList.add("bg-transparent", "remove-field");
             removeButton.style.verticalAlign = "middle";
-            removeButton.addEventListener("click", function () {
+            removeButton.addEventListener("click", function (e) {
+              
+
               formNewFieldContainer.removeChild(fieldDiv);
             });
   
@@ -2833,7 +2843,9 @@
               '<i class="fas fa-trash-alt" style="color:black"></i>';
             removeButton.classList.add("bg-transparent", "remove-field");
             removeButton.style.verticalAlign = "middle";
-            removeButton.addEventListener("click", function () {
+            removeButton.addEventListener("click", function (e) {
+              
+
               formNewFieldContainer.removeChild(fieldDiv);
             });
   
@@ -2890,7 +2902,9 @@
               '<i class="fas fa-trash-alt" style="color:black"></i>';
             removeButton.classList.add("bg-transparent", "remove-field");
             removeButton.style.verticalAlign = "middle";
-            removeButton.addEventListener("click", function () {
+            removeButton.addEventListener("click", function (e) {
+              
+
               formNewFieldContainer.removeChild(fieldDiv);
             });
   
@@ -2931,7 +2945,9 @@
               '<i class="fas fa-trash-alt" style="color:black"></i>';
             removeButton.classList.add("bg-transparent", "remove-field");
             removeButton.style.verticalAlign = "middle";
-            removeButton.addEventListener("click", function () {
+            removeButton.addEventListener("click", function (e) {
+              
+
               formNewFieldContainer.removeChild(fieldDiv);
             });
   
