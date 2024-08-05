@@ -2738,18 +2738,18 @@
   
             fieldDiv.appendChild(label);
             fieldDiv.appendChild(input);
-            fieldDiv.appendChild(removeButton);
-
+            
             fieldDiv.innerHTML += `
-              <div>
-                <input
-                  type="checkbox"
-                  ${is_required ? 'checked' : ''}
-                />
-                <label>Field is Required</label>
+            <div>
+              <input
+              type="checkbox"
+              ${is_required ? 'checked' : ''}
+              />
+              <label>Field is Required</label>
               </div>
-            `;
-  
+              `;
+              fieldDiv.appendChild(removeButton);
+              
             formNewFieldContainer.appendChild(fieldDiv);
           } else if (type == "select") {
             const selectId = field.id;
@@ -2849,17 +2849,17 @@
               formNewFieldContainer.removeChild(fieldDiv);
             });
   
-            fieldDiv.appendChild(removeButton);
-
+            
             fieldDiv.innerHTML += `
-  <div>
-    <input
-      type="checkbox"
-      ${is_required ? 'checked' : ''}
-    />
-    <label>Field is Required</label>
-  </div>
-`;
+            <div>
+              <input
+              type="checkbox"
+              ${is_required ? 'checked' : ''}
+              />
+              <label>Field is Required</label>
+              </div>
+              `;
+              fieldDiv.appendChild(removeButton);
   
             formNewFieldContainer.appendChild(fieldDiv);
           } else if (type == "radio") {
@@ -2908,17 +2908,17 @@
               formNewFieldContainer.removeChild(fieldDiv);
             });
   
-            fieldDiv.appendChild(removeButton);
-
+            
             fieldDiv.innerHTML += `
-  <div>
-    <input
-      type="checkbox"
-      ${is_required ? 'checked' : ''}
-    />
-    <label>Field is Required</label>
-  </div>
-`;
+            <div>
+              <input
+              type="checkbox"
+              ${is_required ? 'checked' : ''}
+              />
+              <label>Field is Required</label>
+              </div>
+              `;
+              fieldDiv.appendChild(removeButton);
   
             formNewFieldContainer.appendChild(fieldDiv);
           } else if (type == "textarea") {
@@ -2953,17 +2953,17 @@
   
             fieldDiv.appendChild(label);
             fieldDiv.appendChild(textarea);
-            fieldDiv.appendChild(removeButton);
-
+            
             fieldDiv.innerHTML += `
-  <div>
-    <input
-      type="checkbox"
-      ${is_required ? 'checked' : ''}
-    />
-    <label>Field is Required</label>
-  </div>
-`;
+            <div>
+              <input
+              type="checkbox"
+              ${is_required ? 'checked' : ''}
+              />
+              <label>Field is Required</label>
+              </div>
+              `;
+              fieldDiv.appendChild(removeButton);
   
             formNewFieldContainer.appendChild(fieldDiv);
           }
