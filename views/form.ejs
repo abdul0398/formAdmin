@@ -461,19 +461,6 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
           }
       }
 
-      function validateSelect() {
-          const selects = document.querySelectorAll('select');
-          let isValid = true;
-          for (const select of selects) {
-              if (select.value === "" || select.options[select.selectedIndex].disabled) {
-                  errors.push(`Please Fill All Fields.`);
-                  isValid = false;
-                  break;
-              }
-          }
-          return isValid;
-      }
-
       function validateName(name) {
           if(name === ""){
             errors.push("name cannot be empty.");
