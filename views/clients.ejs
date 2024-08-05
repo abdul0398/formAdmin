@@ -1423,13 +1423,18 @@
                 `;
         } else {
           forms.forEach((form) => {
+            const is_automation_done = form.discord?.length >= 1 || form.zappier?.length >= 1 || (form.privyr != null && form.privyr != "")
+
             showformdiv.innerHTML += `            
                     <div class="d-flex mt-3 forms_div">
                         <div topic="project" style="outline: 0px solid transparent; align-items: center; width: 300px; height: 100%;" class="d-flex ps-4">${form.name}</div> 
                         
                         <div class="options_div ms-auto" > 
                             
-    
+                           <button class="btn btn-sm me-2 mt-3" style="${!is_automation_done ? 'background-color:grey !important' : 'background-color:green !important'}">
+                                ${is_automation_done ? "Automation Done" : "Automation pending"}
+                            </button>
+
                             <a target="_blank" href="/form/${form.id}?formtype=chatbot" class="${form.id} big_icon btn btn-sm btn-facebook mt-3 me-2" >
                                 View
                             </a>
@@ -2124,6 +2129,14 @@
             id="new-input-id"
             />
           </div>
+          <div className="">
+            <input
+              id="req-checkbox"
+              type="checkbox"
+              class="border border-3 p-2 mb-1"
+            />
+            <label>Mark this field as Required</label>
+          </div>
           
           <div className="">
             <input
@@ -2160,6 +2173,15 @@
             id="new-select-id"
             />
           </div>
+
+            <div className="">
+            <input
+              id="req-checkbox"
+              type="checkbox"
+              class="border border-3 p-2 mb-1"
+            />
+            <label>Mark this field as Required</label>
+          </div>
           
           <div className="">
             <input
@@ -2192,6 +2214,15 @@
             id="new-checkbox-id"
             />
           </div>
+
+            <div className="">
+            <input
+              id="req-checkbox"
+              type="checkbox"
+              class="border border-3 p-2 mb-1"
+            />
+            <label>Mark this field as Required</label>
+          </div>
           
           <div className="">
             <input
@@ -2215,6 +2246,15 @@
             placeholder="Radio Id"
             id="new-radio-id"
             />
+          </div>
+
+            <div className="">
+            <input
+              id="req-checkbox"
+              type="checkbox"
+              class="border border-3 p-2 mb-1"
+            />
+            <label>Mark this field as Required</label>
           </div>
           
           <div className="">
@@ -2240,6 +2280,15 @@
             placeholder="Textarea Id"
             id="new-textarea-id"
             />
+          </div>
+
+            <div className="">
+            <input
+              id="req-checkbox"
+              type="checkbox"
+              class="border border-3 p-2 mb-1"
+            />
+            <label>Mark this field as Required</label>
           </div>
           
           <div className="">
@@ -2274,7 +2323,9 @@
           document.querySelector(".new-form-fields");
         const container = document.querySelector(".new-field-edit-container");
         const type = container.getAttribute("type");
+        const is_required = container.querySelector("#req-checkbox").checked;
 
+        console.log(is_required);
         if (type === "input") {
           const inputId = document.getElementById("new-input-id").value;
           const inputLabel = document.getElementById("new-input-Label").value;
@@ -2285,6 +2336,7 @@
 
           const fieldDiv = document.createElement("div");
           fieldDiv.classList.add("mb-3");
+         
 
           const label = document.createElement("label");
           label.setAttribute("for", inputId);
@@ -2311,6 +2363,16 @@
           fieldDiv.appendChild(label);
           fieldDiv.appendChild(input);
           fieldDiv.appendChild(removeButton);
+
+          fieldDiv.innerHTML += `
+  <div>
+    <input
+      type="checkbox"
+      ${is_required ? 'checked' : ''}
+    />
+    <label>Field is Required</label>
+  </div>
+`;
 
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "select") {
@@ -2356,6 +2418,16 @@
           fieldDiv.appendChild(label);
           fieldDiv.appendChild(select);
           fieldDiv.appendChild(removeButton);
+
+          fieldDiv.innerHTML += `
+  <div>
+    <input
+      type="checkbox"
+      ${is_required ? 'checked' : ''}
+    />
+    <label>Field is Required</label>
+  </div>
+`;
 
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "checkbox") {
@@ -2407,6 +2479,16 @@
 
           fieldDiv.appendChild(removeButton);
 
+          fieldDiv.innerHTML += `
+  <div>
+    <input
+      type="checkbox"
+      ${is_required ? 'checked' : ''}
+    />
+    <label>Field is Required</label>
+  </div>
+`;
+
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "radio") {
           const radioId = document.getElementById("new-radio-id").value;
@@ -2456,6 +2538,16 @@
 
           fieldDiv.appendChild(removeButton);
 
+          fieldDiv.innerHTML += `
+  <div>
+    <input
+      type="checkbox"
+      ${is_required ? 'checked' : ''}
+    />
+    <label>Field is Required</label>
+  </div>
+`;
+
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "textarea") {
           const textareaId = document.getElementById("new-textarea-id").value;
@@ -2492,6 +2584,16 @@
           fieldDiv.appendChild(textarea);
           fieldDiv.appendChild(removeButton);
 
+          fieldDiv.innerHTML += `
+  <div>
+    <input
+      type="checkbox"
+      ${is_required ? 'checked' : ''}
+    />
+    <label>Field is Required</label>
+  </div>
+`;
+
           formNewFieldContainer.appendChild(fieldDiv);
         }
       }
@@ -2504,7 +2606,11 @@
         for (let i = 0; i < divs.length; i++) {
           const div = divs[i];
           const label = div.querySelector("label");
-          const input = div.querySelector("input");
+          const inputs = div.querySelectorAll("input");
+
+          const input = inputs.length == 2? inputs[0]:null;
+          const is_required = inputs.length == 2?inputs[1].checked:inputs[0].checked;
+
           const select = div.querySelector("select");
           const textarea = div.querySelector("textarea");
 
@@ -2515,6 +2621,7 @@
               id: input.id,
               label: label.textContent,
               placeholder: input.placeholder,
+              required:is_required
             };
             fields.push(field);
           } else if (select) {
@@ -2524,6 +2631,8 @@
               label: label.textContent,
               placeholder: select.placeholder,
               options: [],
+              required:is_required
+
             };
             const options = select.querySelectorAll("option");
             options.forEach((option) => {
@@ -2536,6 +2645,8 @@
               id: textarea.id,
               label: label.textContent,
               placeholder: textarea.placeholder,
+              required:is_required
+            
             };
             fields.push(field);
           } else if (div.querySelector('input[type="checkbox"]')) {
@@ -2544,6 +2655,8 @@
               id: div.querySelector('input[type="checkbox"]').name,
               label: label.textContent,
               options: [],
+              required:is_required
+            
             };
             const checkboxes = div.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach((checkbox) => {
@@ -2557,6 +2670,8 @@
               id: div.querySelector('input[type="radio"]').name,
               label: label.textContent,
               options: [],
+              required:is_required
+            
             };
             const radios = div.querySelectorAll('input[type="radio"]');
             radios.forEach((radio) => {
@@ -2579,6 +2694,7 @@
         fields?.forEach((field) => {
           const type = field.type;
 
+          const is_required = field.required
 
 
           if (type === "input") {
@@ -2615,6 +2731,16 @@
             fieldDiv.appendChild(label);
             fieldDiv.appendChild(input);
             fieldDiv.appendChild(removeButton);
+
+            fieldDiv.innerHTML += `
+              <div>
+                <input
+                  type="checkbox"
+                  ${is_required ? 'checked' : ''}
+                />
+                <label>Field is Required</label>
+              </div>
+            `;
   
             formNewFieldContainer.appendChild(fieldDiv);
           } else if (type == "select") {
@@ -2655,6 +2781,15 @@
   
             fieldDiv.appendChild(label);
             fieldDiv.appendChild(select);
+            fieldDiv.innerHTML += `
+  <div>
+    <input
+      type="checkbox"
+      ${is_required ? 'checked' : ''}
+    />
+    <label>Field is Required</label>
+  </div>
+`;
             fieldDiv.appendChild(removeButton);
   
             formNewFieldContainer.appendChild(fieldDiv);
@@ -2703,6 +2838,16 @@
             });
   
             fieldDiv.appendChild(removeButton);
+
+            fieldDiv.innerHTML += `
+  <div>
+    <input
+      type="checkbox"
+      ${is_required ? 'checked' : ''}
+    />
+    <label>Field is Required</label>
+  </div>
+`;
   
             formNewFieldContainer.appendChild(fieldDiv);
           } else if (type == "radio") {
@@ -2750,6 +2895,16 @@
             });
   
             fieldDiv.appendChild(removeButton);
+
+            fieldDiv.innerHTML += `
+  <div>
+    <input
+      type="checkbox"
+      ${is_required ? 'checked' : ''}
+    />
+    <label>Field is Required</label>
+  </div>
+`;
   
             formNewFieldContainer.appendChild(fieldDiv);
           } else if (type == "textarea") {
@@ -2783,6 +2938,16 @@
             fieldDiv.appendChild(label);
             fieldDiv.appendChild(textarea);
             fieldDiv.appendChild(removeButton);
+
+            fieldDiv.innerHTML += `
+  <div>
+    <input
+      type="checkbox"
+      ${is_required ? 'checked' : ''}
+    />
+    <label>Field is Required</label>
+  </div>
+`;
   
             formNewFieldContainer.appendChild(fieldDiv);
           }

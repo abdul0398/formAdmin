@@ -209,7 +209,7 @@
                         <div class="created-fields-container">
                           <% for (let i = 0; i < createdFields.length; i++) { %>
                             <% let field = createdFields[i]; %>
-                            <div id="<%=field.id%>" type="<%=field.type%>" question="<%=field.label%>">
+                            <div is-req="<%=field.required%>" id="<%=field.id%>" type="<%=field.type%>" question="<%=field.label%>">
                               <% if (field.type === 'input') { %>
                                 <div class="">
                                   <%if(label == "true"){%>
@@ -336,7 +336,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                 const isValidName = validateName(name);
                 const isValidEmail = noemail == "true" ? true: validateEmail(email);
                 const isValidPhone = validatePhone(phone);
-                if (!validateName(name) || !isValidEmail || !validatePhone(phone) || !validateSelect()) {
+                if (!validateName(name) || !isValidEmail || !validatePhone(phone) || !validateSelect() || !validateNewSelect()) {
                     errorElement.innerText = errors[0];
                     return false;
                 } else {
@@ -469,27 +469,13 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
           return true;
       }
 
-      /* function validatePrivacyPolicy() {
-        const noconsent = "<%=noconsent%>";
-        if(noconsent == "true"){
-          return true;
-        }
-
-
-          const privacyCheckbox = document.getElementById('privacy_checkbox');
-          if (!privacyCheckbox.checked) {
-              errors.push('Please agree to the privacy policy.');
-              return false;
-          }
-          return true;
-      } */
-
       function validateSelect(){
         // get params from the url
         const urlParams = new URLSearchParams(window.location.search);
         const reqselect1 = urlParams.get('reqselect1');
         const reqselect2 = urlParams.get('reqselect2');
 
+        console.log(reqselect1);
         if(reqselect1 == 'true'){
           const select1 = document.querySelector('select[name="Request"]');
           if(!select1){
@@ -519,7 +505,75 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         return true;
       
       }
+
+      function validateNewSelect() {
+        const createdFieldContainer = document.querySelector('.created-fields-container');
+        if (createdFieldContainer) {
+            const createdFields = createdFieldContainer.children;
+            console.log(createdFields)
+            for (let i = 0; i < createdFields.length; i++) {
+                const field = createdFields[i];
+                const fieldType = field.getAttribute('type');
+                const label = field.getAttribute('question');
+                const isRequired = field.getAttribute('is-req') === 'true';
+                
+                if (fieldType === 'input') {
+                    const input = field.querySelector('input');
+                    if (isRequired && !input.value) {
+                        errors.push('Please select all Fields')
+                        return false;
+                    }
+                } else if (fieldType === 'textarea') {
+                    const textarea = field.querySelector('textarea');
+                    if (isRequired && !textarea.value) {
+                      errors.push('Please select all Fields')
+
+                        return false;
+                    }
+                } else if (fieldType === 'checkbox') {
+                    const checkboxes = field.querySelectorAll('input[type="checkbox"]');
+                    const checkedValues = [];
+                    checkboxes.forEach(checkbox => {
+                        if (checkbox.checked) {
+                            checkedValues.push(checkbox.value);
+                        }
+                    });
+                    if (isRequired && checkedValues.length === 0) {
+                      errors.push('Please select all Fields')
+
+                        return false;
+                    }
+                } else if (fieldType === 'radio') {
+                    const radios = field.querySelectorAll('input[type="radio"]');
+                    let checkedValue = '';
+                    radios.forEach(radio => {
+                        if (radio.checked) {
+                            checkedValue = radio.value;
+                        }
+                    });
+                    if (isRequired && !checkedValue) {
+                      errors.push('Please select all Fields')
+
+                        return false;
+                    }
+                }
+            }
+        }
+    return true;
+    }
+
+
+
+
+
+
+
+
   }
+
+
+
+
 
 
     function disableBtn() {
