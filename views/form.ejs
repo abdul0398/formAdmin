@@ -388,7 +388,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                     }                    
                     
                     await sendToServer(dataToSave);
-                    /* Form.submit(); */
+                    Form.submit();
 
                     return true;
                 }
@@ -661,7 +661,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         }
         console.log(selectValues, data);
 
-        /* const res = await fetch(`/api/form/submit/${id}`, {
+        const res = await fetch(`/api/form/submit/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -669,7 +669,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
             body: JSON.stringify({data:data, selects:selectValues})
         });
         const response = await res.json();
-        return; */
+        return;
     }
 
 
