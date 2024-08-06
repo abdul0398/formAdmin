@@ -510,7 +510,6 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         const createdFieldContainer = document.querySelector('.created-fields-container');
         if (createdFieldContainer) {
             const createdFields = createdFieldContainer.children;
-            console.log(createdFields)
             for (let i = 0; i < createdFields.length; i++) {
                 const field = createdFields[i];
                 const fieldType = field.getAttribute('type');
@@ -556,6 +555,13 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
                         return false;
                     }
+                }else if (fieldType == "select"){
+                  const select = field.querySelector('select');
+                  if(isRequired && select.value == 'Please Select'){
+                    errors.push('Please select all Fields')
+                    return false;
+                  }
+                  
                 }
             }
         }
