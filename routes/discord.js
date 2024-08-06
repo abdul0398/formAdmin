@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {verify } = require("../middlewares/verify");
-const { getAccessToken, organiseDataHandler, getWebhooksInChannel, getServers, getChannelsInServer } = require("../vendors/discord");
+const { getAccessToken, organiseDataHandler, getWebhooksInChannel, getServers, getChannelsInServer, updateAccessToken } = require("../vendors/discord");
 
 
 router
@@ -53,7 +53,11 @@ router
         if(rows.length < 1) return res.status(404).json({message:"Not Found"});
         const finalData = [];
         for (let element of rows) {
-            const {access_token} = element;
+            const {access_token, owner_id, refresh_token, expires_on} = element;
+            if (Date.now() > expires_on) {
+                const data = await updateAccessToken(owner_id, refresh_token);
+                access_token = data.access_token;
+              }
             const data = await getServers(access_token);
             finalData.push(...data);
         }
