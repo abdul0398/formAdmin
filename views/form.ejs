@@ -301,10 +301,13 @@
 initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=form.email_id%>', '<%=form.phone_id%>', 'error_msg1');
 
   function initializeFormValidation(ButtonID, FormID, NameID, EmailID, PhoneID, ErrorMsgID) {
-    document.getElementById(FormID).setAttribute('action', document.referrer + 'thank-you');
+    
 
+
+
+    
     // get all params in the url
-
+    
     const urlParams = new URLSearchParams(window.location.search);
     const utm_source = urlParams.get('utm_source');
     const utm_medium = urlParams.get('utm_medium');
@@ -316,8 +319,20 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
     const device = urlParams.get('device');
     const location = urlParams.get('location');
     const placement_category = urlParams.get('placement_category');
+    const is_listing_form = urlParams.get('listings_form');
 
-        const errors = [];
+
+    if(is_listing_form == 'true'){
+      document.getElementById(FormID).setAttribute('action', "https://dashboard.jomejourney-portal.com/thank-you" );
+    }else{
+      document.getElementById(FormID).setAttribute('action', document.referrer + 'thank-you');
+    }
+        
+    
+    
+    
+    
+    const errors = [];
 
         async function checkValidity(formID, nameTextID, emailTextID, phoneTextID, errorID) {
             const emailInput = document.getElementById(emailTextID);
