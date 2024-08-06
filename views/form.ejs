@@ -128,16 +128,16 @@
                             <%for(let i = 0; i < requestOptions.length; i++){%>
                               <option value="<%=requestOptions[i]%>"><%=requestOptions[i]%></option>
                               <%}%>                   
-                            </select>
+                          </select>
                         <%}%>
                         <%}%>
 
                     <%}else if(formType == "header" || formType == "footer"){%>
+
+                        <%if(noselect1 != 'true'){%>
                         <%if(label == "true"){%>
                           <label style="color:black"><%=requestLabel%></label>  
                         <%}%>
-
-                        <%if(noselect1 != 'true'){%>
                         <%if(reqtype == "checkbox"){%>
                           <div>
                             <%for(let i = 0; i < requestOptions.length; i++){%>
