@@ -44,7 +44,7 @@ async function startWorker() {
                 ...data,
             };
 
-            const send_to_privyr = await sendDataToPrivyrWebhook(form.privyr, lead, selects);
+            const send_to_privyr = await sendDataToPrivyrWebhook(form.name, form.privyr, lead, selects);
             data.send_to_privyr = 1;
             if(!send_to_privyr){
               data.send_to_privyr = 0;

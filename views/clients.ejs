@@ -59,6 +59,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
   </head>
   <style>
     /* checkbox Style  */
@@ -3010,7 +3013,7 @@
         });
       }
 
-      async function fetchChannels(serverId){
+    async function fetchChannels(serverId){
       const response = await fetch(`/api/discord/channels/${serverId}`, {
         method: 'GET',
         headers: {
@@ -3027,7 +3030,7 @@
           text: 'Error getting channels'
         });
       }
-      }
+    }
     
    async function selectChannelHandler(select){
       const channelId = select.value;

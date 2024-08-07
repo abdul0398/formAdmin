@@ -321,8 +321,6 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
     const placement_category = urlParams.get('placement_category');
     const is_listing_form = urlParams.get('listings_form');
 
-    console.log(window.location);
-    console.log(document.referrer);
 
     if(is_listing_form == 'true'){
       document.getElementById(FormID).setAttribute('action', "https://dashboard.jomejourney-portal.com/thank-you" );
