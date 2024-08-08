@@ -18,7 +18,7 @@ const sendDataToPrivyrWebhook = async (form_name, webhookUrl, data, selects) => 
     email: data.email,
     phone: `+65${data.ph_number}`,
     display_name: data.name,
-    hidden:form_name
+    source:form_name
   }
 
   if(data?.params?.utm_source){
