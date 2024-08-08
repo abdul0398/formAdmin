@@ -945,6 +945,8 @@
                 <option value="checkbox">Checkbox</option>
                 <option value="radio">Radio</option>
                 <option value="select">Select</option>
+                <option value="hidden">hidden</option>
+
               </Select>
               <div class="new-field-edit-container mt-3"></div>
             </div>
@@ -2313,6 +2315,27 @@
           </div>
         `;
           container.innerHTML = html;
+        }else if(type == "hidden"){
+          const html = `
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="Name"
+            id="new-hidden-name"
+            />
+          </div>
+
+          <div className="">
+            <input
+            type="text"
+            class="border border-3 p-2 form-control mb-1"
+            placeholder="value"
+            id="new-hidden-value"
+            />
+          </div>
+        `;
+          container.innerHTML = html;
         }
 
         container.innerHTML += `
@@ -2327,7 +2350,7 @@
           document.querySelector(".new-form-fields");
         const container = document.querySelector(".new-field-edit-container");
         const type = container.getAttribute("type");
-        const is_required = container.querySelector("#req-checkbox").checked;
+        const is_required = container.querySelector("#req-checkbox")?.checked;
 
         if (type === "input") {
           const inputId = document.getElementById("new-input-id").value;
@@ -2365,18 +2388,18 @@
 
           fieldDiv.appendChild(label);
           fieldDiv.appendChild(input);
-          fieldDiv.appendChild(removeButton);
-
+          
           fieldDiv.innerHTML += `
-            <div>
-              <input
-                type="checkbox"
-                ${is_required ? 'checked' : ''}
-              />
-              <label>Field is Required</label>
+          <div>
+            <input
+            type="checkbox"
+            ${is_required ? 'checked' : ''}
+            />
+            <label>Field is Required</label>
             </div>
-          `;
-
+            `;
+            
+            fieldDiv.appendChild(removeButton);
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "select") {
           const selectId = document.getElementById("new-select-id").value;
@@ -2416,23 +2439,23 @@
           removeButton.style.verticalAlign = "middle";
           removeButton.addEventListener("click", function (e) {
             
-
+            console.log("hello");
             formNewFieldContainer.removeChild(fieldDiv);
           });
 
           fieldDiv.appendChild(label);
           fieldDiv.appendChild(select);
-          fieldDiv.appendChild(removeButton);
-
+          
           fieldDiv.innerHTML += `
-  <div>
-    <input
-      type="checkbox"
-      ${is_required ? 'checked' : ''}
-    />
-    <label>Field is Required</label>
-  </div>
-`;
+          <div>
+            <input
+            type="checkbox"
+            ${is_required ? 'checked' : ''}
+            />
+            <label>Field is Required</label>
+            </div>
+            `;
+            fieldDiv.appendChild(removeButton);
 
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "checkbox") {
@@ -2484,17 +2507,17 @@
             formNewFieldContainer.removeChild(fieldDiv);
           });
 
-          fieldDiv.appendChild(removeButton);
-
+          
           fieldDiv.innerHTML += `
-  <div>
-    <input
-      type="checkbox"
-      ${is_required ? 'checked' : ''}
-    />
-    <label>Field is Required</label>
-  </div>
-`;
+          <div>
+            <input
+            type="checkbox"
+            ${is_required ? 'checked' : ''}
+            />
+            <label>Field is Required</label>
+            </div>
+            `;
+            fieldDiv.appendChild(removeButton);
 
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "radio") {
@@ -2545,18 +2568,18 @@
             formNewFieldContainer.removeChild(fieldDiv);
           });
 
-          fieldDiv.appendChild(removeButton);
-
+          
           fieldDiv.innerHTML += `
-            <div>
-              <input
-                type="checkbox"
-                ${is_required ? 'checked' : ''}
-              />
-              <label>Field is Required</label>
+          <div>
+            <input
+            type="checkbox"
+            ${is_required ? 'checked' : ''}
+            />
+            <label>Field is Required</label>
             </div>
-          `;
-
+            `;
+            fieldDiv.appendChild(removeButton);
+            
           formNewFieldContainer.appendChild(fieldDiv);
         } else if (type == "textarea") {
           const textareaId = document.getElementById("new-textarea-id").value;
@@ -2593,19 +2616,62 @@
 
           fieldDiv.appendChild(label);
           fieldDiv.appendChild(textarea);
+          
+          fieldDiv.innerHTML += `
+          <div>
+            <input
+            type="checkbox"
+            ${is_required ? 'checked' : ''}
+            />
+            <label>Field is Required</label>
+            </div>
+            `;
+            fieldDiv.appendChild(removeButton);
+            
+          formNewFieldContainer.appendChild(fieldDiv);
+        }else if(type == 'hidden'){
+          const name = document.getElementById("new-hidden-name").value;
+          const value = document.getElementById("new-hidden-value").value;
+
+          
+          
+          const fieldDiv = document.createElement("div");
+          fieldDiv.classList.add("mb-3");
+
+          fieldDiv.setAttribute("type", "hidden");
+
+
+          const label = document.createElement("label");
+          label.textContent = name;
+          label.style.color = "black";
+
+          const para = document.createElement("p");
+          para.disabled = true;
+          para.type = "text";
+          para.classList.add("form-control")
+          para.innerText = value
+
+
+          const removeButton = document.createElement("button");
+          removeButton.innerHTML =
+            '<i class="fas fa-trash-alt" style="color:black"></i>';
+          removeButton.classList.add("bg-transparent", "remove-field");
+          removeButton.style.verticalAlign = "middle";
+          removeButton.addEventListener("click", function (e) {
+            formNewFieldContainer.removeChild(fieldDiv);
+          });
+          
+          
+          
+          fieldDiv.appendChild(label);
+          fieldDiv.appendChild(para);
           fieldDiv.appendChild(removeButton);
 
-          fieldDiv.innerHTML += `
-            <div>
-              <input
-                type="checkbox"
-                ${is_required ? 'checked' : ''}
-              />
-              <label>Field is Required</label>
-            </div>
-          `;
+
+
 
           formNewFieldContainer.appendChild(fieldDiv);
+
         }
       }
 
@@ -2620,7 +2686,7 @@
           const inputs = div.querySelectorAll("input");
 
           const input = inputs.length == 2? inputs[0]:null;
-          const is_required = inputs.length == 2?inputs[1].checked:inputs[0].checked;
+          const is_required = inputs.length == 2?inputs[1].checked:inputs?.[0]?.checked;
 
           const select = div.querySelector("select");
           const textarea = div.querySelector("textarea");
@@ -2688,6 +2754,13 @@
             radios.forEach((radio) => {
               field.options.push(radio.id);
             });
+            fields.push(field);
+          }else if(div.getAttribute("type") == "hidden"){
+            const field = {
+              type: "hidden",
+              key: div.querySelector("label").innerText,
+              value:div.querySelector("p").innerText,
+            };
             fields.push(field);
           }
         }
@@ -2970,10 +3043,40 @@
               fieldDiv.appendChild(removeButton);
   
             formNewFieldContainer.appendChild(fieldDiv);
+          }else if(type == "hidden"){
+            const fieldDiv = document.createElement("div");
+            fieldDiv.classList.add("mb-3");
+
+            fieldDiv.setAttribute("type", "hidden");
+
+
+            const label = document.createElement("label");
+            label.textContent = field.key;
+            label.style.color = "black";
+
+            const para = document.createElement("p");
+            para.disabled = true;
+            para.type = "text";
+            para.classList.add("form-control")
+            para.innerText = field.value
+
+
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML =
+              '<i class="fas fa-trash-alt" style="color:black"></i>';
+            removeButton.classList.add("bg-transparent", "remove-field");
+            removeButton.style.verticalAlign = "middle";
+            removeButton.addEventListener("click", function (e) {
+              formNewFieldContainer.removeChild(fieldDiv);
+            });
+            
+            
+            
+            fieldDiv.appendChild(label);
+            fieldDiv.appendChild(para);
+            fieldDiv.appendChild(removeButton);
+            formNewFieldContainer.appendChild(fieldDiv);
           }
-
-
-
         })
 
       }
