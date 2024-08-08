@@ -9,7 +9,9 @@ const httpsAgent = new https.Agent({
 function changeleadtoString(lead, selects, client_name, project_name, isManual) {
   let resultStrings = [];
   selects.forEach((select) => {
-    resultStrings.push(`●  ${select.name}: ${select.value}`);
+    if(select.name && select.value){
+      resultStrings.push(`●  ${select.name}: ${select.value}`);
+    }
   })
     const resultStr = resultStrings.join('\n');  
 
