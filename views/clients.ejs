@@ -2691,7 +2691,24 @@
           const select = div.querySelector("select");
           const textarea = div.querySelector("textarea");
 
-          if (input && input.type !== "checkbox" && input.type !== "radio") {
+          if (select) {
+            const input = div.querySelector("#default-select-checkbox")
+            const field = {
+              type: "select",
+              id: select.id,
+              label: label.textContent,
+              placeholder: select.placeholder,
+              options: [],
+              default_option:input.checked,
+              required:is_required
+
+            };
+            const options = select.querySelectorAll("option");
+            options.forEach((option) => {
+              field.options.push(option.value);
+            });
+            fields.push(field);
+          } else if (input && input.type !== "checkbox" && input.type !== "radio") {
             const field = {
               type: "input",
               inputType: input.type,
@@ -2701,21 +2718,7 @@
               required:is_required
             };
             fields.push(field);
-          } else if (select) {
-            const field = {
-              type: "select",
-              id: select.id,
-              label: label.textContent,
-              placeholder: select.placeholder,
-              options: [],
-              required:is_required
 
-            };
-            const options = select.querySelectorAll("option");
-            options.forEach((option) => {
-              field.options.push(option.value);
-            });
-            fields.push(field);
           } else if (textarea) {
             const field = {
               type: "textarea",
@@ -2779,6 +2782,7 @@
           const type = field.type;
 
           const is_required = field.required
+          const default_option = field.default_option
 
 
           if (type === "input") {
@@ -2869,14 +2873,20 @@
             fieldDiv.appendChild(label);
             fieldDiv.appendChild(select);
             fieldDiv.innerHTML += `
-  <div>
-    <input
-      type="checkbox"
-      ${is_required ? 'checked' : ''}
-    />
-    <label>Field is Required</label>
-  </div>
-`;
+            <div>
+              <input
+                type="checkbox"
+                ${is_required ? 'checked' : ''}
+              />
+              <label>Field is Required</label>
+              <input
+                id="default-select-checkbox"
+                type="checkbox"
+                 ${default_option ? 'checked' : ''}
+              />
+              <label>Mark First Option as Selected</label>
+            </div>
+          `;
             fieldDiv.appendChild(removeButton);
   
             formNewFieldContainer.appendChild(fieldDiv);

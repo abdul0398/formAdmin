@@ -246,28 +246,46 @@
                                   </div>
                                     <% } %>
                               <% } else if (field.type === 'select') { %>
-                                <%if(label == "true"){%>
-                                  <label><%= field.label %></label><br>
-                                <%}%>
-                                <select class="form-select custom-input-bg" style="height: 45px;" name="<%= field.label %>">
-                                  <option selected disabled>Please Select</option>
-                                  <% for (let j = 0; j < field.options.length; j++) { %>
-                                    <option value="<%= field.options[j] %>"><%= field.options[j] %></option>
+                                  <% if (label == "true") { %>
+                                    <label><%= field.label %></label><br>
                                   <% } %>
-                                </select>
+                                  <select class="form-select custom-input-bg" style="height: 45px;" name="<%= field.label %>">
+                                    <% if (field.default_option !== true) { %>
+                                      <option selected disabled>Please Select</option>
+                                    <% } %>
+                                    <% for (let j = 0; j < field.options.length; j++) { %>
+                                      <option value="<%= field.options[j] %>" 
+                                        <% if (field.default_option === true && j === 0) { %> selected <% } %>
+                                      ><%= field.options[j] %></option>
+                                    <% } %>
+                                  </select>
                               <% } %>
+
+
                             </div>
                           <% } %>
                         </div>
 
                       <% } %>
 
-                      <%if(noconsent != 'true'){%>
+                      <% if (noconsent != 'true') { %>
                         <div class="mt-3 d-flex">
                           <input id="privacy_checkbox" type="checkbox">
-                          <label for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">I consent to the collection, use, and disclosure of my personal data as specified in the <a onclick="openPrivacyPolicy()" style="cursor: pointer; font-weight: bold; color: black; text-decoration: none;">Privacy Policy.</a> </label>
+                          <% if (form.id == 162) { %>
+                            <label for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">
+                              By submitting this form, I consent to being contacted by the appointed sales team and associates of Union Square 
+                              Residences
+                            </label>
+                          <% } else { %>
+                            <label for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">
+                              I consent to the collection, use, and disclosure of my personal data as specified in the 
+                              <a onclick="openPrivacyPolicy()" style="cursor: pointer; font-weight: bold; color: black; text-decoration: none;">
+                                Privacy Policy.
+                              </a>
+                            </label>
+                          <% } %>
                         </div>
-                      <%}%>
+                      <% } %>
 
                     <%if(devtext == "true"){%>  
                       <p class="text-black" style="white-space: pre-line;" >
