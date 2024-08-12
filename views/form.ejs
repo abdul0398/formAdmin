@@ -268,24 +268,12 @@
 
                       <% } %>
 
-                      <% if (noconsent != 'true') { %>
+                      <%if(noconsent != 'true'){%>
                         <div class="mt-3 d-flex">
                           <input id="privacy_checkbox" type="checkbox">
-                          <% if (form.id == 162) { %>
-                            <label for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">
-                              By submitting this form, I consent to being contacted by the appointed sales team and associates of Union Square 
-                              Residences
-                            </label>
-                          <% } else { %>
-                            <label for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">
-                              I consent to the collection, use, and disclosure of my personal data as specified in the 
-                              <a onclick="openPrivacyPolicy()" style="cursor: pointer; font-weight: bold; color: black; text-decoration: none;">
-                                Privacy Policy.
-                              </a>
-                            </label>
-                          <% } %>
+                          <label for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">I consent to the collection, use, and disclosure of my personal data as specified in the <a onclick="openPrivacyPolicy()" style="cursor: pointer; font-weight: bold; color: black; text-decoration: none;">Privacy Policy.</a> </label>
                         </div>
-                      <% } %>
+                      <%}%>
 
                     <%if(devtext == "true"){%>  
                       <p class="text-black" style="white-space: pre-line;" >
@@ -308,11 +296,19 @@
             crossorigin="anonymous"></script>
         <script>
           const siteName = "<%=sitename%>";
+          const id = "<%=form.id%>"
+          console.log(id);
           const parentUrl = document.referrer;
           const projectName = "<%=form.project_name%>";
           const cleanProjectName = capitalizeFirstLetterOfEachWord(projectName);
           const label = document.querySelector('label[for="privacy_checkbox"]');
-          label.innerHTML = `By submitting this form, I agree to be contacted by the ${siteName?siteName:cleanProjectName} appointed sales team and its associates from ${parentUrl}`;
+
+          if(id == 162){
+            label.innerHTML = `By submitting this form, I consent to being contacted by the appointed sales team and associates of Union Square Residences`;
+          }else{
+            label.innerHTML = `By submitting this form, I agree to be contacted by the ${siteName?siteName:cleanProjectName} appointed sales team and its associates from ${parentUrl}`;
+          }
+
 
 
           const noemail = "<%=noemail%>";
