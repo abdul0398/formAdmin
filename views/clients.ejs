@@ -63,7 +63,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <link rel="stylesheet" href="/css/select2.css">
-  </head>
+    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+</head>
   <style>
     /* checkbox Style  */
     .container_checkbox {
@@ -78,6 +79,10 @@
       -ms-user-select: none;
       user-select: none;
       font-size: 14px;
+    }
+
+    .fa-grip{
+      cursor: grab;
     }
 
     .container_checkbox input {
@@ -2361,8 +2366,9 @@
           ).value;
 
           const fieldDiv = document.createElement("div");
-          fieldDiv.classList.add("mb-3");
+          fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
          
+          fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
 
           const label = document.createElement("label");
           label.setAttribute("for", inputId);
@@ -2412,8 +2418,9 @@
           );
 
           const fieldDiv = document.createElement("div");
-          fieldDiv.classList.add("mb-3");
+          fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
 
+          fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
           const label = document.createElement("label");
           label.setAttribute("for", selectId);
           label.textContent = selectLabel;
@@ -2467,8 +2474,9 @@
           );
 
           const fieldDiv = document.createElement("div");
-          fieldDiv.classList.add("mb-3");
+          fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
 
+          fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
           const label = document.createElement("label");
           label.setAttribute("for", checkboxId);
           label.textContent = checkboxLabel;
@@ -2528,8 +2536,9 @@
           );
 
           const fieldDiv = document.createElement("div");
-          fieldDiv.classList.add("mb-3");
+          fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
 
+          fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
           const label = document.createElement("label");
           label.setAttribute("for", radioId);
           label.textContent = radioLabel;
@@ -2590,8 +2599,9 @@
           ).value;
 
           const fieldDiv = document.createElement("div");
-          fieldDiv.classList.add("mb-3");
+          fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
 
+          fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
           const label = document.createElement("label");
           label.setAttribute("for", textareaId);
           label.textContent = textareaLabel;
@@ -2636,8 +2646,9 @@
           
           
           const fieldDiv = document.createElement("div");
-          fieldDiv.classList.add("mb-3");
+          fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
 
+          fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
           fieldDiv.setAttribute("type", "hidden");
 
 
@@ -2673,6 +2684,9 @@
           formNewFieldContainer.appendChild(fieldDiv);
 
         }
+
+
+        startSortable();
       }
 
       function extractNewFieldData() {
@@ -2792,8 +2806,9 @@
             const inputPlaceholder = field.placeholder;
   
             const fieldDiv = document.createElement("div");
-            fieldDiv.classList.add("mb-3");
+            fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
   
+            fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
             const label = document.createElement("label");
             label.setAttribute("for", inputId);
             label.textContent = inputLabel;
@@ -2839,8 +2854,9 @@
             const selectOptions = field.options;
   
             const fieldDiv = document.createElement("div");
-            fieldDiv.classList.add("mb-3");
+            fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
   
+            fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
             const label = document.createElement("label");
             label.setAttribute("for", selectId);
             label.textContent = selectLabel;
@@ -2896,8 +2912,9 @@
             const checkboxOptions = field.options;
   
             const fieldDiv = document.createElement("div");
-            fieldDiv.classList.add("mb-3");
+            fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
   
+            fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
             const label = document.createElement("label");
             label.setAttribute("for", checkboxId);
             label.textContent = checkboxLabel;
@@ -2955,8 +2972,9 @@
             const radioOptions = field.options;
   
             const fieldDiv = document.createElement("div");
-            fieldDiv.classList.add("mb-3");
+            fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
   
+            fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
             const label = document.createElement("label");
             label.setAttribute("for", radioId);
             label.textContent = radioLabel;
@@ -3014,8 +3032,9 @@
             const textareaPlaceholder = field.placeholder;
   
             const fieldDiv = document.createElement("div");
-            fieldDiv.classList.add("mb-3");
+            fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
   
+            fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
             const label = document.createElement("label");
             label.setAttribute("for", textareaId);
             label.textContent = textareaLabel;
@@ -3055,8 +3074,9 @@
             formNewFieldContainer.appendChild(fieldDiv);
           }else if(type == "hidden"){
             const fieldDiv = document.createElement("div");
-            fieldDiv.classList.add("mb-3");
+            fieldDiv.classList.add("mb-3", "border", "border-2", "rounded-2", "p-2", "position-relative");
 
+            fieldDiv.innerHTML = '<i class="position-absolute end-2 top-2 fa-solid fa-grip"></i>'
             fieldDiv.setAttribute("type", "hidden");
 
 
@@ -3088,6 +3108,8 @@
             formNewFieldContainer.appendChild(fieldDiv);
           }
         })
+
+        startSortable();
 
       }
 
@@ -3177,6 +3199,18 @@
     }
 
 
+
+
+    function startSortable(){
+      // new Sortable('destroy');
+
+      const new_fields_list = document.querySelector('.new-form-fields')
+      new Sortable(new_fields_list, {
+        animation: 150,
+        ghostClass: 'blue-background-class',
+        handle: '.fa-grip'
+      })
+    }
     
     </script>
   </body>

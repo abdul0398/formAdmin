@@ -92,7 +92,7 @@ async function updateAccessToken(owner_id, refresh_token) {
     return data;
   } catch (error) {
     console.error(`Error updating access token for owner_id ${owner_id}:`, error.message);
-    throw error;
+    throw error.message;
   }
 }
 
