@@ -203,7 +203,7 @@ async function createWebhooksInChannel(channelId) {
   try {
     const response = await axios.post(
       `${DISCORD_API_ENDPOINT}/channels/${channelId}/webhooks`,
-      {name:"new_webhook"},
+      {name:"meow_form"},
       {
         headers: { Authorization: `Bot ${DISCORD_BOT_TOKEN}` },
       }
