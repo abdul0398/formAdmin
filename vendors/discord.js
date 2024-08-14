@@ -186,6 +186,32 @@ async function getWebhooksInChannel(channelId) {
       throw new Error(`Failed to fetch webhooks: ${response.statusText}`);
     }
 
+    if(!response.data || response.data.length == 0){
+      const data = await createWebhooksInChannel(channelId);
+      return [data]
+    }
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching webhooks:", error.message);
+    return [];
+  }
+}
+
+async function createWebhooksInChannel(channelId) {
+
+
+  try {
+    const response = await axios.post(
+      `${DISCORD_API_ENDPOINT}/channels/${channelId}/webhooks`,
+      {name:"new_webhook"},
+      {
+        headers: { Authorization: `Bot ${DISCORD_BOT_TOKEN}` },
+      }
+    );
+
+    if (response.status !== 200) {
+      throw new Error(`Failed to fetch webhooks: ${response.statusText}`);
+    }
     return response.data;
   } catch (error) {
     console.error("Error fetching webhooks:", error.message);
@@ -202,8 +228,6 @@ module.exports = {
   getWebhooksInChannel,
   getChannelsInServer,
 };
-
-
 
 
 
