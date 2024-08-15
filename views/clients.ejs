@@ -2398,6 +2398,7 @@
           fieldDiv.innerHTML += `
           <div>
             <input
+            id="required_checkbox"
             type="checkbox"
             ${is_required ? 'checked' : ''}
             />
@@ -2456,6 +2457,7 @@
           fieldDiv.innerHTML += `
           <div>
             <input
+            id="required_checkbox"
             type="checkbox"
             ${is_required ? 'checked' : ''}
             />
@@ -2524,12 +2526,13 @@
           
           fieldDiv.innerHTML += `
           <div>
-            <input
+            <input 
+            id="required_checkbox"
             type="checkbox"
             ${is_required ? 'checked' : ''}
             />
             <label>Field is Required</label>
-            </div>
+          </div>
             `;
             fieldDiv.appendChild(removeButton);
 
@@ -2587,6 +2590,7 @@
           fieldDiv.innerHTML += `
           <div>
             <input
+            id="required_checkbox"
             type="checkbox"
             ${is_required ? 'checked' : ''}
             />
@@ -2636,6 +2640,7 @@
           fieldDiv.innerHTML += `
           <div>
             <input
+            id="required_checkbox"
             type="checkbox"
             ${is_required ? 'checked' : ''}
             />
@@ -2706,7 +2711,7 @@
           const inputs = div.querySelectorAll("input");
 
           const input = inputs.length == 2? inputs[0]:null;
-          const is_required = inputs.length == 2?inputs[1].checked:inputs?.[0]?.checked;
+          const is_required = div.querySelector('#required_checkbox').checked;
 
           const select = div.querySelector("select");
           const textarea = div.querySelector("textarea");
@@ -2760,7 +2765,9 @@
             };
             const checkboxes = div.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach((checkbox) => {
-              field.options.push(checkbox.id);
+              if(checkbox.getAttribute('id') != "required_checkbox"){
+                field.options.push(checkbox.id);
+              }
             });
 
             fields.push(field);
@@ -2844,6 +2851,7 @@
             fieldDiv.innerHTML += `
             <div>
               <input
+              id="required_checkbox"
               type="checkbox"
               ${is_required ? 'checked' : ''}
               />
@@ -2897,7 +2905,8 @@
             fieldDiv.innerHTML += `
             <div>
               <input
-                type="checkbox"
+              id="required_checkbox"  
+              type="checkbox"
                 ${is_required ? 'checked' : ''}
               />
               <label>Field is Required</label>
@@ -2963,6 +2972,7 @@
             fieldDiv.innerHTML += `
             <div>
               <input
+              id="required_checkbox"
               type="checkbox"
               ${is_required ? 'checked' : ''}
               />
@@ -3023,6 +3033,7 @@
             fieldDiv.innerHTML += `
             <div>
               <input
+              id="required_checkbox"
               type="checkbox"
               ${is_required ? 'checked' : ''}
               />
@@ -3069,6 +3080,7 @@
             fieldDiv.innerHTML += `
             <div>
               <input
+              id="required_checkbox"
               type="checkbox"
               ${is_required ? 'checked' : ''}
               />
