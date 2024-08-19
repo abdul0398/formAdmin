@@ -22,9 +22,6 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
-  <!-- Nepcha Analytics (nepcha.com) -->
-  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
   <link rel="stylesheet" type="text/css"
   href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <script type="text/javascript"
@@ -428,7 +425,7 @@
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('all')" style="background-color: #002655; box-shadow: none;">Download all leads</Button>
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('selected')" style="background-color: #002655; box-shadow: none;"> Download selected leads</Button>
                     <Button class="btn-primary btn border" onclick="downloadLeadsHandler('clear')" style="background-color: #002655; box-shadow: none;"> Download clear leads</Button>
-                    <Button class="btn-primary btn border" onclick="sendLeadsToDiscord()" style="background-color: #002655; box-shadow: none;">Send selected leads to Discord</Button>
+                    <Button class="btn-primary btn border" onclick="sendLeadsToDiscord(this)" style="background-color: #002655; box-shadow: none;">Send selected leads to Discord</Button>
                     <Button class="btn-primary btn border" onclick="syncDNCHandler(this)" style="background-color: #002655; box-shadow: none;">Sync DNC Status</Button>
                     
                 </div>
@@ -1044,7 +1041,7 @@
             }
 
 
-            async function sendLeadsToDiscord() {
+            async function sendLeadsToDiscord(btn) {
                 const tableBody = document.getElementById("table-body");
                 const inputs = tableBody.querySelectorAll("input[type='checkbox']");
                 const ids = [];
@@ -1072,6 +1069,9 @@
                     return;
                 }
 
+                btn.innerText = "Sending..."
+                btn.disabled = true;
+
 
                 try {
                     const res = await fetch("/api/leads/sendTodiscord", {
@@ -1091,7 +1091,7 @@
                     Swal.fire({
                         toast: true,
                         icon: 'success',
-                        title: responseData.message || 'Lead sent to discord successfully',
+                        title: responseData.message || 'Leads started sending to Discord',
                         position: 'top-end',
                         showConfirmButton: false,
                         timer: 2000,
@@ -1111,6 +1111,8 @@
                         timerProgressBar: true,
                     });
                 }
+                btn.innerText = "Send selected leads to Discord"
+                btn.disabled = false;
 
             }
 

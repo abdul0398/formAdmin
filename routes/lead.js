@@ -91,8 +91,8 @@ router
     try {
         // get all leads with the ids
         const [leads] = await __pool.query(`SELECT * FROM leads WHERE id IN (?)`, [ids]);
-        await discordBulkSender(leads);
-        res.status(200).json({message: "Leads sent to discord successfully"});
+        discordBulkSender(leads);
+        res.status(200).json({message: "Leads started sending to Discord"});
     } catch (error) {
         console.log(error);
         res.status(500).json({error: error.message});
