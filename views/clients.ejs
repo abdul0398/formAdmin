@@ -39,11 +39,7 @@
       href="/assets/css/material-dashboard.css?v=3.1.0"
       rel="stylesheet"
     />
-    <script
-      defer
-      data-site="YOUR_DOMAIN_HERE"
-      src="https://api.nepcha.com/js/nepcha-analytics.js"
-    ></script>
+
     <script>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
@@ -1442,8 +1438,12 @@
                         
                         <div class="options_div ms-auto" > 
                             
-                           <button class="btn btn-sm me-2 mt-3" style="${!is_automation_done ? 'background-color:grey !important' : 'background-color:green !important'}">
+                           <button class="big_icon btn btn-sm me-2 mt-3" style="${!is_automation_done ? 'background-color:grey !important' : 'background-color:green !important'}">
                                 ${is_automation_done ? "Automation Done" : "Automation pending"}
+                            </button>
+
+                            <button class="small_icon btn btn-sm me-2 mt-3" style="${!is_automation_done ? 'background-color:grey !important; padding: 4px 10px;' : 'background-color:green !important; padding: 4px 10px;'}">
+                                ${is_automation_done ? '<i class="fa-solid fa-check" style="font-size: 15px;"></i>' : '<i class="fa-regular fa-circle-xmark" style="font-size: 15px;"></i>'}
                             </button>
 
                             <a target="_blank" href="/form/${form.id}?formtype=chatbot" class="${form.id} big_icon btn btn-sm btn-facebook mt-3 me-2" >
