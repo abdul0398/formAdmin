@@ -534,7 +534,7 @@
                         const junk_flter = document.getElementById("junk-filter");
                         const read_flter = document.getElementById("read-filter");    
                         filterLeads = leads.filter(lead=>{
-                            if(lead.status == "clear" && lead.is_read == 0 && lead.client_id == client_id){
+                            if((lead.status == junk_flter.value || junk_flter.value  == "all") && (lead.is_read == read_flter.value || read_flter.value  == 'all') && lead.client_id == client_id){
                                 return true;
                             }
                         })
@@ -829,7 +829,7 @@
                 element.classList.add('unselected_client');
               })
               curr_elem.classList.remove("unselected_client");
-                  curr_elem.classList.add("selected_client");
+                curr_elem.classList.add("selected_client");
             }
 
             const searchInput = document.getElementById('search_client');
