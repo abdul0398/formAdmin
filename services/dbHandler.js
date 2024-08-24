@@ -38,21 +38,21 @@ async function createTables() {
 
 async function createUsers() {
     const [rows] = await __pool.query(`SELECT * FROM users`);
-    if(rows.length == 2) {
-        console.log("##### Users Already Exists #####")
-        return;
-    }else{
-        await __pool.query(`DELETE FROM users`);
+    // if(rows.length == 2) {
+    //     console.log("##### Users Already Exists #####")
+    //     return;
+    // }else{
+    //     await __pool.query(`DELETE FROM users`);
 
         const salt = crypto.randomBytes(16)
-        const hashedPassword = crypto.pbkdf2Sync("123456", salt, 310000, 32, 'sha256');
+        const hashedPassword = crypto.pbkdf2Sync("jomefrontend@123", salt, 310000, 32, 'sha256');
 
-        const [rows] = await __pool.query(`INSERT INTO users (email, hashed_password, salt, role) VALUES (?, ?, ?, ?)`, ["admin@gmail.com", hashedPassword, salt, 'admin']);
-        console.log("#####  Admin User Created Successfully #####")
+    //     const [rows] = await __pool.query(`INSERT INTO users (email, hashed_password, salt, role) VALUES (?, ?, ?, ?)`, ["admin@gmail.com", hashedPassword, salt, 'admin']);
+    //     console.log("#####  Admin User Created Successfully #####")
         
-        await __pool.query(`INSERT INTO users (email, hashed_password, salt, role) VALUES (?, ?, ?, ?)`, ["user@gmail.com", hashedPassword, salt, 'user']);
-        console.log("#####  User User Created Successfully #####")
-    }
+        await __pool.query(`INSERT INTO users (email, hashed_password, salt, role) VALUES (?, ?, ?, ?)`, ["jomefrontend@gmail.com", hashedPassword, salt, 'user_2']);
+    //     console.log("#####  User User Created Successfully #####")
+    // }
 }
 
 

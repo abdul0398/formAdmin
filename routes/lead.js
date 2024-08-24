@@ -7,6 +7,10 @@ const { discordBulkSender, checkDncMulti } = require("../utils/tools");
 
 router
 .get("/leads", verify, async (req, res, next)=>{
+    if(req?.user?.role == "user_2"){
+        next();
+        return;
+    }
     try {
         const [clients] = await __pool.query(`SELECT * FROM clients ORDER BY name ASC`);
         const [forms] = await __pool.query(`SELECT * FROM forms`);

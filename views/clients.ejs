@@ -637,6 +637,7 @@
               <span class="nav-link-text ms-1">Clients</span>
             </a>
           </li>
+          <%if(role != "user_2"){%>
           <li class="nav-item">
             <a class="nav-link text-white" href="/leads">
               <div
@@ -650,6 +651,7 @@
               <span class="nav-link-text ms-1">Leads</span>
             </a>
           </li>
+        <%}%>
           <li class="nav-item">
             <a class="nav-link text-white" href="/discords">
               <div
@@ -953,7 +955,7 @@
             </div>
 
             <hr style="border-top: 2px solid black !important" />
-            <div class="<%- admin == true ? '' : 'd-none' %>">
+            <div class="<%- role == 'admin' ? '' : 'd-none' %>">
               <p class="mt-4" style="font-weight: 600">Automation</p>
               <input
                 type="text"

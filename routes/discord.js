@@ -9,7 +9,7 @@ router
     try {
         const [rows] = await __pool.query(`SELECT * FROM discord`);
         const organisedData = await organiseDataHandler(rows);  
-        return res.render("discord.ejs", {data:organisedData});
+        return res.render("discord.ejs", {data:organisedData,  role:req.user.role});
     } catch (error) {
         console.log("Error getting discords:", error);
     }
