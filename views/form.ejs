@@ -297,7 +297,6 @@
         <script>
           const siteName = "<%=sitename%>";
           const id = "<%=form.id%>"
-          console.log(id);
           const parentUrl = document.referrer;
           const projectName = "<%=form.project_name%>";
           const cleanProjectName = capitalizeFirstLetterOfEachWord(projectName);
@@ -365,7 +364,7 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
                 const isValidName = validateName(name);
                 const isValidEmail = noemail == "true" ? true: validateEmail(email);
                 const isValidPhone = validatePhone(phone);
-                if (!validateName(name) || !isValidEmail || !validatePhone(phone) || !validateSelect() || !validateNewSelect()) {
+                if (!validateName(name) || !isValidEmail || !validatePhone(phone) || !validateSelect() || !validateNewSelect() || !validatePrivacy()) {
                     errorElement.innerText = errors[0];
                     return false;
                 } else {
@@ -450,7 +449,6 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
           this.value = phoneNumber; 
             // this.value = phoneNumber;
-            console.log(phoneNumber.length);
             if (phoneNumber.length === 11) {
                 this.setCustomValidity('');
             } else {
@@ -504,7 +502,6 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         const reqselect1 = urlParams.get('reqselect1');
         const reqselect2 = urlParams.get('reqselect2');
 
-        console.log(reqselect1);
         if(reqselect1 == 'true'){
           const select1 = document.querySelector('select[name="Request"]');
           if(!select1){
@@ -533,6 +530,21 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         }
         return true;
       
+      }
+
+      function validatePrivacy(){
+        const checkbox = document.getElementById('privacy_checkbox')
+        const req = "<%=reqprivacy%>"
+        if(req != "true"){
+          return true;
+        }
+        if(checkbox.checked) return true;
+
+        errors.push("Please Agree to the privacy-policy.");
+        return false;
+
+
+
       }
 
       function validateNewSelect() {
@@ -694,7 +706,6 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
           })
           selectValues.push({name:"Request", value:selectedReq});
         }
-        console.log(selectValues, data);
 
         const res = await fetch(`/api/form/submit/${id}`, {
             method: 'POST',
