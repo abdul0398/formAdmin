@@ -319,11 +319,11 @@ async function validateDataOfWebhook(data, formId, ip){
     });
   
     
-    str += result.naem?`\n●  Name: ${result.name}`:"";
+    str += result.name?`\n●  Name: ${result.name}`:"";
     
     str += result.phone?`\n●  Contact: https://wa.me/${result.phone}`:"";
 
-    str += result.email?`\n●  Email: ${lead.email}`:"";
+    str += result.email?`\n●  Email: ${result.email}`:"";
 
     str += result['Request for']?`\n●  Request for: ${result['Request for']}`:"";
 
