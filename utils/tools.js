@@ -278,7 +278,7 @@ async function LeadsendtoDiscordRecFromWebhook(data){
   console.log(data);
 
   try {
-    await sendWebhookMessage("https://discord.com/api/webhooks/1255472441812320287/Wbnrpk3pBQz8E5Arwr3kkFy6Qhs8aUtf84OeyfYQGnaP5ECSzLKqzchdrjMgUP4flFLp",  data);
+    await sendWebhookMessage("https://discord.com/api/webhooks/1255472441812320287/Wbnrpk3pBQz8E5Arwr3kkFy6Qhs8aUtf84OeyfYQGnaP5ECSzLKqzchdrjMgUP4flFLp", "testing_project", data);
     return true;
   } catch (error) {
     console.log(error)
