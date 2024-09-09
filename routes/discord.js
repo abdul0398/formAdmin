@@ -88,7 +88,7 @@ router
         res.status(500).json({message:"Error getting servers and channels"});
     }
 }).post('/api/google-sheet/discord', (req, res)=>{
-    console.log(req.body);
+    console.log(req.body.form_response.answers);
 
     res.status(200).json({message:"Successfully recieved"})
 })
