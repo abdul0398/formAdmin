@@ -1,5 +1,5 @@
 const https = require('https');
-const { bulkDiscordSender } = require('./discord');
+const { bulkDiscordSender, sendWebhookMessage } = require('./discord');
 const mysql = require('mysql2/promise');
 
 const httpsAgent = new https.Agent({
@@ -273,6 +273,102 @@ async function checkDncMulti(data) {
 
 
 
+async function LeadsendtoDiscordRecFromWebhook(data){
+
+  console.log(data);
+
+  try {
+    await sendWebhookMessage("https://discord.com/api/webhooks/1255472441812320287/Wbnrpk3pBQz8E5Arwr3kkFy6Qhs8aUtf84OeyfYQGnaP5ECSzLKqzchdrjMgUP4flFLp",  data);
+    return true;
+  } catch (error) {
+    console.log(error)
+    return false
+    
+  }
+}
+
+async function validateDataOfWebhook(data, formId, ip){
+  if (!data || !Array.isArray(data) || data.length === 0) {
+    return false;
+  }
+  let str = `New Lead please Take Note!\n=============================\n\nHello , you have a new lead :\n`;
+
+  try {
+    const result = {
+      email: null,
+      phone: null,
+      "Request for": null,
+      name: null
+    };
+  
+    data.forEach(item => {
+      switch(item.type) {
+        case 'email':
+          result.email = item.email;
+          break;
+        case 'phone_number':
+          result.phone = item.phone_number;
+          break;
+        case 'choice':
+          result['Request for'] = item.choice.label;
+          break;
+        case 'text':
+          result.name = item.text;
+          break;
+      }
+    });
+  
+    
+    str += result.naem?`\n●  Name: ${result.name}`:"";
+    
+    str += result.phone?`\n●  Contact: https://wa.me/${result.phone}`:"";
+
+    str += result.email?`\n●  Email: ${lead.email}`:"";
+
+    str += result['Request for']?`\n●  Request for: ${result['Request for']}`:"";
+
+
+
+
+
+    if(!result.email && ! result.phone){
+      return false;
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if(!emailRegex.test(result.email)){
+      return false;
+    }
+
+
+
+    const promises = [
+      validateEmailFromDB(result.email, result.phone, ip, `www.typeform.com/${formId}`),
+      contentModeratorationAPI(result),                     
+      checkForDNC(result.phone, result.email)                  
+    ];
+
+    const results = await Promise.allSettled(promises);
+
+    const [dbValidation, customValidation, dncCheck] = results;
+
+    const isValidFromMasterDB = dbValidation.status === 'fulfilled' && dbValidation.value;
+    const isValidFromCustom = customValidation.status === 'fulfilled' && customValidation.value;
+    const isDNC = dncCheck.status === 'fulfilled' && dncCheck.value;
+
+    if (isDNC || !isValidFromCustom || !isValidFromMasterDB) {
+      return false;
+    }
+    return str;
+
+  } catch (error) {
+    return str;
+  }
+}
+
+
+
 module.exports = {
   changeleadtoString,
   contentModerationCustom,
@@ -284,5 +380,7 @@ module.exports = {
   checkForDNC,
   containsTestEmails,
   containsTestNames,
-  checkDncMulti
+  checkDncMulti,
+  validateDataOfWebhook,
+  LeadsendtoDiscordRecFromWebhook
 };

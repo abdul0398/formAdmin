@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {verify } = require("../middlewares/verify");
 const { getAccessToken, organiseDataHandler, getWebhooksInChannel, getServers, getChannelsInServer, updateAccessToken } = require("../vendors/discord");
+const { validateDataOfWebhook, LeadsendtoDiscordRecFromWebhook } = require("../utils/tools");
 
 
 router
@@ -87,8 +88,19 @@ router
         console.log("Error getting servers and channels:", error);
         res.status(500).json({message:"Error getting servers and channels"});
     }
-}).post('/api/google-sheet/discord', (req, res)=>{
-    console.log(req.body.form_response.answers);
+}).post('/api/google-sheet/discord', async (req, res)=>{
+    const {form_response} = req.body;
+    const formId = form_response?.form_id || 'dsjfldsfjslsj';
+    const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress 
+    const answers = form_response?.answers || [];
+    const isValid = await validateDataOfWebhook(answers, formId, ip)
+
+    console.log(isValid)
+
+    if(isValid){
+        LeadsendtoDiscordRecFromWebhook(isValid);
+    }
+
 
     res.status(200).json({message:"Successfully recieved"})
 })
