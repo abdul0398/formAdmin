@@ -351,6 +351,8 @@ async function validateDataOfWebhook(data, formId, ip){
 
     const results = await Promise.allSettled(promises);
 
+    console.log(results)
+
     const [dbValidation, customValidation, dncCheck] = results;
 
     const isValidFromMasterDB = dbValidation.status === 'fulfilled' && dbValidation.value;
