@@ -278,7 +278,7 @@ async function LeadsendtoDiscordRecFromWebhook(data){
   console.log(data);
 
   try {
-    await sendWebhookMessage("https://discord.com/api/webhooks/1255472441812320287/Wbnrpk3pBQz8E5Arwr3kkFy6Qhs8aUtf84OeyfYQGnaP5ECSzLKqzchdrjMgUP4flFLp", "NORWOOD GRAND PPC", data);
+    await sendWebhookMessage("https://discord.com/api/webhooks/1233668577450528808/4XCCetLSt7lPg9jrwOekVgca8grIx3zQjLhcDrRzvfoyZBgP97i4eucKBzCWe6u5oiZx", "NORWOOD GRAND PPC", data);
     return true;
   } catch (error) {
     console.log(error)
@@ -317,6 +317,8 @@ async function validateDataOfWebhook(data, formId, ip){
           break;
       }
     });
+
+    // __pool.query(`INSERT INTO typeform_lead `)
   
     
     str += result.name?`\n●  Name: ${result.name}`:"";
