@@ -93,8 +93,7 @@ router
     const formId = form_response?.form_id || 'dsjfldsfjslsj';
     const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress 
     const answers = form_response?.answers || [];
-
-    console.log(answers)
+    console.log("Type Form Lead Recieved with IP address: ", ip);
     const isValid = await validateDataOfWebhook(answers, formId, ip)
 
     console.log(isValid)

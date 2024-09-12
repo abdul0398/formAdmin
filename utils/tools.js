@@ -278,7 +278,7 @@ async function LeadsendtoDiscordRecFromWebhook(data){
   console.log(data);
 
   try {
-    await sendWebhookMessage("https://discord.com/api/webhooks/1255472441812320287/Wbnrpk3pBQz8E5Arwr3kkFy6Qhs8aUtf84OeyfYQGnaP5ECSzLKqzchdrjMgUP4flFLp", "testing_project", data);
+    await sendWebhookMessage("https://discord.com/api/webhooks/1255472441812320287/Wbnrpk3pBQz8E5Arwr3kkFy6Qhs8aUtf84OeyfYQGnaP5ECSzLKqzchdrjMgUP4flFLp", "NORWOOD GRAND PPC", data);
     return true;
   } catch (error) {
     console.log(error)
@@ -291,7 +291,7 @@ async function validateDataOfWebhook(data, formId, ip){
   if (!data || !Array.isArray(data) || data.length === 0) {
     return false;
   }
-  let str = `New Lead please Take Note!\n=============================\n\nHello , you have a new lead :\n`;
+  let str = `New Lead please Take Note!\n=============================\n\nHello Jovel , you have a new lead from NORWOOD GRAND PPC:\n`;
 
   try {
     const result = {
