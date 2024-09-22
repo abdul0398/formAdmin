@@ -855,6 +855,17 @@
               placeholder="Enter Developer Info"
             ></textarea>
 
+            <input type="text" id="dev_name" class="border border-3 p-2 form-control mb-1" placeholder="Enter Developer Name">
+            <label for="dev_checkbox">
+              <input type="checkbox" id="dev_checkbox">
+              Show developer Checkbox
+            </label>
+
+            <label for="dev_checkbox_validation">
+              <input type="checkbox" id="dev_checkbox_validation">
+              Validate developer Checkbox
+            </label>
+
             <hr style="border-top: 2px solid black !important" />
 
             <div class="labels_div">
@@ -1727,6 +1738,9 @@
         const request_select_id = document.getElementById("request_select_id");
         const css = document.getElementById("css");
         const developerinfo = document.getElementById("developerinfo");
+        const developername = document.getElementById("dev_name");
+        const dev_checkbox = document.getElementById("dev_checkbox");
+        const dev_checkbox_validation = document.getElementById("dev_checkbox_validation");
         const phoneLabel = document.getElementById("phoneLabel");
         const nameLabel = document.getElementById("nameLabel");
         const emailLabel = document.getElementById("emailLabel");
@@ -1761,6 +1775,11 @@
         request_select_id.value = formDetails.request_select_id;
         css.value = formDetails.css;
         developerinfo.value = formDetails.dev_info;
+        developername.value = formDetails.dev_name;
+        dev_checkbox.checked = formDetails.dev_checkbox;
+        dev_checkbox_validation.checked = formDetails.dev_checkbox_validate;
+
+
         email.value = formDetails.email;
         privyr.value = formDetails.privyr;
 
@@ -1996,6 +2015,9 @@
         const clientName = document.getElementById("clientName").value;
         const email = document.getElementById("email").value;
         const developerinfo = document.getElementById("developerinfo").value;
+        const developername = document.getElementById("dev_name").value;
+        const dev_checkbox = document.getElementById("dev_checkbox").checked;
+        const dev_checkbox_validation = document.getElementById("dev_checkbox_validation").checked;
 
         // Ids of the form fields
         const nameId = document.getElementById("nameId").value;
@@ -2085,6 +2107,9 @@
           botName: botName,
           projectName: projectName,
           dev_info: developerinfo,
+          dev_name: developername,
+          dev_checkbox: dev_checkbox,
+          dev_checkbox_validation: dev_checkbox_validation,
           clientName: clientName,
           privyr:privyr.trim()
         };

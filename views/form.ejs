@@ -276,6 +276,13 @@
                         </div>
                       <%}%>
 
+                      <%if(form.dev_checkbox){%>
+                        <div class="mt-1 d-flex">
+                          <input id="dev_checkbox" type="checkbox">
+                          <label for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">Yes, I would like to receive information/updates via Call/SMp/ErmS/Whatsapail for future residential commercial projects by <%=form.dev_name%> </label>
+                        </div>
+                      <%}%>
+
                     <%if(devtext == "true"){%>  
                       <p class="text-black" style="white-space: pre-line;" >
                         <%-form.dev_info%>
@@ -537,19 +544,24 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
         return true;
       
       }
-
+      const devCheckboxValidation = "<%=form.dev_checkbox_validate%>"
       function validatePrivacy(){
-        const checkbox = document.getElementById('privacy_checkbox')
-        const req = "<%=reqprivacy%>"
-        if(req != "true"){
-          return true;
+        const privacy_checkbox = document.getElementById('privacy_checkbox')
+        const dev_checkbox = document.getElementById('dev_checkbox')
+        const reqPrivacy = "<%=reqprivacy%>"
+        const devCheckboxValidation = "<%=form.dev_checkbox_validate%>"
+
+        if(reqPrivacy == "true" && privacy_checkbox.checked == false){
+          errors.push("Please Agree to the privacy-policy.");
+          return false;
         }
-        if(checkbox.checked) return true;
 
-        errors.push("Please Agree to the privacy-policy.");
-        return false;
+        if(devCheckboxValidation == "1" && dev_checkbox.checked == false){
+          errors.push("Please Agree to the developer policy.");
+          return false;
+        }
 
-
+        return true;
 
       }
 

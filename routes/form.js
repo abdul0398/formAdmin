@@ -69,7 +69,7 @@ router
         reqprivacy:reqprivacy,
         createdFieldsFlag: newfield,
         noplaceholder1,
-        noplaceholder2
+        noplaceholder2,
       });
     } catch (error) {
       console.log(error.message);
@@ -287,6 +287,9 @@ router
       bedroom_select_id,
       request_select_id,
       dev_info,
+      dev_name,
+      dev_checkbox,
+      dev_checkbox_validation,
       css,
       email,
       createdFields,
@@ -314,6 +317,9 @@ router
            created_form_fields = ?,
            dev_info = ?,
            email = ?,
+           dev_name = ?,
+           dev_checkbox = ?,
+           dev_checkbox_validate = ?,
            privyr = ?
            WHERE id = ?
         `,
@@ -333,6 +339,9 @@ router
           JSON.stringify(createdFields),
           dev_info,
           email,
+          dev_name,
+          dev_checkbox,
+          dev_checkbox_validation,
           privyr,
           formID,
         ]

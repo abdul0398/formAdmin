@@ -17,6 +17,8 @@ const Form = `
         project_name VARCHAR(255),
         form_fields JSON,
         created_form_fields JSON,
+        dev_name VARCHAR(255),
+        dev_checkbox BOOLEAN DEFAULT 0,
         client_id INT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
