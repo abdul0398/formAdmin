@@ -272,7 +272,7 @@
                       <%if(noconsent != 'true'){%>
                         <div class="mt-3 d-flex">
                           <input id="privacy_checkbox" type="checkbox">
-                          <label for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">I consent to the collection, use, and disclosure of my personal data as specified in the <a onclick="openPrivacyPolicy()" style="cursor: pointer; font-weight: bold; color: black; text-decoration: none;">Privacy Policy.</a> </label>
+                          <label class="privacy-checkbox-label" for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">I consent to the collection, use, and disclosure of my personal data as specified in the <a onclick="openPrivacyPolicy()" style="cursor: pointer; font-weight: bold; color: black; text-decoration: none;">Privacy Policy.</a> </label>
                         </div>
                       <%}%>
 
@@ -284,14 +284,14 @@
                       <%}%>
 
                     <%if(devtext == "true"){%>  
-                      <p class="text-black" style="white-space: pre-line;" >
+                      <p id="dev_info" class="text-black" style="white-space: pre-line;" >
                         <%-form.dev_info%>
                       </p>
                       <%}%>
 
                     <div class="text-center">
-                        <button style="height: 45px; background-color:  transparent;" type="submit" id="submitBtn1"
-                            class="w-100 rounded-0 border-0 hover-overlay btn custom-input-bg ">Send</button>
+                        <button style="height: 45px; background-color:  transparent; border-radius: 10px !important" type="submit" id="submitBtn1"
+                            class="w-100 rounded-0 border-0 hover-overlay btn">Send</button>
                     </div>
                     <p id="error_msg1" class="text-danger text-center"></p>
                 </form>
@@ -346,6 +346,28 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
     const location = urlParams.get('location');
     const placement_category = urlParams.get('placement_category');
     const is_listing_form = urlParams.get('listings_form');
+    const btn_color = urlParams.get('btn_color');
+    const text_color = urlParams.get('text_color');
+
+    if(btn_color){
+      // remove background-image property
+      const btn = document.getElementById(ButtonID);
+      btn.style.setProperty("background-image", "none", "important");
+      btn.style.setProperty("background-color", `#${btn_color}`, "important");
+    }
+    
+    if(text_color){
+      const btn = document.getElementById(ButtonID);
+      const dev_info = document.getElementById("dev_info");
+      const privacy_checkbox_label = document.querySelector('.privacy-checkbox-label');
+      const dev_checkbox_label = document.querySelector('.dev-checkbox-label');
+      btn.style.setProperty("color", `#${text_color}`, "important");
+      dev_info?.style.setProperty("color", `#${text_color}`, "important");
+      privacy_checkbox_label.style.setProperty("color", `#${text_color}`, "important");
+      dev_checkbox_label.style.setProperty("color", `#${text_color}`, "important");
+      
+    }
+
 
 
     if(is_listing_form == 'true'){
