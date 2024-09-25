@@ -371,7 +371,9 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
 
     if(is_listing_form == 'true'){
-      document.getElementById(FormID).setAttribute('action', "https://dashboard.jomejourney-portal.com/thank-you" );
+      const form = document.getElementById(FormID);
+      form.setAttribute("method", "get");
+      form.setAttribute('action', "https://dashboard.jomejourney-portal.com/thank-you" );
     }else{
       document.getElementById(FormID).setAttribute('action', document.referrer + 'thank-you');
     }
