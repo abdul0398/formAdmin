@@ -372,8 +372,8 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
 
     if(is_listing_form == 'true'){
       const form = document.getElementById(FormID);
-      form.setAttribute("method", "get");
-      form.setAttribute('action', document.referrer + 'thank-you')
+      form.setAttribute("method", "post");
+      form.setAttribute('action', document.referrer + 'listing3?url=kjhkdjfhskdfjh')
     }else{
       document.getElementById(FormID).setAttribute('action', document.referrer + 'thank-you');
     }
