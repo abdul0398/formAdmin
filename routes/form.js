@@ -75,7 +75,7 @@ router
       console.log(error.message);
       next();
     }
-  }).get("api/form/:id", async (req, res, next) => {
+  }).get("/api/form/:id", async (req, res, next) => {
     const { id } = req.params;
   const { 
     formtype, reqtype, devtext, label, newfield, noemail, 
