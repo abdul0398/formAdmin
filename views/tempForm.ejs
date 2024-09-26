@@ -397,6 +397,8 @@ console.log(ButtonID, FormID, NameID, EmailID, PhoneID, ErrorMsgID);
             const errorElement = document.getElementById(errorID);
             const Form = document.getElementById(formID);
 
+
+            console.log(errorElement)
             try {
                 const email = noemail == "true" ? "": emailInput.value.trim();
                 const phone = phoneInput.value.trim();
@@ -656,14 +658,6 @@ console.log(ButtonID, FormID, NameID, EmailID, PhoneID, ErrorMsgID);
         }
     return true;
     }
-
-
-
-
-
-
-
-
   }
 
 
@@ -691,10 +685,10 @@ console.log(ButtonID, FormID, NameID, EmailID, PhoneID, ErrorMsgID);
 
     async function sendToServer(data) {
       const createdFieldContainer = document.querySelector(`.created-fields-container_${formType}`);
-      const id = document.getElementById(`formId__${formType}`).innerText;
+      const id = document.getElementById(`formId_${formType}`).innerText;
 
 
-        const selects = document.getElementById(FormID).querySelectorAll('select');
+        const selects = document.getElementById(`headform1_${formType}`).querySelectorAll('select');
         const selectValues = [];
 
 
