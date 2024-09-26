@@ -8,7 +8,73 @@
 <body>
     
 
-    <iframe style="height: 400px;" width="300px" src="http://localhost:4000/form/1?formtype=chatbot&parentURL=" + encodeURIComponent(window.location.href)"></iframe>
+    <div id="form-container">
+
+    </div>
+
 
 </body>
+<script>
+async function fetchAndRenderForm(id, queryParams) {
+  const queryString = new URLSearchParams(queryParams).toString();
+  const response = await fetch(`http://localhost:4000/form/17?formtype=chatbot`);
+  
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  
+  const data = await response.json();
+  return data;
+}
+
+function insertHTML(html, targetElement) {
+  // Create a temporary container
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+
+  // Extract and execute scripts
+  const scripts = temp.querySelectorAll('script');
+  scripts.forEach(script => {
+    const newScript = document.createElement('script');
+    Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+    newScript.appendChild(document.createTextNode(script.innerHTML));
+    script.parentNode.replaceChild(newScript, script);
+  });
+
+  // Clear the target element and insert the new content
+  targetElement.innerHTML = '';
+  while (temp.firstChild) {
+    targetElement.appendChild(temp.firstChild);
+  }
+}
+
+// Usage
+const formId = '123';
+const queryParams = {
+  formtype: 'chatbot',
+  reqtype: 'someReqType',
+  devtext: 'someDevText',
+  // ... other query parameters ...
+};
+
+
+
+async function start(){   
+    try {
+        const { html, formData } = await fetchAndRenderForm(formId, queryParams);
+        
+        // Insert the HTML into the page and execute scripts
+        const formContainer = document.getElementById('form-container');
+        insertHTML(html, formContainer);
+        
+        // You can also use the formData for other purposes if needed
+        console.log(formData);
+    } catch (error) {
+        console.error('Error fetching and rendering form:', error);
+    }
+    
+}
+
+start();
+</script>
 </html>
