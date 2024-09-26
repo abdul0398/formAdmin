@@ -62,7 +62,7 @@ function insertHTML(html, targetElement) {
   <script>
     async function fetchAndRenderForm(formId, formtype,queryParams, targetElementId) {
     const queryString = new URLSearchParams(queryParams).toString();
-    const response = await fetch(`http://localhost:4000/api/form/${formId}?formtype=${formtype}&queryParams=${queryString}`);
+    const response = await fetch(`https://form.jomejourney-portal.com/api/form/${formId}?formtype=${formtype}&queryParams=${queryString}`);
 
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -104,7 +104,7 @@ async function renderForm(formId, formtype,queryParams, targetElementId) {
 document.addEventListener('DOMContentLoaded', () => {
     // Call renderForm multiple times with different parameters
     renderForm('17', 'header', { someParam: 'value1' }, 'form-container1');
-    renderForm('3', 'chatbot', { someParam: 'value1' }, 'form-container2');
+    renderForm('173', 'chatbot', { someParam: 'value1' }, 'form-container2');
 
 });
   </script>

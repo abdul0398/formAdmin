@@ -751,7 +751,7 @@ console.log(ButtonID, FormID, NameID, EmailID, PhoneID, ErrorMsgID);
           selectValues.push({name:"Request", value:selectedReq});
         }
 
-        const res = await fetch(`/api/form/submit/${id}`, {
+        const res = await fetch(`https://form.jomejourney-portal.com/api/form/submit/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
