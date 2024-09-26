@@ -72,38 +72,38 @@
 
         </style>
     </head>
-    <p id="formId" hidden><%=form.id%></p>
+    <p id="formId_<%=formType%>" hidden><%=form.id%></p>
     <body class="<%=formType%>">
         <div class="w-100">
             <div class="w-100">
-                <form id="headform1"
+                <form id="headform1_<%=formType%>"
                     class="text-white w-100"
                     method="post" target="_top">
                     <div class="<%-formType == 'header' || 'footer' ?"": "d-flex"%> justify-content-between">   
                       <div class="w40">
                         <%if(label == "true"){%>
-                          <label style="color:black" for="<%=form.name_id%>"><%=inputLabel%></label>  
+                          <label style="color:black" for="<%=form.name_id%>_<%=formType%>"><%=inputLabel%></label>  
                         <%}%>
                           <input  style="height: 45px;" type="text" class="form-control rounded-0 custom-input-bg"
-                              id="<%=form.name_id%>" placeholder="Full Name">
+                              id="<%=form.name_id%>_<%=formType%>" placeholder="Full Name">
                       </div>
                       <%if(noemail != "true"){%>
                         <div class="w40">
                           <%if(label == "true"){%>
-                            <label style="color:black" for="<%=form.email_id%>"><%=emailLabel%></label>  
+                            <label style="color:black" for="<%=form.email_id%>_<%=formType%>"><%=emailLabel%></label>  
                           <%}%>
                             <input  style="height: 45px;" type="email" class="form-control rounded-0 custom-input-bg "
-                                id="<%=form.email_id%>" placeholder="Email">
+                                id="<%=form.email_id%>_<%=formType%>" placeholder="Email">
                         </div>
                       <%}%>
                     </div>
                     <%if(label == "true"){%>
-                      <label style="color:black" for="<%=form.phone_id%>"><%=phoneLabel%></label>  
+                      <label style="color:black" for="<%=form.phone_id%>_<%=formType%>"><%=phoneLabel%></label>  
                     <%}%>
                     <div class="mb-3 d-flex flex-row align-items-center phone-div">
                       <img src="/flag.svg" alt="Singapore Flag" class="flag-icon">
                       <input type="tel" style="height: 45px;" value="+65" class="form-control rounded-0 custom-input-bg "
-                          id="<%=form.phone_id%>" placeholder="83974987">
+                          id="<%=form.phone_id%>_<%=formType%>" placeholder="83974987">
                     </div>
 
                     <%if(formType == "registration"){%>
@@ -115,13 +115,13 @@
                           <div>
                             <%for(let i = 0; i < requestOptions.length; i++){%>
                               <div>
-                                <input checked name="<%=requestOptions[i]%>" id="<%=requestOptions[i]%>" value="<%=requestOptions[i]%>" type="checkbox" class=" mt-2">
-                                <label class="text-black  " for="<%=requestOptions[i]%>"><%=requestOptions[i]%></label>
+                                <input checked name="<%=requestOptions[i]%>" id="<%=requestOptions[i]%>_<%=formType%>" value="<%=requestOptions[i]%>" type="checkbox" class=" mt-2">
+                                <label class="text-black  " for="<%=requestOptions[i]%>_<%=formType%>"><%=requestOptions[i]%></label>
                               </div>
                             <%}%>                                           
                             </div>
                           <%}else{%>
-                          <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
+                          <select name="Request" id="<%=form.select3_id%>_<%=formType%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
                             aria-label="Default select example">
                             <%if(noplaceholder1 != 'true'){%>
                               <option selected disabled> <%= placeselect1 ? placeselect1 : 'Please Select Request' %></option>
@@ -143,13 +143,13 @@
                           <div>
                             <%for(let i = 0; i < requestOptions.length; i++){%>
                               <div>
-                                <input checked name="<%=requestOptions[i]%>" id="<%=requestOptions[i]%>" value="<%=requestOptions[i]%>" type="checkbox" class=" mt-2">
-                                <label class="text-black  " for="<%=requestOptions[i]%>"><%=requestOptions[i]%></label>
+                                <input checked name="<%=requestOptions[i]%>" id="<%=requestOptions[i]%>_<%=formType%>" value="<%=requestOptions[i]%>" type="checkbox" class=" mt-2">
+                                <label class="text-black  " for="<%=requestOptions[i]%>_<%=formType%>"><%=requestOptions[i]%></label>
                               </div>
                             <%}%>                                           
                             </div>
                           <%}else{%>
-                          <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
+                          <select name="Request" id="<%=form.select3_id%>_<%=formType%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
                             aria-label="Default select example">
                             <%if(noplaceholder1 != 'true'){%>
                               <option selected disabled> <%= placeselect1 ? placeselect1 : 'Please Select Request' %></option>
@@ -165,7 +165,7 @@
                           <%if(label == "true"){%>
                             <label style="color:black"><%=bedroomLabel%></label>  
                           <%}%>
-                          <select name="Bedroom" id="<%=form.select1Id%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
+                          <select name="Bedroom" id="<%=form.select1Id%>_<%=formType%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
                             aria-label="Default select example">
                             <%if(noplaceholder2 != 'true'){%>
                               <option selected disabled> <%= placeselect2 ? placeselect2 : 'Please Select Bedroom' %></option>
@@ -180,7 +180,7 @@
                         <%if(label == "true"){%>
                           <label style="color:black"><%=requestLabel%></label>  
                         <%}%>
-                        <select name="Request" id="<%=form.select3_id%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
+                        <select name="Request" id="<%=form.select3_id%>_<%=formType%>" style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
                           aria-label="Default select example">
                           <%if(noplaceholder1 != 'true'){%>
                             <option selected disabled> <%= placeselect1 ? placeselect1 : 'Please Select Request' %></option>
@@ -195,7 +195,7 @@
                         <%if(label == "true"){%>
                           <label style="color:black"><%=bedroomLabel%></label>  
                         <%}%>
-                        <select name="Bedroom" id="<%=form.select1Id%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
+                        <select name="Bedroom" id="<%=form.select1Id%>_<%=formType%>"  style="height: 45px;" class="form-select mb-3 rounded-0 custom-input-bg "
                           aria-label="Default select example">
                           <%if(noplaceholder2 != 'true'){%>
                             <option selected disabled> <%= placeselect2 ? placeselect2 : 'Please Select Bedroom' %></option>
@@ -207,21 +207,21 @@
                       <%}%>
                       <%}%>
                       <% if (createdFieldsFlag == "true") { %>
-                        <div class="created-fields-container">
+                        <div class="created-fields-container_<%=formType%>">
                           <% for (let i = 0; i < createdFields.length; i++) { %>
                             <% let field = createdFields[i]; %>
-                            <div is-req="<%=field.required%>" id="<%=field.id%>" type="<%=field.type%>" question="<%=field.label%>">
+                            <div is-req="<%=field.required%>" id="<%=field.id%>_<%=formType%>" type="<%=field.type%>" question="<%=field.label%>">
                               <% if (field.type === 'input') { %>
                                 <div class="">
                                   <%if(label == "true"){%>
                                     <label for="<%= field.id %>"><%= field.label %></label><br>
                                     <%}%>
-                                    <input type="<%= field.inputType %>" class="custom-input-bg" style="height: 45px; width: 100%;" name="<%= field.id %>" placeholder="<%= field.placeholder %>" />
+                                    <input type="<%= field.inputType %>" class="custom-input-bg" style="height: 45px; width: 100%;" name="<%= field.id %>_<%=formType%>" placeholder="<%= field.placeholder %>" />
                                 </div>
                               <% } else if (field.type === 'textarea') { %>
                                 <div class="">
                                   <%if(label == "true"){%>
-                                    <label for="<%= field.id %>"><%= field.label %></label><br>
+                                    <label for="<%= field.id %>_<%=formType%>"><%= field.label %></label><br>
                                     <%}%>
                                     <textarea class="form-control custom-input-bg" name="<%= field.id %>" placeholder="<%= field.placeholder %>"></textarea>
                                 </div>
@@ -232,8 +232,8 @@
                                 <%}%>
                                 <% for (let j = 0; j < field.options.length; j++) { %>
                                   <div class="d-flex">
-                                    <input type="checkbox" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
-                                    <label class="ms-3" for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
+                                    <input type="checkbox" id="<%= field.id %>-<%= j %>_<%=formType%>" name="<%= field.id %>" value="<%= field.options[j] %>">
+                                    <label class="ms-3" for="<%= field.id %>-<%= j %>_<%=formType%>"><%= field.options[j] %></label><br>
                                   </div>
                                 <% } %>
                               <% } else if (field.type === 'radio') { %>
@@ -242,8 +242,8 @@
                                 <%}%>
                                 <% for (let j = 0; j < field.options.length; j++) { %>
                                   <div class="form-control d-flex">
-                                    <input type="radio" id="<%= field.id %>-<%= j %>" name="<%= field.id %>" value="<%= field.options[j] %>">
-                                    <label class="ms-3" for="<%= field.id %>-<%= j %>"><%= field.options[j] %></label><br>
+                                    <input type="radio" id="<%= field.id %>-<%= j %>_<%=formType%>" name="<%= field.id %>" value="<%= field.options[j] %>">
+                                    <label class="ms-3" for="<%= field.id %>-<%= j %>_<%=formType%>"><%= field.options[j] %></label><br>
                                   </div>
                                     <% } %>
                               <% } else if (field.type === 'select') { %>
@@ -271,29 +271,29 @@
 
                       <%if(noconsent != 'true'){%>
                         <div class="mt-3 d-flex">
-                          <input id="privacy_checkbox" type="checkbox">
-                          <label class="privacy-checkbox-label" for="privacy_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">I consent to the collection, use, and disclosure of my personal data as specified in the <a onclick="openPrivacyPolicy()" style="cursor: pointer; font-weight: bold; color: black; text-decoration: none;">Privacy Policy.</a> </label>
+                          <input id="privacy_checkbox_<%=formType%>" type="checkbox">
+                          <label class="privacy-checkbox-label" for="privacy_checkbox_<%=formType%>" style="margin-left: 5px; font-size: 12px; font-weight: 300;">I consent to the collection, use, and disclosure of my personal data as specified in the <a onclick="openPrivacyPolicy()" style="cursor: pointer; font-weight: bold; color: black; text-decoration: none;">Privacy Policy.</a> </label>
                         </div>
                       <%}%>
 
                       <%if(form.dev_checkbox){%>
                         <div class="mt-1 d-flex">
-                          <input id="dev_checkbox" type="checkbox">
-                          <label class="dev-checkbox-label" for="dev_checkbox" style="margin-left: 5px; font-size: 12px; font-weight: 300;">Yes, I would like to receive information/updates via Call/SMS/Email/WhatsApp for future residential/commercial projects by <%=form.dev_name%>. </label>
+                          <input id="dev_checkbox_<%=formType%>" type="checkbox">
+                          <label class="dev-checkbox-label" for="dev_checkbox_<%=formType%>" style="margin-left: 5px; font-size: 12px; font-weight: 300;">Yes, I would like to receive information/updates via Call/SMS/Email/WhatsApp for future residential/commercial projects by <%=form.dev_name%>. </label>
                         </div>
                       <%}%>
 
                     <%if(devtext == "true"){%>  
-                      <p id="dev_info" class="text-black" style="white-space: pre-line;" >
+                      <p id="dev_info_<%=formType%>" class="text-black" style="white-space: pre-line;" >
                         <%-form.dev_info%>
                       </p>
                       <%}%>
 
                     <div class="text-center">
-                        <button style="height: 45px; background-color:  transparent; border-radius: 10px !important" type="submit" id="submitBtn1"
+                        <button style="height: 45px; background-color:  transparent; border-radius: 10px !important" type="submit" id="submitBtn1_<%=formType%>"
                             class="w-100 rounded-0 border-0 hover-overlay btn">Send</button>
                     </div>
-                    <p id="error_msg1" class="text-danger text-center"></p>
+                    <p id="error_msg1_<%=formType%>" class="text-danger text-center"></p>
                 </form>
             </div>
         </div>
@@ -303,10 +303,6 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
         <script>
-
-
-          (()=>{
-
           const siteName = "<%=sitename%>";
           const id = "<%=form.id%>"
           const parentUrl = document.referrer;
@@ -794,7 +790,6 @@ initializeFormValidation('submitBtn1', 'headform1', '<%=form.name_id%>', '<%=for
           .join(' ');
     }
 
-  })()
 
         </script>
     </body>

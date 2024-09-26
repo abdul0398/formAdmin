@@ -136,7 +136,7 @@ router
     };
 
     // Render the EJS template
-    ejs.renderFile(path.join(__dirname, '../', 'views', 'form.ejs'), templateData, (err, html) => {
+    ejs.renderFile(path.join(__dirname, '../', 'views', 'tempForm.ejs'), templateData, (err, html) => {
       if (err) {
         console.error('Error rendering template:', err);
         return res.status(500).json({ error: "Error rendering template" });
