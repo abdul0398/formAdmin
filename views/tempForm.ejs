@@ -293,7 +293,7 @@
                         <button style="height: 45px; background-color:  transparent; border-radius: 10px !important" type="submit" id="submitBtn1_<%=formType%>"
                             class="w-100 rounded-0 border-0 hover-overlay btn">Send</button>
                     </div>
-                    <p id="error_msg1_<%=formType%>" class="text-danger text-center"></p>
+                    <p id="error_msg_<%=formType%>" class="text-danger text-center"></p>
                 </form>
             </div>
         </div>
@@ -312,7 +312,7 @@
           const parentUrl = document.referrer;
           const projectName = "<%=form.project_name%>";
           const cleanProjectName = capitalizeFirstLetterOfEachWord(projectName);
-          const label = document.querySelector('label[for=`privacy_checkbox_${formType}`]');
+          const label = document.querySelector(`label[for='privacy_checkbox_${formType}']`);
 
           if(id == 162){
             label.innerHTML = `By submitting this form, I consent to being contacted by the appointed sales team and associates of Union Square Residences`;
@@ -328,12 +328,14 @@
 
 
           const noemail = "<%=noemail%>";
-          initializeFormValidation(`submitBtn_${formType}`, `headform_${formType}`, `<%=form.name_id%>_${formType}`, `<%=form.email_id%>_${formType}`, `<%=form.phone_id%>_${formType}`, `error_msg_${formType}`);
+          initializeFormValidation(`submitBtn1_${formType}`, `headform1_${formType}`, `<%=form.name_id%>_${formType}`, `<%=form.email_id%>_${formType}`, `<%=form.phone_id%>_${formType}`, `error_msg_${formType}`);
   function initializeFormValidation(ButtonID, FormID, NameID, EmailID, PhoneID, ErrorMsgID) {
     
 
 
 
+
+console.log(ButtonID, FormID, NameID, EmailID, PhoneID, ErrorMsgID);
     
     // get all params in the url
     

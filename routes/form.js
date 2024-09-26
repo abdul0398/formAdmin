@@ -78,77 +78,140 @@ router
       next();
     }
   }).get("/api/form/:id", async (req, res, next) => {
-    const { id } = req.params;
-  const { 
-    formtype, reqtype, devtext, label, newfield, noemail, 
-    noselect1, noselect2, reqselect1, reqselect2, 
-    placeselect1, placeselect2, showselect1, showselect2, 
-    noconsent, sitename, noplaceholder1, noplaceholder2, reqprivacy 
-  } = req.query;
+  //   const { id } = req.params;
+  // const { 
+  //   formtype, reqtype, devtext, label, newfield, noemail, 
+  //   noselect1, noselect2, reqselect1, reqselect2, 
+  //   placeselect1, placeselect2, showselect1, showselect2, 
+  //   noconsent, sitename, noplaceholder1, noplaceholder2, reqprivacy 
+  // } = req.query;
 
-  if (!["chatbot", "registration", "header", "footer"].includes(formtype)) {
-    return res.status(400).json({ error: "Invalid form type" });
-  }
+  // if (!["chatbot", "registration", "header", "footer"].includes(formtype)) {
+  //   return res.status(400).json({ error: "Invalid form type" });
+  // }
 
-  try {
-    const [rows] = await __pool.query(`SELECT * FROM forms WHERE id = ?`, [id]);
+  // try {
+  //   const [rows] = await __pool.query(`SELECT * FROM forms WHERE id = ?`, [id]);
     
-    if (rows.length === 0) {
-      return res.status(404).json({ error: "Form not found" });
-    }
+  //   if (rows.length === 0) {
+  //     return res.status(404).json({ error: "Form not found" });
+  //   }
 
-    const form = rows[0];
-    const bedroomOptions = form.form_fields.find(elem => elem.name === "bedroom");
-    const requestOptions = form.form_fields.find(elem => elem.name === "request");
-    const inputLabel = form.form_fields.find(elem => elem.name === "name");
-    const emailLabel = form.form_fields.find(elem => elem.name === "email");
-    const phoneLabel = form.form_fields.find(elem => elem.name === "phone");
+  //   const form = rows[0];
+  //   const bedroomOptions = form.form_fields.find(elem => elem.name === "bedroom");
+  //   const requestOptions = form.form_fields.find(elem => elem.name === "request");
+  //   const inputLabel = form.form_fields.find(elem => elem.name === "name");
+  //   const emailLabel = form.form_fields.find(elem => elem.name === "email");
+  //   const phoneLabel = form.form_fields.find(elem => elem.name === "phone");
 
-    const templateData = {
-      form: form,
-      createdFields: form.created_form_fields,
-      inputLabel: inputLabel ? inputLabel.label : null,
-      emailLabel: emailLabel ? emailLabel.label : null,
-      phoneLabel: phoneLabel ? phoneLabel.label : null,
-      bedroomOptions: bedroomOptions ? bedroomOptions.options || [] : [],
-      requestOptions: requestOptions ? requestOptions.options || [] : [],
-      bedroomLabel: bedroomOptions ? bedroomOptions.label : null,
-      requestLabel: requestOptions ? requestOptions.label : null,
-      formType: formtype,
-      reqtype,
-      devtext,
-      label,
-      noemail,
-      noselect1,
-      noselect2,
-      reqselect1,
-      reqselect2,
-      placeselect1,
-      placeselect2,
-      showselect1,
-      showselect2,
-      noconsent,
-      sitename,
-      reqprivacy,
-      createdFieldsFlag: newfield,
-      noplaceholder1,
-      noplaceholder2
-    };
+  //   const templateData = {
+  //     form: form,
+  //     createdFields: form.created_form_fields,
+  //     inputLabel: inputLabel ? inputLabel.label : null,
+  //     emailLabel: emailLabel ? emailLabel.label : null,
+  //     phoneLabel: phoneLabel ? phoneLabel.label : null,
+  //     bedroomOptions: bedroomOptions ? bedroomOptions.options || [] : [],
+  //     requestOptions: requestOptions ? requestOptions.options || [] : [],
+  //     bedroomLabel: bedroomOptions ? bedroomOptions.label : null,
+  //     requestLabel: requestOptions ? requestOptions.label : null,
+  //     formType: formtype,
+  //     reqtype,
+  //     devtext,
+  //     label,
+  //     noemail,
+  //     noselect1,
+  //     noselect2,
+  //     reqselect1,
+  //     reqselect2,
+  //     placeselect1,
+  //     placeselect2,
+  //     showselect1,
+  //     showselect2,
+  //     noconsent,
+  //     sitename,
+  //     reqprivacy,
+  //     createdFieldsFlag: newfield,
+  //     noplaceholder1,
+  //     noplaceholder2
+  //   };
 
-    // Render the EJS template
-    ejs.renderFile(path.join(__dirname, '../', 'views', 'tempForm.ejs'), templateData, (err, html) => {
-      if (err) {
-        console.error('Error rendering template:', err);
-        return res.status(500).json({ error: "Error rendering template" });
-      }
+  //   // Render the EJS template
+  //   ejs.renderFile(path.join(__dirname, '../', 'views', 'tempForm.ejs'), templateData, (err, html) => {
+  //     if (err) {
+  //       console.error('Error rendering template:', err);
+  //       return res.status(500).json({ error: "Error rendering template" });
+  //     }
       
-      // Send the rendered HTML along with other data
-      res.json({
-        html: html,
-        formData: templateData
-      });
+  //     // Send the rendered HTML along with other data
+  //     res.json({
+  //       html: html,
+  //       formData: templateData
+  //     });
+  //   });
+  const { id } = req.params;
+  const { formtype, reqtype, devtext, label, newfield, noemail, noselect1, noselect2, reqselect1, reqselect2, placeselect1, placeselect2, showselect1, showselect2, noconsent, sitename, noplaceholder1, noplaceholder2, reqprivacy } = req.query;
+  if (!["chatbot", "registration", "header", "footer"].includes(formtype)) {
+    return next();
+  }
+  try {
+    const [rows] = await __pool.query(`SELECT * FROM forms WHERE id = ?`, [
+      id,
+    ]);
+    if (rows.length === 0) {
+      return next();
+    }
+    const bedroomOptions = rows[0].form_fields.find((elem) => {
+      return elem.name === "bedroom";
     });
 
+    const requestOptions = rows[0].form_fields.find((elem) => {
+      return elem.name === "request";
+    });
+
+    const inputLable = rows[0].form_fields.filter((elem) => {
+      return elem.name == "name";
+    });
+
+    const emailLable = rows[0].form_fields.filter((elem) => {
+      return elem.name == "email";
+    });
+
+    const phoneLable = rows[0].form_fields.filter((elem) => {
+      return elem.name == "phone";
+    });
+
+
+
+    return res.render("tempForm.ejs", {
+      form: rows[0],
+      createdFields: rows[0].created_form_fields,
+      inputLabel: inputLable[0].label,
+      emailLabel: emailLable[0].label,
+      phoneLabel: phoneLable[0].label,
+      bedroomOptions: bedroomOptions.options ? bedroomOptions.options : [],
+      requestOptions: requestOptions.options ? requestOptions.options : [],
+      bedroomLabel: bedroomOptions.label,
+      requestLabel: requestOptions.label,
+      formType: formtype,
+      reqtype: reqtype,
+      devtext: devtext,
+      label: label,
+      noemail:noemail,
+      noselect1:noselect1,
+      noselect2:noselect2,
+      reqselect1:reqselect1,
+      reqselect2:reqselect2,
+      placeselect1:placeselect1,
+      placeselect2:placeselect2,
+      showselect1: showselect1,
+      showselect2: showselect2,
+      noconsent:noconsent,
+      sitename:sitename,
+      reqprivacy:reqprivacy,
+      createdFieldsFlag: newfield,
+      noplaceholder1,
+      noplaceholder2,
+    });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: "Internal server error" });
