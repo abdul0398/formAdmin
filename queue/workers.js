@@ -58,6 +58,8 @@ async function startWorker() {
             await sendMail(str, form.email);        
             if(!leadSent){
               data.is_send_discord = 0;
+            }else{
+              data.is_send_discord = 1;
             }
             await saveLeadToLocalDb(data, form.client_id, form.id, selects);
             await saveDataToMasterDb(data);

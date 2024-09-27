@@ -14,7 +14,6 @@ async function sendWebhookMessage(hookURL, projectName, msg) {
 
 async function bulkDiscordSender(discords, leadStr, botName){
   if(!discords || !Array.isArray(discords) || discords.length === 0 || discords[0] === "") return false;
-  console.log(discords);
   let leadSent = false;
 try {
   for(let dsLink of discords){
