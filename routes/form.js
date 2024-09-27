@@ -459,8 +459,56 @@ router
     }
   })
   .post("/api/wp-form/submit/:formID", async (req, res) => {
-    console.log(req.body);
-    console.log(req.params)
+    const data = req.body;
+    const formID = req.params.formID;
+    let dataToSave = {
+      client_id: null,
+      project_id: null,
+      is_verified: 0,
+      status: 'clear',
+      is_send_discord: 0,
+      name: data['Full Name'],
+      ph_number: data['Mobile Number'],
+      ip_address: data['Remote IP'],
+      source_url:data['Page URL'],
+      params:{
+        utm_source: data.utm_source || null,
+        utm_medium: data.utm_medium || null,
+        utm_campaign: data.utm_campaign || null,
+        utm_content: data.utm_content || null,
+        utm_term: data.utm_term || null,
+        match_type: data.match_type || null,
+        extension: data.extension || null,
+        device: data.device || null,
+        location: data.location || null,
+        placement_category: data.placement_category || null
+      },
+      email: data['Email'],
+    };
+    const selects = []
+
+    if(data['Bedroom Type']){
+      selects.push({name:"Bedroom Type", value:data['Bedroom Type']});
+    }
+
+    if(data['Please Select Request']){
+      selects.push({name:"Please Select Request", value:data['Please Select Request']});
+    }
+
+
+
+
+    try {
+      await producer(dataToSave, selects, formID);
+      await startWorker();
+      res.status(200).json({message:"Form Submitted Successfully"});
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({message:error.message});
+    }
+
+
+  
   })
 
 module.exports = router;
