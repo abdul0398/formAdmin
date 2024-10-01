@@ -461,14 +461,22 @@ router
   .post("/api/wp-form/submit/:formID", async (req, res) => {
     const data = req.body;
     const formID = req.params.formID;
+
+    const name = data['Full Name'] || data['Name'] || data['name'] || data['full_name'];
+    const email = data['Email'] || data['email'];
+    const phone = data['Mobile Number'] || data['phone'] || data['contact'] || data['Contact'];
+
+
+
+
     let dataToSave = {
       client_id: null,
       project_id: null,
       is_verified: 0,
       status: 'clear',
       is_send_discord: 0,
-      name: data['Full Name'],
-      ph_number: data['Mobile Number'],
+      name: name,
+      ph_number: phone,
       ip_address: data['Remote IP'],
       source_url:data['Page URL'],
       params:{
@@ -483,7 +491,7 @@ router
         location: data.location || null,
         placement_category: data.placement_category || null
       },
-      email: data['Email'],
+      email: email,
     };
     const selects = []
 
@@ -496,6 +504,9 @@ router
     }
 
 
+    if(data['Message']){
+      selects.push({name:"Message", value:data['Message']});
+    }
 
 
     try {
