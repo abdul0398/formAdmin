@@ -464,7 +464,7 @@ router
 
     const name = data['Full Name'] || data['Name'] || data['name'] || data['full_name'];
     const email = data['Email'] || data['email'];
-    const phone = data['Mobile Number'] || data['phone'] || data['contact'] || data['Contact'];
+    const phone = data['Mobile Number'] || data['phone'] || data['contact'] || data['Contact'] || data['Phone'];
 
 
 
@@ -495,6 +495,7 @@ router
     };
     const selects = []
 
+    
     if(data['Bedroom Type']){
       selects.push({name:"Bedroom Type", value:data['Bedroom Type']});
     }
