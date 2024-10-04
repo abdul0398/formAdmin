@@ -481,9 +481,9 @@ router
     delete cleanData['Page URL'];
     delete cleanData['Remote IP'];
     delete cleanData['User Agent'];
-    delete cleanData['Powered By'];
-    delete cleanData['Form Id'];
-    delete cleanData['Form Name'];
+    delete cleanData['Powered by'];
+    delete cleanData['Form_id'];
+    delete cleanData['Form_name'];
     delete cleanData.querystring;
 
 
