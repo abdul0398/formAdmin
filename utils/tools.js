@@ -18,10 +18,11 @@ function changeleadtoString(lead, selects, client_name, project_name, isManual) 
       if(select.name.toLocaleLowerCase().includes('phone')){
         const value = !select.value.startsWith('65')? `https://wa.me/+65${select.value}` : select.value;
         resultStrings.push(`●  Contact: ${value}`);
+      }else{
+        resultStrings.push(`●  ${select.name}: ${select.value}`);
       }
 
 
-      resultStrings.push(`●  ${select.name}: ${select.value}`);
     }
   })
     const resultStr = resultStrings.join('\n');  
