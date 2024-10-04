@@ -499,7 +499,9 @@ router
         const fieldValue = cleanData[key] ? cleanData[key].charAt(0).toUpperCase() + cleanData[key].slice(1) : "";
 
 
-        selects.push({name:fieldName, value:fieldValue});
+        if(fieldName != 'Form_name' && fieldName != 'Form_id'){
+          selects.push({name:fieldName, value:fieldValue});
+        }
       
       }
 
