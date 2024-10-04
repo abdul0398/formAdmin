@@ -476,15 +476,14 @@ router
 
 
 
-    delete cleanData.date;
-    delete cleanData.time;
-    delete cleanData.pageUrl;
-    delete cleanData.remoteIp;
-    delete cleanData.userAgent;
-    delete cleanData.remoteIp;
-    delete cleanData.poweredBy;
-    delete cleanData.formId;
-    delete cleanData.formName;
+    delete cleanData['Date'];
+    delete cleanData['Time'];
+    delete cleanData['Page URL'];
+    delete cleanData['Remote IP'];
+    delete cleanData['User Agent'];
+    delete cleanData['Powered By'];
+    delete cleanData['Form Id'];
+    delete cleanData['Form Name'];
     delete cleanData.querystring;
 
 

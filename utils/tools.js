@@ -19,7 +19,7 @@ function changeleadtoString(lead, selects, client_name, project_name, isManual) 
   })
     const resultStr = resultStrings.join('\n');  
 
-  let str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead for ${project_name}:\n\n}`;
+  let str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead for ${project_name}:\n\n`;
 
   if(lead.name && !isWebhook){
     str += `●  Name: ${lead.name}`;
