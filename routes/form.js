@@ -496,20 +496,21 @@ router
 
 
       if(cleanData[key]){
-        const name = key.charAt(0).toUpperCase() + key.slice(1);
-        const value = cleanData[key].charAt(0).toUpperCase() + cleanData[key].slice(1);
+        const fieldName = key.charAt(0).toUpperCase() + key.slice(1);
+        const fieldValue = cleanData[key] ? cleanData[key].charAt(0).toUpperCase() + cleanData[key].slice(1) : "";
 
-        selects.push({name:name, value:value});
+
+        selects.push({name:fieldName, value:fieldValue});
       
       }
 
-      if(key.toLocaleLowerCase().contains('name')){
+      if(key.toLocaleLowerCase().includes('name')){
         name = cleanData[key];
       }
-      if(key.toLocaleLowerCase().contains('email')){
+      if(key.toLocaleLowerCase().includes('email')){
         email = cleanData[key];
       }
-      if(key.toLocaleLowerCase().contains('phone') || key.toLocaleLowerCase().contains('contact') || key.toLocaleLowerCase().contains('mobile')){
+      if(key.toLocaleLowerCase().includes('phone') || key.toLocaleLowerCase().includes('contact') || key.toLocaleLowerCase().includes('mobile')){
         phone = cleanData[key];
       }
 
