@@ -511,6 +511,12 @@ router
       }
       if(key.toLocaleLowerCase().includes('phone') || key.toLocaleLowerCase().includes('contact') || key.toLocaleLowerCase().includes('mobile')){
         phone = cleanData[key];
+
+        if(phone.startsWith('65')){
+          phone = phone.slice(2);
+        }
+
+
       }
 
     }
