@@ -499,7 +499,7 @@ router
         const fieldValue = cleanData[key] ? cleanData[key].charAt(0).toUpperCase() + cleanData[key].slice(1) : "";
 
 
-        if(fieldName != 'Form_name' && fieldName != 'Form_id' && !fieldValue.toLocaleLowerCase() == "on" && !fieldValue.toLocaleLowerCase() == "off"){
+        if(fieldName != 'Form_name' && fieldName != 'Form_id' && fieldValue.toLocaleLowerCase() != "on" && fieldValue.toLocaleLowerCase() != "off"){
           if(fieldName.toLocaleLowerCase().includes('request')){
             selects.push({name:'Request for', value:fieldValue});
           }else if(fieldName.toLocaleLowerCase().includes('bedroom')){
