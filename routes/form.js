@@ -504,6 +504,8 @@ router
             selects.push({name:'Request for', value:fieldValue});
           }else if(fieldName.toLocaleLowerCase().includes('bedroom')){
             selects.push({name:'Bedroom', value:fieldValue});
+          }else if(key.toLocaleLowerCase().includes('phone') || key.toLocaleLowerCase().includes('contact') || key.toLocaleLowerCase().includes('mobile')){
+            selects.push({name:'Phone', value:fieldValue});
           }else{
             selects.push({name:fieldName, value:fieldValue});
           }
