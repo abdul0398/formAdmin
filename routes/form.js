@@ -462,12 +462,59 @@ router
     const data = req.body;
     const formID = req.params.formID;
 
-    const name = data['Full Name'] || data['Name'] || data['name'] || data['full_name'];
-    const email = data['Email'] || data['email'];
-    const phone = data['Mobile Number'] || data['phone'] || data['contact'] || data['Contact'] || data['Phone'];
+    
+    
+    let name = "";
+    let email = "";
+    let phone = "";
 
 
 
+    let cleanData = {
+      ...data
+    }
+
+
+
+    delete cleanData.date;
+    delete cleanData.time;
+    delete cleanData.pageUrl;
+    delete cleanData.remoteIp;
+    delete cleanData.userAgent;
+    delete cleanData.remoteIp;
+    delete cleanData.poweredBy;
+    delete cleanData.formId;
+    delete cleanData.formName;
+    delete cleanData.querystring;
+
+
+
+    const selects = []
+
+    for(let key in cleanData){
+
+
+
+      if(cleanData[key]){
+        const name = key.charAt(0).toUpperCase() + key.slice(1);
+        const value = cleanData[key].charAt(0).toUpperCase() + cleanData[key].slice(1);
+
+        selects.push({name:name, value:value});
+      
+      }
+
+      if(key.toLocaleLowerCase().contains('name')){
+        name = cleanData[key];
+      }
+      if(key.toLocaleLowerCase().contains('email')){
+        email = cleanData[key];
+      }
+      if(key.toLocaleLowerCase().contains('phone') || key.toLocaleLowerCase().contains('contact') || key.toLocaleLowerCase().contains('mobile')){
+        phone = cleanData[key];
+      }
+
+    }
+    
 
     let dataToSave = {
       client_id: null,
@@ -476,6 +523,7 @@ router
       status: 'clear',
       is_send_discord: 0,
       name: name,
+      is_webhook: true,
       ph_number: phone,
       ip_address: data['Remote IP'],
       source_url:data['Page URL'],
@@ -493,22 +541,6 @@ router
       },
       email: email,
     };
-    const selects = []
-
-    
-    if(data['Bedroom Type']){
-      selects.push({name:"Bedroom Type", value:data['Bedroom Type']});
-    }
-
-    if(data['Please Select Request']){
-      selects.push({name:"Please Select Request", value:data['Please Select Request']});
-    }
-
-
-    if(data['Message']){
-      selects.push({name:"Message", value:data['Message']});
-    }
-
 
     try {
       await producer(dataToSave, selects, formID);

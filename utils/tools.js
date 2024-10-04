@@ -7,6 +7,10 @@ const httpsAgent = new https.Agent({
 });
 
 function changeleadtoString(lead, selects, client_name, project_name, isManual) {
+
+  const isWebhook = lead.is_webhook || false;
+
+
   let resultStrings = [];
   selects.forEach((select) => {
     if(select.name && select.value){
@@ -15,23 +19,26 @@ function changeleadtoString(lead, selects, client_name, project_name, isManual) 
   })
     const resultStr = resultStrings.join('\n');  
 
-  const result = resultStrings.join('\n');
-  let str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead for ${project_name}:\n\n●  Name: ${lead.name}\n●  Contact: https://wa.me/+65${isManual?lead.phone: lead.ph_number}`;
+  let str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead for ${project_name}:\n\n}`;
 
-  str += lead.email?`\n●  Email: ${lead.email}`:"";
+  if(lead.name && !isWebhook){
+    str += `●  Name: ${lead.name}`;
+  }
+
+  if((lead.ph_number || lead.phone) && !isWebhook){
+    str += `\n●  Contact: https://wa.me/+65${isManual?lead.phone: lead.ph_number}`;
+  }
+
+  str += lead.email && !isWebhook?`\n●  Email: ${lead.email}`:"";
   if(lead?.params?.utm_source){
     str += `\n●  Source: ${lead?.params?.utm_source}`;
   }
   
   str += `\n${resultStr}`;
 
-
-
-
-
-
   return str;
 }
+
 
 
 function contentModerationCustom(text) {
