@@ -500,13 +500,13 @@ router
 
 
         if(fieldName != 'Form_name' && fieldName != 'Form_id' && !fieldValue.toLocaleLowerCase() == "on" && !fieldValue.toLocaleLowerCase() == "off"){
-          selects.push({name:fieldName, value:fieldValue});
-        }else if(fieldName.toLocaleLowerCase().includes('request')){
-          selects.push({name:'Request for', value:fieldValue});
-        }else if(fieldName.toLocaleLowerCase().includes('bedroom')){
-          selects.push({name:'Bedroom', value:fieldValue});
-        }else{
-          selects.push({name:fieldName, value:fieldValue});
+          if(fieldName.toLocaleLowerCase().includes('request')){
+            selects.push({name:'Request for', value:fieldValue});
+          }else if(fieldName.toLocaleLowerCase().includes('bedroom')){
+            selects.push({name:'Bedroom', value:fieldValue});
+          }else{
+            selects.push({name:fieldName, value:fieldValue});
+          }
         }
       
       }
