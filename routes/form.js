@@ -513,7 +513,7 @@ router
       
       }
 
-      if(key.toLocaleLowerCase().includes('name')){
+      if(key.toLocaleLowerCase().includes('name') && !key.toLocaleLowerCase().includes('form')){
         name = cleanData[key];
       }
       if(key.toLocaleLowerCase().includes('email')){
