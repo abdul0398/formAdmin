@@ -386,6 +386,23 @@ async function validateDataOfWebhook(data, formId, ip){
 
 
 
+
+async function sentToRoundRobin(data){
+  try {
+    const response = await fetch(`https://roundrobin.datapoco.ai/api/lead_frequency/add_lead`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + Buffer.from('Client Management Portal:123456').toString('base64')
+      },
+      body: JSON.stringify(data),
+    });
+    return response;
+  } catch (error) {
+    console.error('Error sending to round robin:', error);
+  }
+}
+
 module.exports = {
   changeleadtoString,
   contentModerationCustom,
@@ -399,5 +416,6 @@ module.exports = {
   containsTestNames,
   checkDncMulti,
   validateDataOfWebhook,
-  LeadsendtoDiscordRecFromWebhook
+  LeadsendtoDiscordRecFromWebhook,
+  sentToRoundRobin
 };

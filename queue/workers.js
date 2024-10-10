@@ -53,7 +53,10 @@ async function startWorker() {
 
             const str = changeleadtoString(lead, selects, form.client_name, form.project_name);  
             const bot_name = form.bot_name || form.name ;
-            const leadSent = await bulkDiscordSender(form.discord, str, bot_name);
+            let leadSent = false;
+            if(!data.round_robin){
+              leadSent = await bulkDiscordSender(form.discord, str, bot_name);
+            }
             await sendToHooks(lead, form.zappier, form.project_name, form.client_name, selects);  
             await sendMail(str, form.email);        
             if(!leadSent){

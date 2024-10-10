@@ -6,6 +6,7 @@ const { createSheet, renameSheet } = require("../services/googleSheets");
 const router = express.Router();
 const ejs = require('ejs');
 const path = require('path');
+const { sentToRoundRobin } = require("../utils/tools");
 
 router
   .get("/form/:id", async (req, res, next) => {
@@ -499,7 +500,16 @@ router
         const fieldValue = cleanData[key] ? cleanData[key].charAt(0).toUpperCase() + cleanData[key].slice(1) : "";
 
 
-        if(fieldName != 'Form_name' && fieldName != 'Form_id' && fieldValue.toLocaleLowerCase() != "on" && fieldValue.toLocaleLowerCase() != "off" && !fieldName.toLocaleLowerCase().includes('checkbox')){
+        if(key.toLocaleLowerCase().includes('name') && !key.toLocaleLowerCase().includes('form')){
+          name = cleanData[key];
+        }else if(key.toLocaleLowerCase().includes('email')){
+          email = cleanData[key];
+        }else if(key.toLocaleLowerCase().includes('phone') || key.toLocaleLowerCase().includes('contact') || key.toLocaleLowerCase().includes('mobile')){
+          phone = cleanData[key];
+          if(phone.startsWith('65')){
+            phone = phone.slice(2);
+          }
+        }else if(fieldName != 'Form_name' && fieldName != 'Form_id' && fieldValue.toLocaleLowerCase() != "on" && fieldValue.toLocaleLowerCase() != "off" && !fieldName.toLocaleLowerCase().includes('checkbox')){
           if(fieldName.toLocaleLowerCase().includes('request')){
             selects.push({name:'Request for', value:fieldValue});
           }else if(fieldName.toLocaleLowerCase().includes('bedroom')){
@@ -513,24 +523,12 @@ router
       
       }
 
-      if(key.toLocaleLowerCase().includes('name') && !key.toLocaleLowerCase().includes('form')){
-        name = cleanData[key];
-      }
-      if(key.toLocaleLowerCase().includes('email')){
-        email = cleanData[key];
-      }
-      if(key.toLocaleLowerCase().includes('phone') || key.toLocaleLowerCase().includes('contact') || key.toLocaleLowerCase().includes('mobile')){
-        phone = cleanData[key];
-
-        if(phone.startsWith('65')){
-          phone = phone.slice(2);
-        }
-
-
-      }
+     
 
     }
-    
+
+
+   
 
     let dataToSave = {
       client_id: null,
@@ -558,9 +556,31 @@ router
       email: email,
     };
 
+      dataToSave["round_robin"] = true;  
+
+
+      console.log(dataToSave) 
+
+    const dataForRoundRobin = {
+      name: name,
+      mobile_number: phone,
+      email: email,
+      source_url: data.source_url,
+      additional_data: selects.map(select => ({
+        key: select.name,
+        value: select.value
+      }))
+    }
+
+    console.log(dataForRoundRobin);
+    
+
     try {
       await producer(dataToSave, selects, formID);
       await startWorker();
+
+      
+      // await sentToRoundRobin(dataForRoundRobin)
       res.status(200).json({message:"Form Submitted Successfully"});
     } catch (error) {
       console.log(error.message);
