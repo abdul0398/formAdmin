@@ -567,7 +567,7 @@ router
       name: name,
       mobile_number: phone,
       email: email,
-      source_url: data['Page URL'],
+      source_url: 'https://singaporeectest.homes',
       additional_data: selects.map(select => ({
         key: select.name,
         value: select.value
@@ -579,10 +579,10 @@ router
 
     try {
       await producer(dataToSave, selects, formID);
-      await startWorker();
+      startWorker();
 
       
-      await sentToRoundRobin(dataForRoundRobin)
+      sentToRoundRobin(dataForRoundRobin)
       res.status(200).json({message:"Form Submitted Successfully"});
     } catch (error) {
       console.log(error.message);
