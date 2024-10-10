@@ -567,7 +567,7 @@ router
       name: name,
       mobile_number: phone,
       email: email,
-      source_url: 'https://singaporeectest.homes',
+      source_url: data['Page URL'],
       additional_data: selects.map(select => ({
         key: select.name,
         value: select.value
