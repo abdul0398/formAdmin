@@ -581,8 +581,10 @@ router
       await producer(dataToSave, selects, formID);
       startWorker();
 
-      
-      sentToRoundRobin(dataForRoundRobin)
+
+      if(dataToSave["round_robin"]){
+        sentToRoundRobin(dataForRoundRobin)
+      }
       res.status(200).json({message:"Form Submitted Successfully"});
     } catch (error) {
       console.log(error.message);
