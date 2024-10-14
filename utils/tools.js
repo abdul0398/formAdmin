@@ -29,15 +29,15 @@ function changeleadtoString(lead, selects, client_name, project_name, isManual) 
 
   let str = `New Lead please Take Note!\n=============================\n\nHello ${client_name}, you have a new lead for ${project_name}:\n`;
 
-  if(lead.name && !isWebhook){
+  if(lead.name){
     str += `\n●  Name: ${lead.name}`;
   }
 
-  if((lead.ph_number || lead.phone) && !isWebhook){
+  if((lead.ph_number || lead.phone)){
     str += `\n●  Contact: https://wa.me/+65${isManual?lead.phone: lead.ph_number}`;
   }
 
-  str += lead.email && !isWebhook?`\n●  Email: ${lead.email}`:"";
+  str += lead.email?`\n●  Email: ${lead.email}`:"";
   if(lead?.params?.utm_source){
     str += `\n●  Source: ${lead?.params?.utm_source}`;
   }
