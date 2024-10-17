@@ -24,6 +24,11 @@ async function startWorker() {
                 throw new Error("Form not found");
             }
             const form = rows[0];
+
+            if(form.id == 81){
+              selects.push({name:"Source", value:data.source_url});
+            }
+
             const {isValid} = await validateEmailFromDB(data.email, data.ph_number, data.ip_address, data.source_url);
             const isClean = await contentModeratorationAPI({name: data.name, email: data.email, ph_number: data.ph_number});
 

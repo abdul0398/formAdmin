@@ -561,7 +561,6 @@ router
     }
 
 
-        console.log(dataToSave) 
 
     const dataForRoundRobin = {
       name: name,
@@ -574,7 +573,6 @@ router
       }))
     }
 
-    console.log(dataForRoundRobin);
     
 
     try {
